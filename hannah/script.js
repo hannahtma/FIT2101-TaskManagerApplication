@@ -19,8 +19,10 @@ class Task {
 function addTaskCard() {
     // TODO: Task 4
     //Collecting Data from ID's
+    let taskId = allTasks.length;
     let newTitle = document.getElementById("task-title").value;
     let newDesc = document.getElementById("task-desc").value;
+    let storyPoint = document.getElementById('story-point').value;
 
     // Try again if empty input
     while (newTitle == "" || newDesc == "") {
@@ -32,8 +34,7 @@ function addTaskCard() {
         }
     }
 
-    console.log(allTasks);
-    let someTask = {"taskName": newTitle, "taskDesc": newDesc};
+    let someTask = {"ID": taskId, "Task Name": newTitle, "Task Description": newDesc, "Story Point": storyPoint};
     allTasks.push(someTask);
     data = new Task(allTasks);
     let json = JSON.stringify(data);
@@ -49,6 +50,10 @@ function addTaskCard() {
         $("#exampleModal").find("input[type=text], textarea").val("");
     });
 
+    for (let c = 0; c < allTasks.length; c++) {
+        console.log(allTasks[i])
+    }
+
 }
 
 function displayCard(title, desc) {
@@ -56,13 +61,12 @@ function displayCard(title, desc) {
     let displayRef = document.getElementById("my-container");
     let displayData = "";
     // This is used to display the entered data and add an edit button next to it
-    displayData += `<div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">${title}</h5>
-                            <p class="card-text" id="studentEnrolSummary">${desc}</p>
-                            <a href="index.html" data-bs-target="#show-task-container" class="card-link stretched-link">Card link</a>
-                        </div>
-                    </div>`;
+    displayData += `<div class="card" style="width: 18rem;" onclick="showFullTask()">
+                <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text" id="studentEnrolSummary">${desc}</p>
+                    </div>
+                </div>`;
 
     return (displayRef.innerHTML = displayData);
 }
@@ -121,13 +125,24 @@ function changeColor(getColor){
     color.style.background = selectColor;
 }
 
-function showEditTaskPopup() {
-    let editTaskPopup = document.getElementById('show-task-container');
+function showFullTask() {
+    $('#show-task-container').modal('show');
+}
 
-    editTaskPopup.add('show');
+function removeTask() {
+    if (localStorage.getItem()) {
+        localStorage.removeItem();
+    }
+}
+
+function editTaskPopup() {
+    $('#edit-task-container').modal('show');
 }
 
 function saveAndExitTaskPopup() {
+    closeTaskPopup();
+    closeFullTaskPopup();
+
     let taskName = document.getElementById("task-name").value;
     let taskDesc = document.getElementById("task-desc").value;
 
