@@ -93,6 +93,11 @@ body {
     opacity: 1;
 }
 
+.show-task-container.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+
 .edit {
     background-color: #e6746c;
     border-radius: 5px;
