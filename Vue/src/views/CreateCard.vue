@@ -62,8 +62,10 @@
         </div>
 </template>
 
-<script>
-    localStorage;
+<script lang="js">
+ export default {
+    mounted(){
+        localStorage;
 
 // task card before enlarging
 const showCard = document.getElementById('show-card');
@@ -142,7 +144,9 @@ dropdowns.forEach(dropdown => {
             option.classList.add('active');
         });
     });  
-});
+}); 
+    }
+ }
 
 </script>
 
