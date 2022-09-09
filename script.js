@@ -34,7 +34,7 @@ function displayCard(title, desc) {
   <div class="card-body">
     <h5 class="card-title">${title}</h5>
     <p class="card-text" id="studentEnrolSummary">${desc}</p>
-    <a href="#" class="card-link">Card link</a>
+    <a href="HTML File.html" class="card-link stretched-link">Card link</a>
   </div>
 </div>`;
 
@@ -110,4 +110,10 @@ function retrieveLSData(key) {
 function updateLSData(key, data) {
     let json = JSON.stringify(data);
     localStorage.setItem(key, json);
+}
+
+function changeColor(getColor){
+    let color = document.querySelector('.color');
+    let selectColor = getColor.value;
+    color.style.background = selectColor;
 }
