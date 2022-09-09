@@ -1,28 +1,55 @@
-section{
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+nav.navbar.navbar-expand-sm {
+    background-color: rgb(0, 128, 255);
 }
 
-.color{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: 0.5s;
-    background: #e6746c;
+ul.navbar-nav {
+    position: relative;
+    left: 30px;
 }
 
-.selectColor{
+#navbarDropdown,
+#navbarDropdown2,
+#navbarDropdown3,
+#navLink {
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+a.nav-link.active{
+    color: white;
+    
+}
+
+a.navbar-brand{
+    color: black;
+    position:relative; 
+    left:20px; 
+    top:-1px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+}
+a.navbar-brand:hover{
+    color: black;
+}
+
+a.dropdown-item{
+    color: white;
+}
+
+div.dropdown-menu{
+    background-color: black;
+}
+
+#createId {
     position: relative;
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    outline: none;
-    width: 200px;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    left: 120px;
+    background-color: black;
+    text-transform: uppercase;
+    font-size: smaller;
+    top: 2.5px;
+}
+
+div.card{
+    margin-left: 10px;
+    margin-top: 10px;
 }
