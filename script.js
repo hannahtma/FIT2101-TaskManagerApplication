@@ -1,56 +1,49 @@
 localStorage;
 
-// task card before enlarging
+// Showing the Task
 const showCard = document.getElementById('show-card');
-
-// enlarged task card popup
-const popupContainer = document.getElementById('popup-container');
-const editCard = document.getElementById('edit-card');
-const editContainer = document.getElementById('edit-container');
-const saveAndExit = document.getElementById('save-and-exit');
-const cancelEdit = document.getElementById('cancel-edit');
-const dropdowns = document.querySelectorAll('.dropdown');
-const taskName = document.getElementById('task-name');
-const taskDesc = document.getElementById('task-desc');
-const taskHeader = document.getElementById('task-header');
-const taskContent = document.getElementById('task-content');
 const showTask = document.getElementById('show-task');
 
-const priorityDropdown = document.querySelectorAll('.dropdown-priority');
-
-/*
-const taskNameDiv = document.getElementById('taskNameDiv');
-const taskDescDiv = document.getElementById('taskDescDiv')
-*/
+// Display enlarged Task with all details of the card with "Edit Task" button
+const popupContainer = document.getElementById('popup-container');
 
 showTask.addEventListener('click', () => {
     popupContainer.classList.add('show');
 });
 
+// Popup window that prompts for user to enter new task details
+const editCard = document.getElementById('edit-card');
+const editContainer = document.getElementById('edit-container');
+
 editCard.addEventListener('click', () => {
     editContainer.classList.add('show');
 });
 
+// When "Cancel" button is clicked, popup disappears and goes back to original card layout
+const cancelEdit = document.getElementById('cancel-edit');
+
 cancelEdit.addEventListener('click', () => {
     editContainer.remove('show');
 });
+
+// When "Save and Exit" button is clicked, new task details will be replaced
+const saveAndExit = document.getElementById('save-and-exit');
+const taskName = document.getElementById('task-name');
+const taskDesc = document.getElementById('task-desc');
+const taskHeader = document.getElementById('task-header');
+const taskContent = document.getElementById('task-content');
 
 saveAndExit.addEventListener('click', function() {
     editContainer.remove('show');
     popupContainer.classList.remove('show');
     localStorage.setItem('task-name', taskName);
     localStorage.setItem('task-desc', taskDesc);
-    taskHeader.textContent = taskName;
+    taskHeader.textContent = $('taskName');
     taskContent.textContent = taskDesc;
 });
 
-/*
-function nameDisplayCheck() {
-    if (localStorage.taskName) {
-        h1.textContent = taskName;
-    }
-}
-*/
+// Created a drop down menu that allows user to tag the task
+const dropdowns = document.querySelectorAll('.dropdown');
 
 dropdowns.forEach(dropdown => {
     const select = dropdown.querySelector('.select');
