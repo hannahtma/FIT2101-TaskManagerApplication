@@ -10,17 +10,17 @@
             <div class="show-task" id="show-task">
                 <h1 id="task-header">Task Name here</h1>
                 <p id="task-content">Task Desc here</p>
-            <div class="dropdown">
-                <div class="select">
-                    <span class="selected">Tags</span>
-                    <div class="caret"></div>
+                <div class="dropdown">
+                    <div class="select">
+                        <span class="selected">Tags</span>
+                        <div class="caret"></div>
+                    </div>
+                    <u1 class="menu">
+                        <li>Core</li>
+                        <li>UI</li>
+                        <li>All</li>
+                    </u1>
                 </div>
-                <u1 class="menu">
-                    <li>Core</li>
-                    <li>UI</li>
-                    <li>All</li>
-                </u1>
-            </div>
             </div>
         </div>
         <div class="popup-container" id="popup-container">
@@ -47,7 +47,7 @@
                 <input id="task-name"><br>
                 <input id="task-desc"><br>
                 <button class="cancel-edit" id="cancel-edit" onclick="location.href='#popup-container'">Cancel</button>
-                <button class="save-and-exit" id="save-and-exit">Save & Exit</button>
+                <button class="save-and-exit" id="save-and-exit" onclick="updateCard()">Save & Exit</button>
                 <div class="dropdown">
                     <div class="select">
                         <span class="selected">Tags</span>
