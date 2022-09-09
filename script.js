@@ -1,80 +1,113 @@
-localStorage;
+function addTaskCard() {
+    // TODO: Task 4
+    //Collecting Data from ID's
+    let newTitle = document.getElementById("task-title").value;
+    let newDesc = document.getElementById("task-desc").value;
 
-// task card before enlarging
-const showCard = document.getElementById('show-card');
+    // Try again if empty input
+    while (newTitle == "" || newDesc == "") {
+        alert("That input is invalid");
+        if (newTitle == null || newTitle == "") {
+            newTitle = prompt("Name of Title?");
+        } else if (newDesc == null || newDesc == "") {
+            newDesc = prompt("Description?");
+        }
+    }
 
-// enlarged task card popup
-const popupContainer = document.getElementById('popup-container');
-const editCard = document.getElementById('edit-card');
-const editContainer = document.getElementById('edit-container');
-const saveAndExit = document.getElementById('save-and-exit');
-const cancelEdit = document.getElementById('cancel-edit');
-const dropdowns = document.querySelectorAll('.dropdown');
-const taskName = document.getElementById('task-name');
-const taskDesc = document.getElementById('task-desc');
-const taskHeader = document.getElementById('task-header');
-const taskContent = document.getElementById('task-content');
-const showTask = document.getElementById('show-task');
+    //Updating the display table/inventory with the user entered data
+    // update LS
+    // updateLSData(WAREHOUSE_KEY, inventory);
+    // update display
+    displayCard(newTitle, newDesc);
+    $("#exampleModal").modal("hide");
+    $("#exampleModal").on("hidden.bs.modal", function (e) {
+        $("#exampleModal").find("input[type=text], textarea").val("");
+    });
+}
 
-const priorityDropdown = document.querySelectorAll('.dropdown-priority');
+function displayCard(title, desc) {
+    // TODO: Task 3
+    let displayRef = document.getElementById("my-container");
+    let displayData = "";
+    // This is used to display the entered data and add an edit button next to it
+    displayData += `<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${title}</h5>
+    <p class="card-text" id="studentEnrolSummary">${desc}</p>
+    <a href="#" class="card-link">Card link</a>
+  </div>
+</div>`;
 
-/*
-const taskNameDiv = document.getElementById('taskNameDiv');
-const taskDescDiv = document.getElementById('taskDescDiv')
-*/
+    return (displayRef.innerHTML = displayData);
+}
 
-showTask.addEventListener('click', () => {
-    popupContainer.classList.add('show');
-});
-
-editCard.addEventListener('click', () => {
-    editContainer.classList.add('show');
-});
-
-cancelEdit.addEventListener('click', () => {
-    editContainer.remove('show');
-});
-
-saveAndExit.addEventListener('click', function() {
-    editContainer.remove('show');
-    popupContainer.classList.remove('show');
-    localStorage.setItem('task-name', taskName);
-    localStorage.setItem('task-desc', taskDesc);
-    taskHeader.textContent = taskName;
-    taskContent.textContent = taskDesc;
-});
-
-/*
-function nameDisplayCheck() {
-    if (localStorage.taskName) {
-        h1.textContent = taskName;
+function addClothingCategory() {
+    // Get category name
+    let newCategory = prompt("Name of new category?");
+    // if user clicks cancel
+    if (newCategory == null) {
+        return;
+    }
+    // Try again if empty input
+    while (newCategory == "") {
+        alert("That input is invalid");
+        newCategory = prompt("Name of new category?");
+    }
+    // Confirm add category
+    if (confirm(`Confirm to add ${newCategory} as a category?`)) {
+        // add to inventory
+        inventory.addCategory(newCategory);
+        // update LS
+        updateLSData(WAREHOUSE_KEY, inventory);
+        // update display
+        displayInventory(inventory);
     }
 }
-*/
 
-dropdowns.forEach(dropdown => {
-    const select = dropdown.querySelector('.select');
-    const caret = dropdown.querySelector('.caret');
-    const menu = dropdown.querySelector('.menu');
-    const options = dropdown. querySelectorAll('.menu li')
-    const selected = dropdown.querySelector('.selected');
+function edit(category, item) {
+    // store data in LS
+    localStorage.setItem(CATEGORY_KEY, category);
+    localStorage.setItem(ITEM_KEY, item);
+    // redirect to edit page
+    window.location = "edit.html";
+}
 
-    select.addEventListener('click', () => {
-        select.classList.toggle('select-clicked');
-        caret.classList.toggle('caret-rotate');
-        menu.classList.toggle('menu-open');
-    });
+/**
+ * checkLSData function
+ * Used to check if any data in LS exists at a specific key
+ * @param {string} key LS Key to be used
+ * @returns true or false representing if data exists at key in LS
+ */
+function checkLSData(key) {
+    if (localStorage.getItem(key) != null) {
+        return true;
+    }
+    return false;
+}
 
-    options.forEach(option => {
-        option.addEventListener('click', () => {
-            selected.innerText = option.innerText;
-            select.classList.remove('select-clicked');
-            caret.classList.remove('caret-rotate');
-            menu.classList.remove('menu-open');
-            options.forEach(option => {
-                option.classList.remove('active');
-            });
-            option.classList.add('active');
-        });
-    });  
-});
+/**
+ * retrieveLSData function
+ * Used to retrieve data from LS at a specific key.
+ * @param {string} key LS Key to be used
+ * @returns data from LS in JS format
+ */
+function retrieveLSData(key) {
+    let data = localStorage.getItem(key);
+    try {
+        data = JSON.parse(data);
+    } catch (err) {
+    } finally {
+        return data;
+    }
+}
+
+/**
+ * updateLSData function
+ * Used to store JS data in LS at a specific key
+ * @param {string} key LS key to be used
+ * @param {any} data data to be stored
+ */
+function updateLSData(key, data) {
+    let json = JSON.stringify(data);
+    localStorage.setItem(key, json);
+}
