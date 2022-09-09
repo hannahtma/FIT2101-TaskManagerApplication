@@ -24,16 +24,6 @@ function addTaskCard() {
     let newDesc = document.getElementById("task-desc").value;
     let storyPoint = document.getElementById('story-point').value;
 
-    // Try again if empty input
-    while (newTitle == "" || newDesc == "") {
-        alert("That input is invalid");
-        if (newTitle == null || newTitle == "") {
-            newTitle = prompt("Name of Title?");
-        } else if (newDesc == null || newDesc == "") {
-            newDesc = prompt("Description?");
-        }
-    }
-
     let someTask = {"ID": taskId, "Task Name": newTitle, "Task Description": newDesc, "Story Point": storyPoint};
     allTasks.push(someTask);
     data = new Task(allTasks);
@@ -44,32 +34,26 @@ function addTaskCard() {
     // update LS
     // updateLSData(WAREHOUSE_KEY, inventory);
     // update display
-    displayCard(newTitle, newDesc);
+    displayCard(newTitle, newDesc, storyPoint);
     $("#exampleModal").modal("hide");
     $("#exampleModal").on("hidden.bs.modal", function (e) {
         $("#exampleModal").find("input[type=text], textarea").val("");
     });
 
-    let tasks = localStorage.getItem(TASK_KEY);
-    console.log(tasks);
-
-    for (let c = 0; c < allTasks.length; c++) {
-        console.log(allTasks[c])
-    }
-
 }
 
-function displayCard(title, desc) {
+function displayCard(title, desc, story) {
     // TODO: Task 3
     let displayRef = document.getElementById("my-container");
     let displayData = "";
     // This is used to display the entered data and add an edit button next to it
     displayData += `<div class="card" style="width: 18rem;" onclick="showFullTask()">
-                <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
-                    <p class="card-text" id="studentEnrolSummary">${desc}</p>
-                    </div>
-                </div>`;
+                        <div class="card-body">
+                            <h5 class="card-title">${title}</h5>
+                            <p class="card-text" id="studentEnrolSummary">${desc}</p>
+                            <p class="card-text" id="studentEnrolSummary2">Story Point: ${story}</p>
+                        </div>
+                    </div>`;
 
     return (displayRef.innerHTML = displayData);
 }
@@ -143,23 +127,22 @@ function editTaskPopup() {
 }
 
 function saveAndExitTaskPopup() {
-    let tasks = localStorage.getItem(TASK_KEY);
+    let originalTaskName = document.getElementById('task-name');
+    console.log(originalTaskName);
+    let editedTaskName = document.getElementById('edit-task-name');
+    let editedTaskDesc = document.getElementById('edit-task-description');
     for (let c = 0; c < allTasks.length; c++) {
-        
-        console.log(allTasks[c])
-    }
-
-    let taskDict = tasks["_taskList"];
-    console.log(taskDict);
-
-    let tempTaskName = document.getElementById('task-name');
-    let editedTaskName = document.getElementById('edited-task-name');
-
-    for (let c = 0; c < allTasks.length; c++) {
-        if (tempTaskName == tasks[c]["Task Name"]) {
-            tasks[c]["Task name"] = editedTaskName;
+        if (originalTaskName === allTasks[c]['Task Name']) {
+            console.log(originalTaskName == allTasks[c]['Task Name']);
+            allTasks[c]['Task Name'] = editedTaskName;
+            allTasks[c]['Task Description'] = editedTaskDesc;
         }
     }
+
+    console.log(allTasks);
+    data = new Task(allTasks);
+    let json = JSON.stringify(data);
+    localStorage.setItem(TASK_KEY, json);
 }
 
 function updateTask(taskName, taskDesc) {
