@@ -150,13 +150,32 @@
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <label for="recipient-name" class="col-form-label">Task Name:</label>
-                <input type="text" class="form-control" id="task-name">
+                <label for="task-name" class="col-form-label">Task Name:</label>
+                <input type="text" class="form-control" id="edit-task-name">
               </div>
               <div class="mb-3">
                 <label for="message-text" class="col-form-label">Task Description:</label>
-                <textarea class="form-control" id="task-description"></textarea>
+                <textarea class="form-control" id="edit-task-description"></textarea>
               </div>
+              <div class="mb-3">
+                <label for="task-tags" class="col-form-label">Task Tag:</label>
+                <br>
+                <select class="selectTag" onchange="">
+                    <option value="">UI</option>
+                    <option value="">Core</option>
+                    <option value="">Testing</option>
+                </select>
+            </div>
+            <div class="color">
+                <label for="task-tags" class="col-form-label">Task Priority:</label>
+                <br>
+                <select class="selectColor" onchange="changeColor(this)">
+                    <option value="#ff6961">Critical</option>
+                    <option value="#ffb347">High</option>
+                    <option value="#fdfd96">Medium</option>
+                    <option value="#cff0cc">Low</option>
+                </select>
+            </div>
             </form> 
           </div>
           <div class="modal-footer">
