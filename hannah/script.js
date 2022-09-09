@@ -57,12 +57,12 @@ function displayCard(title, desc) {
     let displayData = "";
     // This is used to display the entered data and add an edit button next to it
     displayData += `<div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">${title}</h5>
-                    <p class="card-text" id="studentEnrolSummary">${desc}</p>
-                    <a href="#show-task-container" data-bs-target="#show-task-container" class="card-link stretched-link">Card link</a>
-                </div>
-                </div>`;
+                        <div class="card-body">
+                            <h5 class="card-title">${title}</h5>
+                            <p class="card-text" id="studentEnrolSummary">${desc}</p>
+                            <a href="index.html" data-bs-target="#show-task-container" class="card-link stretched-link">Card link</a>
+                        </div>
+                    </div>`;
 
     return (displayRef.innerHTML = displayData);
 }
@@ -121,10 +121,13 @@ function changeColor(getColor){
     color.style.background = selectColor;
 }
 
-function saveAndExitTaskPopup() {
-    closeTaskPopup();
-    closeFullTaskPopup();
+function showEditTaskPopup() {
+    let editTaskPopup = document.getElementById('show-task-container');
 
+    editTaskPopup.add('show');
+}
+
+function saveAndExitTaskPopup() {
     let taskName = document.getElementById("task-name").value;
     let taskDesc = document.getElementById("task-desc").value;
 
