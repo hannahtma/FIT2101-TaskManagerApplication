@@ -60,7 +60,7 @@ function displayCard(title, desc) {
                 <div class="card-body">
                     <h5 class="card-title">${title}</h5>
                     <p class="card-text" id="studentEnrolSummary">${desc}</p>
-                    <a href="#show-task-container" class="card-link stretched-link">Card link</a>
+                    <a href="#show-task-container" data-bs-target="#show-task-container" class="card-link stretched-link">Card link</a>
                 </div>
                 </div>`;
 
