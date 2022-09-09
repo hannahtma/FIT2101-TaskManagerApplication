@@ -50,8 +50,11 @@ function addTaskCard() {
         $("#exampleModal").find("input[type=text], textarea").val("");
     });
 
+    let tasks = localStorage.getItem(TASK_KEY);
+    console.log(tasks);
+
     for (let c = 0; c < allTasks.length; c++) {
-        console.log(allTasks[i])
+        console.log(allTasks[c])
     }
 
 }
@@ -140,13 +143,23 @@ function editTaskPopup() {
 }
 
 function saveAndExitTaskPopup() {
-    closeTaskPopup();
-    closeFullTaskPopup();
+    let tasks = localStorage.getItem(TASK_KEY);
+    for (let c = 0; c < allTasks.length; c++) {
+        
+        console.log(allTasks[c])
+    }
 
-    let taskName = document.getElementById("task-name").value;
-    let taskDesc = document.getElementById("task-desc").value;
+    let taskDict = tasks["_taskList"];
+    console.log(taskDict);
 
-    updateTask();
+    let tempTaskName = document.getElementById('task-name');
+    let editedTaskName = document.getElementById('edited-task-name');
+
+    for (let c = 0; c < allTasks.length; c++) {
+        if (tempTaskName == tasks[c]["Task Name"]) {
+            tasks[c]["Task name"] = editedTaskName;
+        }
+    }
 }
 
 function updateTask(taskName, taskDesc) {
