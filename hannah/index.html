@@ -1,66 +1,187 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FIT2101 - Edit Tasks</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="task-container" id="task-container">
-            <div class="show-task" id="show-task">
-                <h1 id="task-header">Task Name here</h1>
-                <p id="task-content">Task Desc here</p>
-                <div class="dropdown">
-                    <div class="select">
-                        <span class="selected">Tags</span>
-                        <div class="caret"></div>
-                    </div>
-                    <u1 class="menu">
-                        <li>Core</li>
-                        <li>UI</li>
-                        <li>All</li>
-                    </u1>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<script>
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "Hello World";
+    }
+</script>
+
+<body>
+    <nav class="navbar navbar-expand-sm">
+        <!-- Brand -->
+        <a class="navbar-brand" href="HTML File.html">SCRUMFY</a>
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" id="navLink" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown" style="position:relative; left:30px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">Sprints</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <!-- Dropdown -->
+            <li class="nav-item dropdown" style="position:relative; left:60px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Tasks</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" style="position:relative; left:90px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Teams</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Create Task +</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="myForm">
+                        <div class="mb-3">
+                            <label for="task-title" class="col-form-label">Task Title:</label>
+                            <input type="text" class="form-control" id="task-title" placeholder="Enter task title here">
+                        </div>
+                        <div class="mb-3">
+                            <label for="task-desc" class="col-form-label">Task Description:</label>
+                            <textarea class="form-control" id="task-desc"
+                                placeholder="Enter task description here"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="story-points" class="col-form-label">Story Points:</label>
+                            <textarea class="form-control" id="task-desc"
+                                placeholder="Enter story points here"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="task-tags" class="col-form-label">Task Tag:</label>
+                            <br>
+                            <select class="selectTag" onchange="">
+                                <option value="">UI</option>
+                                <option value="">Core</option>
+                                <option value="">Testing</option>
+                            </select>
+                        </div>
+                        <div class="color">
+                            <label for="task-tags" class="col-form-label">Task Priority:</label>
+                            <br>
+                            <select class="selectColor" onchange="changeColor(this)">
+                                <option value="#ff6961">Critical</option>
+                                <option value="#ffb347">High</option>
+                                <option value="#fdfd96">Medium</option>
+                                <option value="#cff0cc">Low</option>
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save"
+                        onclick="addTaskCard()">SaveTask</button>
                 </div>
             </div>
         </div>
-        <div class="popup-container" id="popup-container">
-            <div class="popup">
-                <h1>Task Name still here</h1>
-                <p>The whole task description will show up when you click the card.</p>
-                <button class="delete-card" id="delete-card">Remove</button>
-                <button class="edit-card" id="edit-card">Edit Task</button>
-                <div class="dropdown">
-                    <div class="select">
-                        <span class="selected">Tags</span>
-                        <div class="caret"></div>
-                    </div>
-                    <u1 class="menu">
-                        <li>Core</li>
-                        <li>UI</li>
-                        <li>All</li>
-                    </u1>
-                </div>
-            </div>
+    </div>
+
+    <div class="modal fade" id="show-task-container" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="task-details">Task Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Task Name:</label>
+                <input type="text" class="form-control" id="task-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Task Description:</label>
+                <textarea class="form-control" id="task-description"></textarea>
+              </div>
+            </form> 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">Remove</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-task-container">Edit Task</button>
+          </div>
         </div>
-        <div class="edit-container" id="edit-container">
-            <div class="edit">
-                <input id="task-name"><br>
-                <input id="task-desc"><br>
-                <button class="cancel-edit" id="cancel-edit" onclick="location.href='#popup-container'">Cancel</button>
-                <button class="save-and-exit" id="save-and-exit" onclick="updateCard()">Save & Exit</button>
-                <div class="dropdown">
-                    <div class="select">
-                        <span class="selected">Tags</span>
-                        <div class="caret"></div>
-                    </div>
-                    <u1 class="menu">
-                        <li>Core</li>
-                        <li>UI</li>
-                        <li>All</li>
-                    </u1>
-                </div>
-            </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="edit-task-container" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="task-details">Task Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Task Name:</label>
+                <input type="text" class="form-control" id="task-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Task Description:</label>
+                <textarea class="form-control" id="task-description"></textarea>
+              </div>
+            </form> 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal" onclick="closeTaskPopup()">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="saveAndExitTaskPopup()">Save and Exit</button>
+          </div>
         </div>
-    </body>
+      </div>
+    </div>
+
+    
+    <div id="my-container">
+
+    </div>
+
     <script src="script.js"></script>
+</body>
+
 </html>
