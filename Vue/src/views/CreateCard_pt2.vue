@@ -15,7 +15,7 @@
     export default {
         mounted(){},
         methods:{
-            changeColor:function (event){
+            changeColor(event){
         let color = document.querySelector('.color');
         let selectColor = event.target.value;
         color.style.background = selectColor;}

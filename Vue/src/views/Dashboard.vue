@@ -1,84 +1,99 @@
 <template>
-    <h2>My Tasks</h2>
-    <div class="container text-start">
-        <div class="row align-items-center">
-            <div class="col-2">
-                <div class="row">Quick Filters</div>
-            </div>
-            <div class="col-2">
-                <div class="row">UI</div>
-            </div>
-            <div class="col-2">
-                <div class="row">Testing</div>
-            </div>
-            <div class="col-2">
-                <div class="row">Core</div>
-            </div>
-            <div class="col-2">
-                <Ticket />
-            </div>
-        </div>
-    </div>
-    <!-- <div class="container text-start" v-for="card in getCardsForSection('todoblocked')">
-        <div>{{card}}</div>
-    </div> -->
-    <!-- <div>{{this.cards.filter((card) => card.status === 'todoblocked')}}</div> -->
-    <div class="container text-start">
-        <div class="row align-items-top">
-            <div class="col">
-                <div class="row">To Do/Blocked</div>
-                <!-- <div class="card row">
-                    <h3>Task Name</h3>
-                    <p>Description</p>
-                    <span>Tags</span>
-                    <div class="story-points">
-                        1
-                    </div>
+
+    <body>
+        <AddTask @display-card="addCards"/>
+        <h2>My Tasks</h2>
+        <div class="container text-start">
+            <div class="row align-items-center">
+                <div class="col-2">
+                    <div class="row">Quick Filters</div>
+                    <!-- <Button @btn-click="$emit('toggle-add-task')" :text="'Quick Filters'" :color="'none'" /> -->
+
+                </div>
+                <div class="col-2">
+                    <!-- <div class="row">UI</div> -->
+                    <Button @btn-click="quickFilters('UI')" :text="'UI'" :color="'none'" />
+                </div>
+                <div class="col-2">
+                    <!-- <div class="row">Testing</div> -->
+                    <Button @btn-click="quickFilters('TESTING')" :text="'TESTING'" :color="'none'" />
+                </div>
+                <div class="col-2">
+                    <Button @btn-click="quickFilters('CORE')" :text="'CORE'" :color="'none'" />
+
+                </div>
+                <div class="col-2">
+                    <!-- <div class="row">Core</div> -->
+                    <Button @btn-click="quickFilters('RESET FILTERS')" :text="'RESET FILTERS'" :color="'none'" />
+
+                </div>
+                <!-- <div class="col-2">
+                    <Ticket />
                 </div> -->
-                <div class="card row" v-for="card in this.cards.filter((card) => card.status === 'todoblocked')">
-                    <h3>{{card.taskName}}</h3>
-                    <p>{{card.description}}</p>
-                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
-                    <div class="story-points">
-                        {{card.storyPoints}}
+            </div>
+        </div>
+        <!-- <div class="container text-start" v-for="card in getCardsForSection('todoblocked')">
+            <div>{{card}}</div>
+        </div> -->
+        <!-- <div>{{this.cards.filter((card) => card.status === 'todoblocked')}}</div> -->
+        <div class="container text-start">
+            <div class="row align-items-top">
+                <div class="col">
+                    <div class="row">To Do/Blocked</div>
+                    <!-- <div class="card row">
+                        <h3>Task Name</h3>
+                        <p>Description</p>
+                        <span>Tags</span>
+                        <div class="story-points">
+                            1
+                        </div>
+                    </div> -->
+                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'todoblocked')">
+                        <h3>{{card.taskName}}</h3>
+                        <p>{{card.description}}</p>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
+                        
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="row">In Progress</div>
-                <div class="card row" v-for="card in this.cards.filter((card) => card.status === 'inprogress')">
-                    <h3>{{card.taskName}}</h3>
-                    <p>{{card.description}}</p>
-                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
-                    <div class="story-points">
-                        {{card.storyPoints}}
+                <div class="col">
+                    <div class="row">In Progress</div>
+                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'inprogress')">
+                        <h3>{{card.taskName}}</h3>
+                        <p>{{card.description}}</p>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="row">Deployed</div>
-                <div class="card row" v-for="card in this.cards.filter((card) => card.status === 'deployed')">
-                    <h3>{{card.taskName}}</h3>
-                    <p>{{card.description}}</p>
-                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
-                    <div class="story-points">
-                        {{card.storyPoints}}
+                <div class="col">
+                    <div class="row">Deployed</div>
+                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'deployed')">
+                        <h3>{{card.taskName}}</h3>
+                        <p>{{card.description}}</p>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="row">Done</div>
-                <div class="card row" v-for="card in this.cards.filter((card) => card.status === 'done')">
-                    <h3>{{card.taskName}}</h3>
-                    <p>{{card.description}}</p>
-                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
-                    <div class="story-points">
-                        {{card.storyPoints}}
+                <div class="col">
+                    <div class="row">Done</div>
+                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'done')">
+                        <h3>{{card.taskName}}</h3>
+                        <p>{{card.description}}</p>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </body>
 </template>
 
 <style scoped lang="scss">
@@ -96,6 +111,19 @@
         margin-bottom: 10px;
     }
 
+    &.critical{
+        background-color:#ff6961;
+    }
+    &.high{
+        background-color:#fdfd96;
+    }
+    &.medium{
+        background-color:#ffb347;
+    }
+    &.low{
+        background-color:#cff0cc;
+    }
+
     .tag {
         background: #01819A;
         color: white;
@@ -108,70 +136,110 @@
             margin-bottom: 3px;
         }
     }
+    
 }
 </style>
 
 <script>
 import Ticket from '@/components/Ticket.vue';
-
+import Button from '@/components/Button.vue';
+import AddTask from '@/components/addTask.vue';
+import { ref } from 'vue';
 export default {
+    mounted(){
+        this.displayCards = this.cards
+            
+    },
     components: {
         Ticket,
+        Button,
+        AddTask
+
+
     },
-    method: {
+    
+    methods: {
         getCardsForSection(status) {
             return this.cards.filter((card) => card.status === status);
         },
         test() {
             console.log('test');
+        },
+        quickFilters(filter) {
+            // console.log(filter)
+            // console.log(this.cards.filter((card) => card.tags.includes(filter)))
+            // return this.cards.filter((card) => card.tags.includes(filter))
+            const toLowerFilter = filter.toLowerCase()
+            if(toLowerFilter!= 'reset filters'){
+                this.displayCards=this.cards.filter((card) => card.tags.map(a=>a.toLowerCase()).includes(toLowerFilter))
+            }
+            else{
+                this.displayCards=this.cards
+            }
+
+            // console.log(this.displayCards)
+        },
+        addCards(card) {
+            // this.cards = [...this.cards, ref(card)]
+            this.cards.push(card)
+            console.log(this.cards)
+
         }
+        // const filter = quickFilters('UI')
     },
     data() {
         return {
-            cons: console,
+            displayCards:[] ,
             cards: [
                 {
                     id: 1,
                     status: 'todoblocked',
                     taskName: 'Create button',
-                    descrption: 'Description 1',
+                    description: 'Description 1',
                     tags: ['CORE', 'UI'],
-                    storyPoints: 5
+                    storyPoints: 5,
+                    priority: 'low'
+                    
                 }, {
                     id: 2,
                     status: 'todoblocked',
                     taskName: 'Create slider',
-                    descrption: 'Description 2',
+                    description: 'Description 2',
                     tags: ['CORE', 'UI'],
-                    storyPoints: 3
+                    storyPoints: 3,
+                    priority: 'high'
                 }, {
                     id: 3,
                     status: 'inprogress',
                     taskName: 'Task Name 3',
-                    descrption: 'Description 3',
+                    description: 'Description 3',
                     tags: ['CORE'],
-                    storyPoints: 2
+                    storyPoints: 2,
+                    priority: 'medium'
                 }, {
                     id: 6,
                     status: 'inprogress',
                     taskName: 'Task Name 3',
-                    descrption: 'Description 3',
+                    description: 'Description 3',
                     tags: ['CORE', 'UI'],
-                    storyPoints: 2
+                    storyPoints: 2,
+                    priority: 'critical'
                 }, {
                     id: 4,
                     status: 'deployed',
                     taskName: 'Task Name 4',
-                    descrption: 'Description 4',
+                    description: 'Description 4',
                     tags: ['CORE', 'UI'],
-                    storyPoints: 4
+                    storyPoints: 4,
+                    priority: 'low'
                 }, {
                     id: 5,
                     status: 'done',
                     taskName: 'Task Name 5',
-                    descrption: 'Description 5',
+                    description: 'Description 5',
                     tags: ['CORE', 'UI'],
-                    storyPoints: 5
+                    storyPoints: 5,
+                    priority: 'low'
                 }
             ]
         }
