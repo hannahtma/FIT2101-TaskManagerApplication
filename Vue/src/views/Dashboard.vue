@@ -12,19 +12,19 @@
                 </div>
                 <div class="col-2">
                     <!-- <div class="row">UI</div> -->
-                    <Button @btn-click="quickFilters('UI')" :text="'UI'" :color="'none'" />
+                    <Button id="button1" @btn-click="quickFilters('UI')" :text="'UI'" />
                 </div>
                 <div class="col-2">
                     <!-- <div class="row">Testing</div> -->
-                    <Button @btn-click="quickFilters('TESTING')" :text="'TESTING'" :color="'none'" />
+                    <Button id="button2" @btn-click="quickFilters('TESTING')" :text="'TESTING'" />
                 </div>
                 <div class="col-2">
-                    <Button @btn-click="quickFilters('CORE')" :text="'CORE'" :color="'none'" />
+                    <Button id="button3" @btn-click="quickFilters('CORE')" :text="'CORE'" />
 
                 </div>
                 <div class="col-2">
                     <!-- <div class="row">Core</div> -->
-                    <Button @btn-click="quickFilters('RESET FILTERS')" :text="'RESET FILTERS'" :color="'none'" />
+                    <Button id="button4" @btn-click="quickFilters('RESET FILTERS')" :text="'RESET FILTERS'" />
 
                 </div>
                 <!-- <div class="col-2">
@@ -39,7 +39,7 @@
         <div class="container text-start">
             <div class="row align-items-top">
                 <div class="col">
-                    <div class="row">To Do/Blocked</div>
+                    <div class="row" id="progress1">To Do/Blocked</div>
                     <!-- <div class="card row">
                         <h3>Task Name</h3>
                         <p>Description</p>
@@ -60,7 +60,7 @@
 
                 </div>
                 <div class="col">
-                    <div class="row">In Progress</div>
+                    <div class="row" id="progress2">In Progress</div>
                     <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'inprogress')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="row">Deployed</div>
+                    <div class="row" id="progress3">Deployed</div>
                     <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'deployed')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="row">Done</div>
+                    <div class="row" id="progress4">Done</div>
                     <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'done')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
@@ -110,7 +110,7 @@
         type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="deleteCard(this.editCardID)">
         Remove
         </button>
-        <button type="button" class="btn btn-primary">Edit Task</button>
+        <!-- <button type="button" class="btn btn-primary">Edit Task</button> -->
       </div>
     </div>
   </div>
@@ -160,6 +160,36 @@
         }
     }
     
+}
+
+h2 {
+    margin-top: 15px;
+    margin-left: 85px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+div.col-2{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-size: x-large;
+    text-transform: uppercase;
+}
+
+#progress1, #progress2, #progress3, #progress4{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#button1, #button2, #button3, #button4{
+    text-transform: uppercase;
+    width: 160px;
+    box-shadow: 0px 10px rgb(255, 136, 25);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,231,0,1) 0%, rgba(255,102,0,1) 100%, rgba(90,255,0,1) 100%);
 }
 </style>
 
@@ -237,7 +267,7 @@ export default {
                 {
                     id: 1,
                     status: 'todoblocked',
-                    taskName: 'Create button',
+                    taskName: 'Task Name 1',
                     description: 'Description 1',
                     tags: ['CORE', 'UI'],
                     storyPoints: 5,
@@ -246,7 +276,7 @@ export default {
                 }, {
                     id: 2,
                     status: 'todoblocked',
-                    taskName: 'Create slider',
+                    taskName: 'Task Name 2',
                     description: 'Description 2',
                     tags: ['CORE', 'UI'],
                     storyPoints: 3,
@@ -262,9 +292,9 @@ export default {
                 }, {
                     id: 6,
                     status: 'inprogress',
-                    taskName: 'Task Name 3',
-                    description: 'Description 3',
-                    tags: ['CORE', 'UI'],
+                    taskName: 'Task Name 6',
+                    description: 'Description 6',
+                    tags: ['CORE', 'UI','Testing'],
                     storyPoints: 2,
                     priority: 'critical'
                 }, {
