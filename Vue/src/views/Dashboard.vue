@@ -48,7 +48,7 @@
                             1
                         </div>
                     </div> -->
-                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'todoblocked')">
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" :key="card.id" v-for="card in this.displayCards.filter((card) => card.status === 'todoblocked')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
@@ -56,11 +56,12 @@
                             {{card.storyPoints}}
                         </div>
                         
-                    </div>
+                        </div>
+
                 </div>
                 <div class="col">
                     <div class="row">In Progress</div>
-                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'inprogress')">
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'inprogress')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
@@ -71,7 +72,7 @@
                 </div>
                 <div class="col">
                     <div class="row">Deployed</div>
-                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'deployed')">
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'deployed')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
@@ -82,7 +83,7 @@
                 </div>
                 <div class="col">
                     <div class="row">Done</div>
-                    <div class="card row" :class="card.priority" v-for="card in this.displayCards.filter((card) => card.status === 'done')">
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'done')">
                         <h3>{{card.taskName}}</h3>
                         <p>{{card.description}}</p>
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
@@ -93,6 +94,28 @@
                 </div>
             </div>
         </div>
+        <!-- <Edit v-if="showEdit" @delete-task="deleteCard" />     -->
+        <div v-if="showEdit" class="modal fade" id="popUpForEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button 
+        type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="deleteCard(this.editCardID)">
+        Remove
+        </button>
+        <button type="button" class="btn btn-primary">Edit Task</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     </body>
 </template>
 
@@ -144,16 +167,23 @@
 import Ticket from '@/components/Ticket.vue';
 import Button from '@/components/Button.vue';
 import AddTask from '@/components/addTask.vue';
+import Edit from '@/components/popUpForEdit.vue';
+
 import { ref } from 'vue';
 export default {
+    props:{
+
+    },
     mounted(){
         this.displayCards = this.cards
+        // this.showEdit = false
             
     },
     components: {
         Ticket,
         Button,
-        AddTask
+        AddTask,
+        Edit
 
 
     },
@@ -182,13 +212,26 @@ export default {
         addCards(card) {
             // this.cards = [...this.cards, ref(card)]
             this.cards.push(card)
-            console.log(this.cards)
+            // console.log(this.cards)
 
+        },
+        editTask(id){
+            this.editCardID = id
+            this.showEdit = !this.showEdit
+        },
+        deleteCard(id){
+            console.log("imhere")
+            console.log(id)
+            this.cards = this.cards.filter((task)=> task.id !== id)
+            this.displayCards= this.cards
+            // console.log(id)
         }
         // const filter = quickFilters('UI')
     },
     data() {
         return {
+            showEdit: false,
+            editCardID: Number,
             displayCards:[] ,
             cards: [
                 {

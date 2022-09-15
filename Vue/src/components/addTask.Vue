@@ -64,8 +64,7 @@
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-          >
-            Create Task +
+          >Create Task +
           </button>
         </div>
       </li>
