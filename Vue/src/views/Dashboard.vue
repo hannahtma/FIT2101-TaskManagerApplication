@@ -110,7 +110,7 @@
         type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="deleteCard(this.editCardID)">
         Remove
         </button>
-        <!-- <button type="button" class="btn btn-primary">Edit Task</button> -->
+        <button type="button" class="btn btn-primary">Edit Task</button>
       </div>
     </div>
   </div>
@@ -294,7 +294,7 @@ export default {
                     status: 'inprogress',
                     taskName: 'Task Name 6',
                     description: 'Description 6',
-                    tags: ['CORE', 'UI','Testing'],
+                    tags: ['CORE', 'UI'],
                     storyPoints: 2,
                     priority: 'critical'
                 }, {

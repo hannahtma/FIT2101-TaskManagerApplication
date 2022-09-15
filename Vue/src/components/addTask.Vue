@@ -3,7 +3,7 @@
     <!-- Brand -->
     <a class="navbar-brand" href="HTML File.html">SCRUMFY</a>
     <!-- Links -->
-    <ul class="navbar-nav" style="position: absolute">
+    <ul class="navbar-nav" style="position:absolute">
       <li class="nav-item">
         <a class="nav-link active" id="navLink" href="#">Dashboard</a>
       </li>
@@ -119,7 +119,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="edit-task-container" data-bs-dismiss="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="edit-task-container" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
