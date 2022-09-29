@@ -120,7 +120,7 @@
           <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" @click="addTaskCard">
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal" @click="addTaskCard">
             Create Task
           </button>
         </div>

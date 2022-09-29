@@ -143,7 +143,7 @@
           <form id="myForm">
             <div class="mb-3">
               <label for="task-title" class="col-form-label">Task Title:</label>
-              <input type="text" class="form-control" id="edit-title" placeholder="Enter task title here" @v-model="editTitle" />
+              <input type="text" class="form-control" id="edit-title" placeholder="Enter task title here" v-model="editTitle" />
             </div>
             <div class="mb-3">
               <label for="task-desc" class="col-form-label">Task Description:</label>
@@ -207,7 +207,7 @@
           <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" @click="editTaskCard(this.onClickCardID)">
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal" @click="editTaskCard(this.onClickCardID)">
             Confirm Changes
           </button>
         </div>
@@ -258,6 +258,9 @@
             margin-bottom: 3px;
         }
     }
+    p{
+        margin-bottom: 0px;
+    }
     
 }
 
@@ -292,7 +295,7 @@ div.col-2{
 }
 </style>
 
-<script lang="js">
+<script >
 import Button from '@/components/Button.vue';
 import AddTask from '@/components/addTask.vue';
 
@@ -369,7 +372,7 @@ export default {
         },
         editTaskCard(id){
             // console.log("edit",id)
-            // console.log(editTitle)
+            console.log(this.editTitle)
             const index = this.cards.findIndex((task)=>task.id ===id)
 
             let newTitle = document.getElementById("edit-title").value;
@@ -415,9 +418,9 @@ export default {
     data() {
         return {
             showEdit: false,
-            onClickCardID: Number,
+            onClickCardID: 0,
             displayCards:[] ,
-            editTitle: String,
+            editTitle: "" ,
         
         }
     }

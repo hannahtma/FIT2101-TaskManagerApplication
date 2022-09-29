@@ -84,7 +84,7 @@ export default{
         },
         editTaskCard(index,card){
           this.cards[index] = card
-          console.log(this.cards)
+          // console.log(this.cards)
         }
     }
 }
