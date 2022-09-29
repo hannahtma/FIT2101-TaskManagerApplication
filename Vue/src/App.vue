@@ -57,10 +57,33 @@ export default{
                 //     priority: 'low'
                 // }
             ],
+            // currentID: cards.length,
+
         }
     },
     methods:{
-      
+      addCards(card) {
+            // this.cards = [...this.cards, ref(card)]
+            this.cards.push(card)
+            // console.log(this.cards)
+            // this.$emit("add-card",card)
+
+        },
+        // editTask(id){
+        //     this.editCardID = id
+        //     this.showEdit = !this.showEdit
+            
+        // },
+        deleteCard(id){
+            // console.log("imhere")
+            console.log(id)
+            console.log(this.cards)
+            this.cards = this.cards.filter((task)=> task.id !== id)
+            console.log(this.cards)
+            // this.displayCards= this.cards
+            // console.log(id)
+            // this.$emit("delete-card",id)
+        }
     }
 }
 </script>
@@ -79,7 +102,7 @@ export default{
     </div>
   </header>
 
-  <RouterView :cards="cards"  />
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" />
 </template>
 
 <style >

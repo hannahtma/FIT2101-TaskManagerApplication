@@ -1,7 +1,7 @@
 <template>
 
     <body>
-        <AddTask @display-card="addCards"/>
+        <AddTask :cards="this.cards" @display-card="addCards"/>
         <h2>My Tasks</h2>
         <div class="container text-start">
             <div class="row align-items-center">
@@ -257,26 +257,40 @@ export default {
         },
         addCards(card) {
             // this.cards = [...this.cards, ref(card)]
-            this.cards.push(card)
+            // this.cards.push(card)
             // console.log(this.cards)
-            // this.$emit("add-card",card)
+            this.$emit("add-card",card)
+            this.displayCards=this.cards
+
 
         },
         editTask(id){
             this.editCardID = id
             this.showEdit = !this.showEdit
+            // this.$emit("edit-card",id)
             
         },
         deleteCard(id){
             // console.log("imhere")
             // console.log(id)
-            this.cards = this.cards.filter((task)=> task.id !== id)
-            this.displayCards= this.cards
+            // this.cards = this.cards.filter((task)=> task.id !== id)
+            // this.displayCards= this.cards
             // console.log(id)
-            // this.$emit("delete-card",id)
+            this.$emit("delete-card",id)
+            this.displayCards= this.cards.filter((task)=> task.id !== id)
+
         }
         // const filter = quickFilters('UI')
     },
+//     computed: {
+//   computedWidth: {
+//     get(){
+//       return this.width
+//     },
+//     set(newValue) {
+//       this.$emit('widthChanged', newValue)
+//     }
+//   },
     data() {
         return {
             showEdit: false,

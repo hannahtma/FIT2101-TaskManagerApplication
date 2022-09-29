@@ -204,6 +204,10 @@
 import Task from '@/classes/Task.js';
 import * as $ from 'jquery'
 export default {
+  props:{
+      cards : Array,
+        // test : String
+    },
   mounted() {
     // const this.TASK_KEY = "allTasksData";
     // const allTasks = ;
@@ -215,6 +219,7 @@ export default {
       allTasks: [],
     }
   },
+  
   methods: {
     addTaskCard() {
       // TODO: Task 4
@@ -264,9 +269,10 @@ export default {
 
       // return (displayRef.innerHTML = displayData);
       console.log("tag",tag)
+      console.log("cards",this.cards)
       let card = {
 
-        id: 100000,
+        id: this.cards.length,
         taskName: title,
         description: desc,
         status: status,
