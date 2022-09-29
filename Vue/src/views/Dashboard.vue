@@ -276,8 +276,11 @@ export default {
             // this.cards = this.cards.filter((task)=> task.id !== id)
             // this.displayCards= this.cards
             // console.log(id)
-            this.$emit("delete-card",id)
+            if(confirm('Are you sure?')){
+                this.$emit("delete-card",id)
             this.displayCards= this.cards.filter((task)=> task.id !== id)
+            }
+            
 
         }
         // const filter = quickFilters('UI')
@@ -296,58 +299,7 @@ export default {
             showEdit: false,
             editCardID: Number,
             displayCards:[] ,
-        //     cards: [
-        //         {
-        //             id: 1,
-        //             status: 'todoblocked',
-        //             taskName: 'Task Name 1',
-        //             description: 'Description 1',
-        //             tags: ['CORE', 'UI'],
-        //             storyPoints: 5,
-        //             priority: 'low'
-                    
-        //         }, {
-        //             id: 2,
-        //             status: 'todoblocked',
-        //             taskName: 'Task Name 2',
-        //             description: 'Description 2',
-        //             tags: ['CORE', 'UI'],
-        //             storyPoints: 3,
-        //             priority: 'high'
-        //         }, {
-        //             id: 3,
-        //             status: 'inprogress',
-        //             taskName: 'Task Name 3',
-        //             description: 'Description 3',
-        //             tags: ['CORE'],
-        //             storyPoints: 2,
-        //             priority: 'medium'
-        //         }, {
-        //             id: 6,
-        //             status: 'inprogress',
-        //             taskName: 'Task Name 6',
-        //             description: 'Description 6',
-        //             tags: ['CORE', 'UI'],
-        //             storyPoints: 2,
-        //             priority: 'critical'
-        //         }, {
-        //             id: 4,
-        //             status: 'deployed',
-        //             taskName: 'Task Name 4',
-        //             description: 'Description 4',
-        //             tags: ['CORE', 'UI'],
-        //             storyPoints: 4,
-        //             priority: 'low'
-        //         }, {
-        //             id: 5,
-        //             status: 'done',
-        //             taskName: 'Task Name 5',
-        //             description: 'Description 5',
-        //             tags: ['CORE', 'UI'],
-        //             storyPoints: 5,
-        //             priority: 'low'
-        //         }
-        //     ]
+        
         }
     }
 }

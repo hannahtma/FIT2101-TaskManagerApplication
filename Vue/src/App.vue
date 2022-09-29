@@ -76,13 +76,11 @@ export default{
         // },
         deleteCard(id){
             // console.log("imhere")
-            console.log(id)
-            console.log(this.cards)
-            this.cards = this.cards.filter((task)=> task.id !== id)
-            console.log(this.cards)
-            // this.displayCards= this.cards
             // console.log(id)
-            // this.$emit("delete-card",id)
+            // console.log(this.cards)
+            this.cards = this.cards.filter((task)=> task.id !== id)
+            // console.log(this.cards)
+            
         }
     }
 }
