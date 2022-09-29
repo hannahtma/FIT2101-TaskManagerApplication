@@ -114,11 +114,18 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{this.selectedCard.taskName}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <p>Description: {{this.selectedCard.description}}</p>
+        <div>Status: {{this.selectedCard.status}}</div>
+        <div>Type: {{this.selectedCard.type}}</div>
+        <div class="story-points">
+            {{this.selectedCard.storyPoints}}
+        </div>
+        <div>Assigned To: {{this.selectedCard.assign}}</div>
+        <span class="tag" v-for="tag in this.selectedCard.tags">{{tag}}</span>
       </div>
       <div class="modal-footer">
         <button 
@@ -221,6 +228,12 @@
 <style scoped lang="scss">
 .col:not(:last-child) {
     margin-right: 10px;
+}
+
+.modal-body{
+    p{
+        margin-bottom: 0px;
+    }
 }
 
 .card {
@@ -355,6 +368,7 @@ export default {
         onClickCard(id){
             this.onClickCardID = id
             this.showEdit = !this.showEdit
+            this.selectedCard = this.cards.find((card)=>card.id ===id)
             // this.$emit("edit-card",id)
             
         },
@@ -421,6 +435,8 @@ export default {
             onClickCardID: 0,
             displayCards:[] ,
             editTitle: "" ,
+            selectedCard:{},
+
         
         }
     }

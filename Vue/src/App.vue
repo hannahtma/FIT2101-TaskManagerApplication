@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from 'vue-router'
 export default{
   data() {
         return {
-            editCardID: Number,
             cards: [
                 // {
                 //     id: 1,
