@@ -81,6 +81,10 @@ export default{
             this.cards = this.cards.filter((task)=> task.id !== id)
             // console.log(this.cards)
             
+        },
+        editTaskCard(index,card){
+          this.cards[index] = card
+          console.log(this.cards)
         }
     }
 }
@@ -100,7 +104,7 @@ export default{
     </div>
   </header>
 
-  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" />
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard"/>
 </template>
 
 <style >

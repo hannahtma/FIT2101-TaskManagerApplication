@@ -48,7 +48,7 @@
                             1
                         </div>
                     </div> -->
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" :key="card.id" v-for="card in this.displayCards.filter((card) => card.status === 'To Do/Blocked')">
+                    <div @click="onClickCard(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" :key="card.id" v-for="card in this.displayCards.filter((card) => card.status === 'To Do/Blocked')">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col">
                     <!-- <div class="row" id="progress2">In Progress</div> -->
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'In Progress')">
+                    <div @click="onClickCard(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'In Progress')">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="col">
                     <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'Deployed')">
+                    <div @click="onClickCard(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'Deployed')">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="col">
                     <!-- <div class="row" id="progress4">Done</div> -->
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'Done')">
+                    <div @click="onClickCard(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'Done')">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -122,14 +122,98 @@
       </div>
       <div class="modal-footer">
         <button 
-        type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="deleteCard(this.editCardID)">
+        type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="deleteCard(this.onClickCardID)">
         Remove
         </button>
-        <button type="button" class="btn btn-primary">Edit Task</button>
+        <button type="button" class="btn btn-primary"  data-bs-toggle="modal"
+            data-bs-target="#editCard">Edit Task</button>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="editCard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="myForm">
+            <div class="mb-3">
+              <label for="task-title" class="col-form-label">Task Title:</label>
+              <input type="text" class="form-control" id="edit-title" placeholder="Enter task title here" @v-model="editTitle" />
+            </div>
+            <div class="mb-3">
+              <label for="task-desc" class="col-form-label">Task Description:</label>
+              <textarea class="form-control" id="edit-desc" placeholder="Enter task description here"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="task-status" class="col-form-label">Status:</label>
+              <br />
+              <select class="status" id="edit-status">
+                <option value="To Do/Blocked">To Do/Blocked</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Deployed">Deployed</option>
+                <option value="Done">Done</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="story-points" class="col-form-label">Story Points (between 1 and 10):</label>
+              <input type="number" class="form-control" id="edit-story-point" placeholder="Enter story points here" min="1" max="10">
+            </div>
+            <div class="mb-3">
+              <label for="task-tags" class="col-form-label">Task Tag:</label>
+              <br />
+              <select class="tag" id="edit-tag">
+                <option value="UI">UI</option>
+                <option value="CORE">Core</option>
+                <option value="Testing">Testing</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="task-type" class="col-form-label">Task Type:</label>
+              <br />
+              <select class="type" id="edit-type">
+                <option value="Bug">Bug</option>
+                <option value="Story">Story</option>
+              </select>
+            </div>
+            <div class="color">
+              <label for="task-priority" class="col-form-label">Task Priority:</label>
+              <br />
+              <select class="priority" id="edit-priority" >
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+              <div class="mb-3">
+              <label for="task-assign" class="col-form-label">Assigned to:</label>
+              <br />
+              <select class="assign" id="edit-assign">
+                <option value="Dion">Dion</option>
+                <option value="Hannah">Hannah</option>
+                <option value="Lohan">Lohan</option>
+                <option value="Taha">Taha</option>
+                <option value="Rameez">Rameez</option>
+              </select>
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" @click="editTaskCard(this.onClickCardID)">
+            Confirm Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     </body>
 </template>
@@ -208,11 +292,12 @@ div.col-2{
 }
 </style>
 
-<script>
+<script lang="js">
 import Button from '@/components/Button.vue';
 import AddTask from '@/components/addTask.vue';
 
 import { ref } from 'vue';
+// const editTitle = ref('')
 export default {
     props:{
         cards : Array,
@@ -264,8 +349,8 @@ export default {
 
 
         },
-        editTask(id){
-            this.editCardID = id
+        onClickCard(id){
+            this.onClickCardID = id
             this.showEdit = !this.showEdit
             // this.$emit("edit-card",id)
             
@@ -280,7 +365,40 @@ export default {
                 this.$emit("delete-card",id)
             this.displayCards= this.cards.filter((task)=> task.id !== id)
             }
-            
+
+        },
+        editTaskCard(id){
+            // console.log("edit",id)
+            // console.log(editTitle)
+            const index = this.cards.findIndex((task)=>task.id ===id)
+
+            let newTitle = document.getElementById("edit-title").value;
+            let newDesc = document.getElementById("edit-desc").value;
+            let storyPoint = document.getElementById('edit-story-point').value;
+            let status = document.getElementById('edit-status').value;
+            let tag = document.getElementById('edit-tag').value;
+            let type = document.getElementById('edit-type').value;
+            let assign = document.getElementById('edit-assign').value;
+            let priority = document.getElementById('edit-priority').value;
+
+            // console.log("newtitle",newTitle)
+
+            let card = {
+
+                id: id,
+                taskName: newTitle,
+                description: newDesc,
+                status: status,
+                storyPoints: storyPoint,
+                tags: [tag],
+                type:type,
+                priority: priority,
+                assign:assign
+
+                }
+            this.$emit("edit-card",index,card)
+            this.displayCards[index] = card
+            // console.log(this.displayCards)
 
         }
         // const filter = quickFilters('UI')
@@ -297,8 +415,9 @@ export default {
     data() {
         return {
             showEdit: false,
-            editCardID: Number,
+            onClickCardID: Number,
             displayCards:[] ,
+            editTitle: String,
         
         }
     }
