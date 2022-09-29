@@ -202,10 +202,14 @@ import Edit from '@/components/popUpForEdit.vue';
 import { ref } from 'vue';
 export default {
     props:{
-
+        cards : Array,
+        // test : String
     },
     mounted(){
         this.displayCards = this.cards
+        console.log(this.cards)
+        console.log(this.displayCards)
+        // console.log(this.test)
         // this.showEdit = false
             
     },
@@ -222,9 +226,9 @@ export default {
         getCardsForSection(status) {
             return this.cards.filter((card) => card.status === status);
         },
-        test() {
-            console.log('test');
-        },
+        // test() {
+        //     console.log('test');
+        // },
         quickFilters(filter) {
             // console.log(filter)
             // console.log(this.cards.filter((card) => card.tags.includes(filter)))
@@ -243,18 +247,21 @@ export default {
             // this.cards = [...this.cards, ref(card)]
             this.cards.push(card)
             // console.log(this.cards)
+            // this.$emit("add-card",card)
 
         },
         editTask(id){
             this.editCardID = id
             this.showEdit = !this.showEdit
+            
         },
         deleteCard(id){
-            console.log("imhere")
-            console.log(id)
+            // console.log("imhere")
+            // console.log(id)
             this.cards = this.cards.filter((task)=> task.id !== id)
             this.displayCards= this.cards
             // console.log(id)
+            // this.$emit("delete-card",id)
         }
         // const filter = quickFilters('UI')
     },
@@ -263,58 +270,58 @@ export default {
             showEdit: false,
             editCardID: Number,
             displayCards:[] ,
-            cards: [
-                {
-                    id: 1,
-                    status: 'todoblocked',
-                    taskName: 'Task Name 1',
-                    description: 'Description 1',
-                    tags: ['CORE', 'UI'],
-                    storyPoints: 5,
-                    priority: 'low'
+        //     cards: [
+        //         {
+        //             id: 1,
+        //             status: 'todoblocked',
+        //             taskName: 'Task Name 1',
+        //             description: 'Description 1',
+        //             tags: ['CORE', 'UI'],
+        //             storyPoints: 5,
+        //             priority: 'low'
                     
-                }, {
-                    id: 2,
-                    status: 'todoblocked',
-                    taskName: 'Task Name 2',
-                    description: 'Description 2',
-                    tags: ['CORE', 'UI'],
-                    storyPoints: 3,
-                    priority: 'high'
-                }, {
-                    id: 3,
-                    status: 'inprogress',
-                    taskName: 'Task Name 3',
-                    description: 'Description 3',
-                    tags: ['CORE'],
-                    storyPoints: 2,
-                    priority: 'medium'
-                }, {
-                    id: 6,
-                    status: 'inprogress',
-                    taskName: 'Task Name 6',
-                    description: 'Description 6',
-                    tags: ['CORE', 'UI'],
-                    storyPoints: 2,
-                    priority: 'critical'
-                }, {
-                    id: 4,
-                    status: 'deployed',
-                    taskName: 'Task Name 4',
-                    description: 'Description 4',
-                    tags: ['CORE', 'UI'],
-                    storyPoints: 4,
-                    priority: 'low'
-                }, {
-                    id: 5,
-                    status: 'done',
-                    taskName: 'Task Name 5',
-                    description: 'Description 5',
-                    tags: ['CORE', 'UI'],
-                    storyPoints: 5,
-                    priority: 'low'
-                }
-            ]
+        //         }, {
+        //             id: 2,
+        //             status: 'todoblocked',
+        //             taskName: 'Task Name 2',
+        //             description: 'Description 2',
+        //             tags: ['CORE', 'UI'],
+        //             storyPoints: 3,
+        //             priority: 'high'
+        //         }, {
+        //             id: 3,
+        //             status: 'inprogress',
+        //             taskName: 'Task Name 3',
+        //             description: 'Description 3',
+        //             tags: ['CORE'],
+        //             storyPoints: 2,
+        //             priority: 'medium'
+        //         }, {
+        //             id: 6,
+        //             status: 'inprogress',
+        //             taskName: 'Task Name 6',
+        //             description: 'Description 6',
+        //             tags: ['CORE', 'UI'],
+        //             storyPoints: 2,
+        //             priority: 'critical'
+        //         }, {
+        //             id: 4,
+        //             status: 'deployed',
+        //             taskName: 'Task Name 4',
+        //             description: 'Description 4',
+        //             tags: ['CORE', 'UI'],
+        //             storyPoints: 4,
+        //             priority: 'low'
+        //         }, {
+        //             id: 5,
+        //             status: 'done',
+        //             taskName: 'Task Name 5',
+        //             description: 'Description 5',
+        //             tags: ['CORE', 'UI'],
+        //             storyPoints: 5,
+        //             priority: 'low'
+        //         }
+        //     ]
         }
     }
 }

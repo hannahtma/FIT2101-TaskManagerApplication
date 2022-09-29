@@ -1,5 +1,67 @@
-<script setup lang="ts">
+<script >
 import { RouterLink, RouterView } from 'vue-router'
+export default{
+  data() {
+        return {
+            editCardID: Number,
+            cards: [
+                {
+                    id: 1,
+                    status: 'todoblocked',
+                    taskName: 'Task Name 1',
+                    description: 'Description 1',
+                    tags: ['CORE', 'UI'],
+                    storyPoints: 5,
+                    priority: 'low'
+                    
+                }, {
+                    id: 2,
+                    status: 'todoblocked',
+                    taskName: 'Task Name 2',
+                    description: 'Description 2',
+                    tags: ['CORE', 'UI'],
+                    storyPoints: 3,
+                    priority: 'high'
+                }, {
+                    id: 3,
+                    status: 'inprogress',
+                    taskName: 'Task Name 3',
+                    description: 'Description 3',
+                    tags: ['CORE'],
+                    storyPoints: 2,
+                    priority: 'medium'
+                }, {
+                    id: 6,
+                    status: 'inprogress',
+                    taskName: 'Task Name 6',
+                    description: 'Description 6',
+                    tags: ['CORE', 'UI'],
+                    storyPoints: 2,
+                    priority: 'critical'
+                }, {
+                    id: 4,
+                    status: 'deployed',
+                    taskName: 'Task Name 4',
+                    description: 'Description 4',
+                    tags: ['CORE', 'UI'],
+                    storyPoints: 4,
+                    priority: 'low'
+                }, {
+                    id: 5,
+                    status: 'done',
+                    taskName: 'Task Name 5',
+                    description: 'Description 5',
+                    tags: ['CORE', 'UI'],
+                    storyPoints: 5,
+                    priority: 'low'
+                }
+            ],
+        }
+    },
+    methods:{
+      
+    }
+}
 </script>
 
 <template>
@@ -16,7 +78,7 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </header>
 
-  <RouterView />
+  <RouterView :cards="cards"  />
 </template>
 
 <style >
