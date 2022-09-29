@@ -39,7 +39,7 @@
         <div class="container text-start">
             <div class="row align-items-top">
                 <div class="col">
-                    <div class="row" id="progress1">To Do/Blocked</div>
+                    <!-- <div class="row" id="progress1">To Do/Blocked</div> -->
                     <!-- <div class="card row">
                         <h3>Task Name</h3>
                         <p>Description</p>
@@ -48,48 +48,63 @@
                             1
                         </div>
                     </div> -->
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" :key="card.id" v-for="card in this.displayCards.filter((card) => card.status === 'todoblocked')">
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" :key="card.id" v-for="card in this.displayCards.filter((card) => card.status === 'To Do/Blocked')">
                         <h3>{{card.taskName}}</h3>
-                        <p>{{card.description}}</p>
-                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
                         <div class="story-points">
                             {{card.storyPoints}}
                         </div>
-                        
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+
                         </div>
 
                 </div>
                 <div class="col">
-                    <div class="row" id="progress2">In Progress</div>
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'inprogress')">
+                    <!-- <div class="row" id="progress2">In Progress</div> -->
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'In Progress')">
                         <h3>{{card.taskName}}</h3>
-                        <p>{{card.description}}</p>
-                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
                         <div class="story-points">
                             {{card.storyPoints}}
                         </div>
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+
                     </div>
                 </div>
                 <div class="col">
-                    <div class="row" id="progress3">Deployed</div>
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'deployed')">
+                    <!-- <div class="row" id="progress3">Deployed</div> -->
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'Deployed')">
                         <h3>{{card.taskName}}</h3>
-                        <p>{{card.description}}</p>
-                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
                         <div class="story-points">
                             {{card.storyPoints}}
                         </div>
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+
                     </div>
                 </div>
                 <div class="col">
-                    <div class="row" id="progress4">Done</div>
-                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'done')">
+                    <!-- <div class="row" id="progress4">Done</div> -->
+                    <div @click="editTask(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForEdit" v-for="card in this.displayCards.filter((card) => card.status === 'Done')">
                         <h3>{{card.taskName}}</h3>
-                        <p>{{card.description}}</p>
-                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
                         <div class="story-points">
                             {{card.storyPoints}}
                         </div>
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+
                     </div>
                 </div>
             </div>
@@ -194,10 +209,8 @@ div.col-2{
 </style>
 
 <script>
-import Ticket from '@/components/Ticket.vue';
 import Button from '@/components/Button.vue';
 import AddTask from '@/components/addTask.vue';
-import Edit from '@/components/popUpForEdit.vue';
 
 import { ref } from 'vue';
 export default {
@@ -214,10 +227,9 @@ export default {
             
     },
     components: {
-        Ticket,
         Button,
         AddTask,
-        Edit
+        
 
 
     },
