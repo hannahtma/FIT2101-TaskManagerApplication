@@ -58,6 +58,8 @@ export default{
             ],
             // currentID: cards.length,
 
+            sprints: [],
+
         }
     },
     methods:{
@@ -84,6 +86,10 @@ export default{
         editTaskCard(index,card){
           this.cards[index] = card
           // console.log(this.cards)
+        },
+
+        addSprintBoards(sprintBoard) {
+          this.sprints.push(sprintBoard)
         }
     }
 }
@@ -103,7 +109,7 @@ export default{
     </div>
   </header>
 
-  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard"/>
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" :sprints="sprints"/>
 </template>
 
 <style >
