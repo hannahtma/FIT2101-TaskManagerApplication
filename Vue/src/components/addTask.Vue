@@ -63,27 +63,56 @@
               <textarea class="form-control" id="task-desc" placeholder="Enter task description here"></textarea>
             </div>
             <div class="mb-3">
-              <label for="story-points" class="col-form-label">Story Points:</label>
-              <textarea class="form-control" id="story-point" placeholder="Enter story points here"></textarea>
+              <label for="task-status" class="col-form-label">Status:</label>
+              <br />
+              <select class="status" id="status">
+                <option value="To Do/Blocked">To Do/Blocked</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Deployed">Deployed</option>
+                <option value="Done">Done</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="story-points" class="col-form-label">Story Points (between 1 and 10):</label>
+              <input type="number" class="form-control" id="story-point" placeholder="Enter story points here" min="1" max="10">
             </div>
             <div class="mb-3">
               <label for="task-tags" class="col-form-label">Task Tag:</label>
               <br />
-              <select class="selectTag" onchange="">
-                <option value="">UI</option>
-                <option value="">Core</option>
-                <option value="">Testing</option>
+              <select class="tag" id="tag">
+                <option value="UI">UI</option>
+                <option value="CORE">Core</option>
+                <option value="Testing">Testing</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="task-type" class="col-form-label">Task Type:</label>
+              <br />
+              <select class="type" id="type">
+                <option value="Bug">Bug</option>
+                <option value="Story">Story</option>
               </select>
             </div>
             <div class="color">
-              <label for="task-tags" class="col-form-label">Task Priority:</label>
+              <label for="task-priority" class="col-form-label">Task Priority:</label>
               <br />
-              <select class="selectColor" @change="changeColor">
-                <option value="#ff6961">Critical</option>
-                <option value="#ffb347">High</option>
-                <option value="#fdfd96">Medium</option>
-                <option value="#cff0cc">Low</option>
+              <select class="priority" id="priority" >
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
               </select>
+              <div class="mb-3">
+              <label for="task-assign" class="col-form-label">Assigned to:</label>
+              <br />
+              <select class="assign" id="assign">
+                <option value="Dion">Dion</option>
+                <option value="Hannah">Hannah</option>
+                <option value="Lohan">Lohan</option>
+                <option value="Taha">Taha</option>
+                <option value="Rameez">Rameez</option>
+              </select>
+            </div>
             </div>
           </form>
         </div>
@@ -91,7 +120,7 @@
           <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" @click="addTaskCard">
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal" @click="addTaskCard">
             Create Task
           </button>
         </div>
@@ -175,6 +204,10 @@
 import Task from '@/classes/Task.js';
 import * as $ from 'jquery'
 export default {
+  props:{
+      cards : Array,
+        // test : String
+    },
   mounted() {
     // const this.TASK_KEY = "allTasksData";
     // const allTasks = ;
@@ -186,34 +219,42 @@ export default {
       allTasks: [],
     }
   },
+  
   methods: {
     addTaskCard() {
       // TODO: Task 4
       //Collecting Data from ID's
-      let taskId = this.allTasks.length;
+      // let taskId = this.allTasks.length;
       let newTitle = document.getElementById("task-title").value;
       let newDesc = document.getElementById("task-desc").value;
       let storyPoint = document.getElementById('story-point').value;
+      let status = document.getElementById('status').value;
+      let tag = document.getElementById('tag').value;
+      let type = document.getElementById('type').value;
+      let assign = document.getElementById('assign').value;
+      let priority = document.getElementById('priority').value;
 
-      let someTask = { "ID": taskId, "Task Name": newTitle, "Task Description": newDesc, "Story Point": storyPoint };
-      this.allTasks.push(someTask);
-      let data = new Task(this.allTasks);
-      let json = JSON.stringify(data);
-      localStorage.setItem(this.TASK_KEY, json);
+
+
+      // let someTask = { "ID": taskId, "Task Name": newTitle, "Task Description": newDesc, "Story Point": storyPoint };
+      // this.allTasks.push(someTask);
+      // let data = new Task(this.allTasks);
+      // let json = JSON.stringify(data);
+      // localStorage.setItem(this.TASK_KEY, json);
 
       //Updating the display table/inventory with the user entered data
       // update LS
       // updateLSData(WAREHOUSE_KEY, inventory);
       // update display
-      this.displayCard(newTitle, newDesc, storyPoint);
-      $("#exampleModal").modal("hide");
-      $("#exampleModal").on("hidden.bs.modal", function (e) {
-        $("#exampleModal").find("input[type=text], textarea").val("");
-      });
+      this.displayCard(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
+      // $("#exampleModal").modal("hide");
+      // $("#exampleModal").on("hidden.bs.modal", function (e) {
+      //   $("#exampleModal").find("input[type=text], textarea").val("");
+      // });
 
     },
 
-    displayCard(title, desc, story) {
+    displayCard(title, desc, story,status,tag,type,assign,priority) {
       // TODO: Task 3
       // let displayRef = document.getElementById("my-container");
       // let displayData = displayRef.innerHTML;
@@ -227,15 +268,19 @@ export default {
       //                 </div>`;
 
       // return (displayRef.innerHTML = displayData);
+      console.log("tag",tag)
+      console.log("cards",this.cards)
       let card = {
 
-        id: 100000,
-        status: 'todoblocked',
+        id: this.cards.length,
         taskName: title,
         description: desc,
-        tags: ['CORE', 'UI'],
+        status: status,
         storyPoints: story,
-        priority: 'low'
+        tags: [tag],
+        type:type,
+        priority: priority,
+        assign:assign
 
       }
       console.log(card)
