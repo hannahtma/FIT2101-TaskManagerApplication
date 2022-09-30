@@ -18,7 +18,22 @@
         },
 
         methods: {
+            addSprintBoards(sprintBoard) {
+                this.$emit("add-sprint-board",sprintBoard)
+                this.displaySprintBoards=this.sprints
+            },
 
+            onClickSprintBoard(id){
+                this.onClickSprintBoardID = id
+                this.showProductBacklog = !this.showProductBacklog
+                
+            },
+        },
+
+        data() {
+            return {
+                displaySprintBoards: [],
+            }
         }
     }
 </script>
