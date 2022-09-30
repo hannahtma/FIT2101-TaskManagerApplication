@@ -48,6 +48,7 @@
 
 <script>
 import Sprint from '@/classes/Sprint.js';
+import * as $ from 'jquery'
 
 export default {
     props: {
@@ -65,6 +66,7 @@ export default {
 
                 id: this.sprints.length,
                 sprintName: sprintTitle,
+                
             }
             this.$emit('display-sprint', sprint)
         }
