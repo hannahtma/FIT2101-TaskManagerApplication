@@ -4,25 +4,25 @@ export default{
   data() {
         return {
             cards: [
-                // {
-                //     id: 1,
-                //     status: 'todoblocked',
-                //     taskName: 'Task Name 1',
-                //     description: 'Description 1',
-                //     tags: ['CORE', 'UI'],
-                //     taskType: 'bug',
-                //     storyPoints: 5,
-                //     priority: 'low'
+                {
+                    id: 1,
+                    status: 'todoblocked',
+                    taskName: 'Task Name 1',
+                    description: 'Description 1',
+                    tags: ['CORE', 'UI'],
+                    taskType: 'bug',
+                    storyPoints: 5,
+                    priority: 'low'
                     
-                // }, {
-                //     id: 2,
-                //     status: 'todoblocked',
-                //     taskName: 'Task Name 2',
-                //     description: 'Description 2',
-                //     tags: ['CORE', 'UI'],
-                //     storyPoints: 3,
-                //     priority: 'high'
-                // }, {
+                }, {
+                    id: 2,
+                    status: 'todoblocked',
+                    taskName: 'Task Name 2',
+                    description: 'Description 2',
+                    tags: ['CORE', 'UI'],
+                    storyPoints: 3,
+                    priority: 'high'
+                }, //{
                 //     id: 3,
                 //     status: 'inprogress',
                 //     taskName: 'Task Name 3',
