@@ -1,0 +1,206 @@
+
+
+body {
+    background-color: #fff;
+    font-family: "Poppins";
+}
+
+.task-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+}
+
+.show-task {
+    background-color: #e6746c;
+    border-radius: 5px;
+    padding: 30px 60px;
+    width: 250px;
+    height: 150px;
+    max-width: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.popup-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.3s ease;
+}
+
+.popup-container.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.popup {
+    background-color: #e6746c;
+    border-radius: 5px;
+    padding: 30px 60px;
+    width: 250px;
+    height: 150px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.popup h1 {
+    margin: 0;
+}
+
+.popup p {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.edit-task button {
+    background-color:rgba(0, 0, 0, 0.2);
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    padding: 10px 25px;
+    cursor: pointer;
+}
+
+.edit-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.3s ease;
+}
+
+.edit-container.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.show-task-container.show {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.edit {
+    background-color: #e6746c;
+    border-radius: 5px;
+    padding: 30px 60px;
+    width: 250px;
+    height: 150px;
+    max-width: 100%;
+    text-align: center;
+}
+
+.save-and-exit button{
+    background-color:rgba(0, 0, 0, 0.2);
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    padding: 10px 25px;
+    cursor: pointer;
+}
+
+.dropdown {
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    margin: 2em;
+}
+
+.dropdown * {
+    box-sizing: border-box;
+}
+
+.select {
+    background: #01819A;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px #2a2f3b solid;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.select-clicked {
+    border: 2px #26489a solid;
+    box-shadow: 0 0 0.8em #26490a;
+}
+
+.select:hover {
+    background: #323741;
+}
+
+.caret {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    transition: 0.3s;
+}
+
+.caret-rotate {
+    transform: rotate(180deg);
+}
+
+.menu {
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #01819A;
+    border: 1px #363a43 solid;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #9fa5b5;
+    position: absolute;
+    top: 3em;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+}
+
+.menu li {
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.menu li:hover {
+    background: #2a2d35;
+}
+
+.active {
+    background: #23242a;
+}
+
+.menu-open {
+    display: block;
+    opacity: 1;
+}
