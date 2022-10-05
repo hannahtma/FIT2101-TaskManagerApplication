@@ -45,7 +45,11 @@
         methods: {
             displayProductBacklog() {
                 this.$emit("add-card",card)
-                this.displayCards=this.cards
+                // this.displayCards=localStorage.getItem("cards")
+
+                for (let i = 0; i < this.cards.length; i++) {
+                    this.displayCards = localStorage.getItem(cardID)
+                }
             }
         },
 
