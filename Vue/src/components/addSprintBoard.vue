@@ -38,7 +38,7 @@
       <li>
         <div>
           <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="left: -10px" onclick="window.location.href='ProductBacklog'">Create Sprint +
+            data-bs-target="#exampleModal" style="left: -10px" @click="goToProductBacklog()">Create Sprint +
           </button>
         </div>
       </li>
@@ -57,7 +57,7 @@ export default {
 
     methods: {
         addSprintBoard() {
-            let newSprintTitle = document.getElementById("task-title").value;
+            let newSprintTitle = document.getElementById("sprint-title").value;
             this.displaySprint(newSprintTitle);
         },
 
@@ -69,7 +69,11 @@ export default {
                 
             }
             this.$emit('display-sprint', sprint)
-        }
+        },
+
+        goToProductBacklog() {
+            this.$router.push('/ProductBacklog');
+        },
     }
 }
 </script>
