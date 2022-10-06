@@ -66,6 +66,7 @@ export default{
       addCards(card) {
             // this.cards = [...this.cards, ref(card)]
             this.cards.push(card)
+            localStorage.setItem(card.id, card)
             // console.log(this.cards)
             // this.$emit("add-card",card)
 
@@ -90,6 +91,14 @@ export default{
 
         addSprintBoards(sprintBoard) {
           this.sprints.push(sprintBoard)
+        },
+
+        goToDashboard() {
+          this.$router.push('/Dashboard'); 
+        },
+
+        displayProductBacklog(card) {
+          this.cards.push(card)
         }
     }
 }
@@ -109,10 +118,128 @@ export default{
     </div>
   </header>
 
+  <body>
+    <nav class="navbar navbar-expand-sm">
+        <!-- Brand -->
+        <a class="navbar-brand" href="index2.html">SCRUMFY</a>
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" id="navLink" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown" style="position:relative; left:30px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">Sprints</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <!-- Dropdown -->
+            <li class="nav-item dropdown" style="position:relative; left:60px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Tasks</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown" style="position:relative; left:90px;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Teams</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Link 1</a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <br>
+
+    <div class="container">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary me-md-2" type="button" onclick="location.href='App'">HOME</button>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary me-md-2" type="button" onclick="window.location.href='SprintBoard'">SPRINT BOARD</button>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary me-md-2" type="button" @click="goToDashboard()">TASK
+                BOARD</button>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary me-md-2" disabled data-bs-toggle="button" autocomplete="off"
+                type="button">TEAM BOARD</button>
+        </div>
+    </div>
+
+  </body>
+
   <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" :sprints="sprints"/>
 </template>
 
-<style >
+<style>
+  button.btn.btn-primary.me-md-2 {
+    background-color: black;
+    border-color: white;
+    width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+button.btn.btn-primary.me-md-2:active {
+    color: black;
+  }
+
+nav.navbar.navbar-expand-sm {
+    background-color: rgb(0, 128, 255);
+}
+
+ul.navbar-nav{
+    position:relative; 
+    left:30px;
+}
+
+#navbarDropdown, #navbarDropdown2, #navbarDropdown3, #navLink {
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+a.nav-link.active{
+    color: white;
+    
+}
+
+a.navbar-brand{
+    color: black;
+    position:relative; 
+    left:20px; 
+    top:-1px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-style: italic;
+}
+a.navbar-brand:hover{
+    color: black;
+}
+
+a.dropdown-item{
+    color: white;
+}
+
+div.dropdown-menu{
+    background-color: black;
+}
+
+div.container {
+    position:relative; 
+    left:40px;
+}
+
 
 
 </style>
