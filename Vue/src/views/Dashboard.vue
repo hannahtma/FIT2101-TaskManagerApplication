@@ -319,20 +319,26 @@ export default {
         cards : Array,
         // test : String
     },
+    
+    watch: {
+        cards: {
+            handler(){
+                localStorage.setItem("cards", JSON.stringify(this.displayCards))
+            },
+            deep: true
+        }
+    },
+
     mounted(){
         this.displayCards = this.cards
-        console.log(this.cards)
-        console.log(this.displayCards)
-        // console.log(this.test)
-        // this.showEdit = false
-            
+        if (localStorage.getItem("cards")){
+                this.displayCards = JSON.parse(localStorage.getItem("cards"))
+            }
     },
+
     components: {
         Button,
         AddTask,
-        
-
-
     },
     
     methods: {

@@ -6,7 +6,7 @@
                 <div class="list">
                     <div class="list">
                         <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="displayProductBacklog()" class="product backlog row" :class="card.id" v-for="card in this.productBacklog">
+                    <div class="product backlog row" :class="card.id" v-for="card in this.productBacklog">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -35,14 +35,16 @@
         },
 
         mounted(){
-            this.productBacklog = this.cards
-            let i = 0
-            while (localStorage.getItem(i) !== null) {
-                this.productBacklog.push(localStorage.getItem(i))
-                i ++
-            }
-            console.log("this.productBacklog",this.productBacklog)
+            // let i = 0
+            // while (localStorage.getItem(i) !== null) {
+            //     this.productBacklog.push(localStorage.getItem(i))
+            //     console.log("i",JSON.parse(localStorage.getItem(i)))
+            //     i ++
+            // }
 
+            if (localStorage.getItem("cards")){
+                this.productBacklog = JSON.parse(localStorage.getItem("cards"))
+            }
         },
 
         components: {
@@ -55,13 +57,6 @@
                 this.$emit("add-card",card)
                 this.productBacklog = this.cards
                 // this.productBacklog = this.cards
-                console.log("product backlog? ",this.productBacklog)
-                let i = 0
-                while (localStorage.getItem(i) !== null) {
-                    this.productBacklog.push(localStorage.getItem(i))
-                    i ++
-                }
-                console.log(this.cards)
                 
             },
 
