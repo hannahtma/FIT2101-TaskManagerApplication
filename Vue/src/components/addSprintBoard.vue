@@ -38,7 +38,7 @@
       <li>
         <div>
           <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="left: -10px">Create Sprint +
+            data-bs-target="#exampleModal" style="left: -10px" onclick="window.location.href='ProductBacklog'">Create Sprint +
           </button>
         </div>
       </li>
