@@ -1,12 +1,12 @@
 <template>
     <body>
-        <AddCardToProductBacklog :cards="this.cards" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
+        <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
         <div class="app">
             <div class="lists">
                 <div class="list">
                     <div class="list">
                         <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div class="product backlog row" :class="card.id" v-for="card in this.productBacklog">
+                    <div @click="onClickCardInProductBacklog(card.id)" class="product-backlog row" :class="card.id" v-for="card in this.productBacklog">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -28,6 +28,7 @@
 <script>
     import Button from '@/components/Button.vue';
     import AddCardToProductBacklog from '@/components/addCardToProductBacklog.vue';
+    import AddTask from '@/components/addTask.vue';
 
     export default{
         props: {
@@ -35,13 +36,6 @@
         },
 
         mounted(){
-            // let i = 0
-            // while (localStorage.getItem(i) !== null) {
-            //     this.productBacklog.push(localStorage.getItem(i))
-            //     console.log("i",JSON.parse(localStorage.getItem(i)))
-            //     i ++
-            // }
-
             if (localStorage.getItem("cards")){
                 this.productBacklog = JSON.parse(localStorage.getItem("cards"))
             }
@@ -50,47 +44,34 @@
         components: {
             Button,
             AddCardToProductBacklog,
+            AddTask,
         },
 
         methods: {
             displayProductBacklog(card) {
                 this.$emit("add-card",card)
                 this.productBacklog = this.cards
-                // this.productBacklog = this.cards
-                
             },
 
-            showCardInProductBacklog(id){
-                this.cardId = id
-                this.showEdit = !this.showEdit
-                this.selectedCard = this.cards.find((card)=>card.id ===id)
-                // this.$emit("edit-card",id)
-                
-            },
+            // showCardInProductBacklog(id){
+            //     this.cardId = id
+            //     this.showEdit = !this.showEdit
+            //     this.selectedCard = this.cards.find((card)=>card.id ===id)
+            //     // this.$emit("edit-card",id)
+            // },
         },
 
         data() {
             return {
                 productBacklog: [],
-                displayProductBacklog(card) {
-                    this.$emit("add-card",card)
-                    this.productBacklog = this.cards
-                    // this.productBacklog = this.cards
-                    console.log(this.cards.length)
-                    console.log("product backlog? ",this.cards)
-                    for (let i = 0; i < 1000; i++) {
-                        this.productBacklog.push(localStorage.getItem(i))
-                    }
-                    console.log(this.cards)
-                    
-                },
+                // showEdit: false,
             }
         }
     }
 
 </script>
 
-<style>
+<style scoped lang="scss">
     nav.navbar.navbar-expand-sm {
     background-color: #ec746c;
 }
@@ -201,6 +182,47 @@ body {
     padding: 15px 20px;
     text-align: center;
     margin: 4px 0px;
+}
+
+.product-backlog {
+    background: white;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    &.critical{
+        background-color:#ff6961;
+    }
+    &.high{
+        background-color:#fdfd96;
+    }
+    &.medium{
+        background-color:#ffb347;
+    }
+    &.low{
+        background-color:#cff0cc;
+    }
+
+    .tag {
+        background: #01819A;
+        color: white;
+        font-size: 0.75rem;
+        padding: 5px 15px;
+        border-radius: 5px;
+        display: inline-block;
+
+        &:not(:last-child) {
+            margin-bottom: 3px;
+        }
+    }
+    p{
+        margin-bottom: 0px;
+    }
+    
 }
 
 </style>
