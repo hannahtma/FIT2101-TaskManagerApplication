@@ -45,13 +45,6 @@
             if (localStorage.getItem("cards")){
                 this.productBacklog = JSON.parse(localStorage.getItem("cards"))
             }
-            console.log("here")
-            console.log(this.cards)
-            this.productBacklog = this.cards
-            // this.productBacklog = this.cards
-            
-            console.log("this.productBacklog",this.productBacklog)
-
         },
 
         components: {
