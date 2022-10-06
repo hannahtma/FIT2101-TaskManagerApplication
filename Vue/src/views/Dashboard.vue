@@ -319,10 +319,27 @@ export default {
         cards : Array,
         // test : String
     },
+    watch: {
+        cards: {
+            handler(){
+                localStorage.setItem("cards", JSON.stringify(this.displayCards))
+            },
+            deep: true
+        }
+        
+        // for (let i = 0; i < this.displayCards.length; i++) {
+        
+        // console.log(this.displayCards[i])
+        // }
+    },
     mounted(){
         this.displayCards = this.cards
-        console.log(this.cards)
-        console.log(this.displayCards)
+        // for (let i = 0; i < this.displayCards.length; i++) {
+        //     localStorage.setItem(this.displayCards[i].id, JSON.stringify(this.displayCards[i]))
+        //     console.log(this.displayCards[i])
+        // }
+        // console.log(this.cards)
+        // console.log(this.displayCards)
         // console.log(this.test)
         // this.showEdit = false
             
