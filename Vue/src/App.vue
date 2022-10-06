@@ -59,12 +59,11 @@ export default{
             // currentID: cards.length,
 
             sprints: [],
-            cardStorage: [],
 
         }
     },
     methods:{
-      addCards(card, id) {
+      addCards(card) {
             // this.cards = [...this.cards, ref(card)]
             this.cards.push(card)
             localStorage.setItem(card.id, card)
@@ -97,6 +96,10 @@ export default{
         goToDashboard() {
           this.$router.push('/Dashboard'); 
         },
+
+        displayProductBacklog(card) {
+          this.cards.push(card)
+        }
     }
 }
 </script>
