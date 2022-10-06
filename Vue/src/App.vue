@@ -62,6 +62,7 @@ export default{
 
         }
     },
+
     methods:{
       addCards(card) {
             // this.cards = [...this.cards, ref(card)]
@@ -94,7 +95,11 @@ export default{
         },
 
         goToDashboard() {
-          this.$router.push('/Dashboard'); 
+            this.$router.push('/Dashboard'); 
+        },
+
+        goToSprintBoard() {
+            this.$router.push('/SprintBoard');
         },
 
         displayProductBacklog(card) {
@@ -121,11 +126,11 @@ export default{
   <body>
     <nav class="navbar navbar-expand-sm">
         <!-- Brand -->
-        <a class="navbar-brand" href="index2.html">SCRUMFY</a>
+        <a class="navbar-brand" href="App">SCRUMFY</a>
         <!-- Links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" id="navLink" href="#">Dashboard</a>
+                <a class="nav-link active" id="navLink" href="#">Home</a>
             </li>
             <li class="nav-item dropdown" style="position:relative; left:30px;">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -164,7 +169,7 @@ export default{
             <button class="btn btn-primary me-md-2" type="button" onclick="location.href='App'">HOME</button>
         </div>
         <div class="d-grid gap-2">
-            <button class="btn btn-primary me-md-2" type="button" onclick="window.location.href='SprintBoard'">SPRINT BOARD</button>
+            <button class="btn btn-primary me-md-2" type="button" @click="goToSprintBoard()">SPRINT BOARD</button>
         </div>
         <div class="d-grid gap-2">
             <button class="btn btn-primary me-md-2" type="button" @click="goToDashboard()">TASK
