@@ -6,7 +6,7 @@
                 <div class="list">
                     <div class="list">
                         <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="displayProductBacklog()" class="product backlog row" :class="card.id" v-for="card in this.displayCards">
+                    <div @click="displayProductBacklog()" class="product backlog row" :class="card.id" v-for="card in this.productBacklog">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -27,7 +27,7 @@
 
 <script>
     import Button from '@/components/Button.vue';
-    import addTaskCardToProductBacklog from '@/components/addCardToProductBacklog.vue';
+    import AddCardToProductBacklog from '@/components/addCardToProductBacklog.vue';
 
     export default{
         props: {
@@ -35,27 +35,60 @@
         },
 
         mounted(){
-            this.displayCards = this.cards
+            this.productBacklog = this.cards
+            let i = 0
+            while (localStorage.getItem(i) !== null) {
+                this.productBacklog.push(localStorage.getItem(i))
+                i ++
+            }
+            console.log("this.productBacklog",this.productBacklog)
+
         },
 
         components: {
             Button,
+            AddCardToProductBacklog,
         },
 
         methods: {
-            displayProductBacklog() {
+            displayProductBacklog(card) {
                 this.$emit("add-card",card)
-                // this.displayCards=localStorage.getItem("cards")
-
-                for (let i = 0; i < this.cards.length; i++) {
-                    this.displayCards = localStorage.getItem(cardID)
+                this.productBacklog = this.cards
+                // this.productBacklog = this.cards
+                console.log("product backlog? ",this.productBacklog)
+                let i = 0
+                while (localStorage.getItem(i) !== null) {
+                    this.productBacklog.push(localStorage.getItem(i))
+                    i ++
                 }
-            }
+                console.log(this.cards)
+                
+            },
+
+            showCardInProductBacklog(id){
+                this.cardId = id
+                this.showEdit = !this.showEdit
+                this.selectedCard = this.cards.find((card)=>card.id ===id)
+                // this.$emit("edit-card",id)
+                
+            },
         },
 
         data() {
             return {
-                displayCards: [],
+                productBacklog: [],
+                displayProductBacklog(card) {
+                    this.$emit("add-card",card)
+                    this.productBacklog = this.cards
+                    // this.productBacklog = this.cards
+                    console.log(this.cards.length)
+                    console.log("product backlog? ",this.cards)
+                    for (let i = 0; i < 1000; i++) {
+                        this.productBacklog.push(localStorage.getItem(i))
+                    }
+                    console.log(this.cards)
+                    
+                },
             }
         }
     }
