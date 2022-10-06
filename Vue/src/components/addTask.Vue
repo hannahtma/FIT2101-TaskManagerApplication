@@ -280,7 +280,8 @@ export default {
         tags: [tag],
         type:type,
         priority: priority,
-        assign:assign
+        assign:assign,
+        list:1
 
       }
       console.log(card)

@@ -1,28 +1,65 @@
 <template>
     <body>
         <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
-        <div class="app">
-            <div class="lists">
-                <div class="list">
-                    <div class="list">
-                        <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="onClickCardInProductBacklog(card.id)" class="product-backlog row" :class="card.id" v-for="card in this.productBacklog">
-                        <h3>{{card.taskName}}</h3>
-                        <p>Description: {{card.description}}</p>
-                        <div>Status: {{card.status}}</div>
-                        <div>Type: {{card.type}}</div>
-                        <div class="story-points">
-                            {{card.storyPoints}}
-                        </div>
-                        <div>Assigned To: {{card.assign}}</div>
-                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+
+        <div 
+            class="drop-zone1"
+            @drop="onDrop($event, 1)"
+            @dragenetr.prevent
+            @dragover.prevent
+        >
+            <div 
+                @click="onClickCardInProductBacklog(card.id)"
+                v-for="card in listOne"
+                :key="card.id"
+                :class="card.id" 
+                class="product-backlog row"
+                draggable="true"
+                @dragstart="startDrag($event, card)"
+            >
+                <h3>{{card.taskName}}</h3>
+                    <p >Description: {{card.description}}</p>
+                    <div>Status: {{card.status}}</div>
+                    <div>Type: {{card.type}}</div>
+                    <div class="story-points">
+                        {{card.storyPoints}}
                     </div>
-                    </div>
+                    <div>Assigned To: {{card.assign}}</div>
+                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                 </div>
-                <div class="list"></div>
+        </div>
+
+        <div 
+            class="drop-zone2"
+            @drop="onDrop($event, 2)"
+            @dragenetr.prevent
+            @dragover.prevent
+        >
+            <div 
+                @click="onClickCardInProductBacklog(card.id)"
+                v-for="card in listTwo" 
+                :key="card.id"
+                :class="card.id" 
+                class="product-backlog row"
+                draggable="true"
+                @dragstart="startDrag($event, card)"
+            >
+                <h3>{{card.taskName}}</h3>
+                    <p>Description: {{card.description}}</p>
+                    <div>Status: {{card.status}}</div>
+                    <div>Type: {{card.type}}</div>
+                    <div class="story-points">
+                        {{card.storyPoints}}
+                    </div>
+                    <div>Assigned To: {{card.assign}}</div>
+                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
             </div>
         </div>
     </body>
+
+    
+
+
 </template>    
 
 <script>
@@ -59,14 +96,40 @@
             //     this.selectedCard = this.cards.find((card)=>card.id ===id)
             //     // this.$emit("edit-card",id)
             // },
+            startDrag(event, card) {
+                console.log(card)
+                event.dataTransfer.dropEffect = "move"
+                event.dataTransfer.effectAllowed = "move"
+                event.dataTransfer.setData("cardID", card.id)
+            },
+
+            onDrop(event, list) {
+                var cardID = event.dataTransfer.getData("cardID")
+                var card = localStorage.getItem((card) => card.id == cardID)
+                card.list = list
+            },
+
         },
+
+        computed: {
+            listOne: function () {
+                return this.cards.filter(i => i.list === 1)
+                },
+            listTwo: function () {
+                return this.cards.filter(i => i.list === 2)
+                }
+            },
 
         data() {
             return {
                 productBacklog: [],
                 // showEdit: false,
             }
-        }
+        },
+
+        
+        
+        
     }
 
 </script>
@@ -223,6 +286,33 @@ body {
         margin-bottom: 0px;
     }
     
+}
+
+.drop-zone1 {
+  width: 500px;
+  margin: 50px auto;
+  background-color: rgb(201, 152, 197);
+  padding: 10px;
+  min-height: 10px;
+}
+
+.drop-zone2 {
+  width: 500px;
+  margin: 50px auto;
+  background-color: rgb(201, 152, 197);
+  padding: 10px;
+  min-height: 10px;
+}
+
+.product-backlog {
+  background-color: rgb(138, 105, 136);
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.product-backlog:nth-last-of-type(1) {
+  margin-bottom: 0;
 }
 
 </style>
