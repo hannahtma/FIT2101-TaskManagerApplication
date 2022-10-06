@@ -99,6 +99,46 @@
     }
 </script>
 
-<style>
+<style scoped lang="scss">
+.card {
+    background: white;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    padding: 20px;
+
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
+
+    &.critical{
+        background-color:#ff6961;
+    }
+    &.high{
+        background-color:#fdfd96;
+    }
+    &.medium{
+        background-color:#ffb347;
+    }
+    &.low{
+        background-color:#cff0cc;
+    }
+
+    .tag {
+        background: #01819A;
+        color: white;
+        font-size: 0.75rem;
+        padding: 5px 15px;
+        border-radius: 5px;
+        display: inline-block;
+
+        &:not(:last-child) {
+            margin-bottom: 3px;
+        }
+    }
+    p{
+        margin-bottom: 0px;
+    }
+    
+}
 
 </style>
