@@ -38,7 +38,7 @@
         <li>
           <div>
             <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-              data-bs-target="#exampleModal" style="left: -10px">Create Task +
+              data-bs-target="#exampleModal" style="left: -10px">Start Sprint
             </button>
           </div>
         </li>
@@ -53,16 +53,18 @@
           cards : Array,
             // test : String
         },
+
+        mounted() {
+
+        },
      
         data() {
             return {
-            TASK_KEY: "allTasksData",
-            allTasks: [],
             }
         },
       
         methods: {
-            addTaskCardToProductBacklog() {
+            addCardToProductBacklog() {
             let newTitle = document.getElementById("task-title").value;
             let newDesc = document.getElementById("task-desc").value;
             let storyPoint = document.getElementById('story-point').value;
@@ -72,24 +74,26 @@
             let assign = document.getElementById('assign').value;
             let priority = document.getElementById('priority').value;
 
-            this.displayCard(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
+            this.displayCardInProductBacklog(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
             },
         
             displayCardInProductBacklog(title, desc, story,status,tag,type,assign,priority) {
-            let card = {
-        
-                id: this.cards.length,
-                taskName: title,
-                description: desc,
-                status: status,
-                storyPoints: story,
-                tags: [tag],
-                type:type,
-                priority: priority,
-                assign:assign
-        
-            }
-            this.$emit('display-card-in-product-backlog', card)
+                console.log("cards: ",this.cards)
+                let card = {
+            
+                    id: this.cards.length,
+                    taskName: title,
+                    description: desc,
+                    status: status,
+                    storyPoints: story,
+                    tags: [tag],
+                    type:type,
+                    priority: priority,
+                    assign:assign
+            
+                }
+                console.log(card)
+                this.$emit('display-card-in-product-backlog', card)
             }
         }
     }
