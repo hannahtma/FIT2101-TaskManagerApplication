@@ -319,6 +319,7 @@ export default {
         cards : Array,
         // test : String
     },
+    
     watch: {
         cards: {
             handler(){
@@ -326,30 +327,18 @@ export default {
             },
             deep: true
         }
-        
-        // for (let i = 0; i < this.displayCards.length; i++) {
-        
-        // console.log(this.displayCards[i])
-        // }
     },
+
     mounted(){
         this.displayCards = this.cards
-        // for (let i = 0; i < this.displayCards.length; i++) {
-        //     localStorage.setItem(this.displayCards[i].id, JSON.stringify(this.displayCards[i]))
-        //     console.log(this.displayCards[i])
-        // }
-        // console.log(this.cards)
-        // console.log(this.displayCards)
-        // console.log(this.test)
-        // this.showEdit = false
-            
+        if (localStorage.getItem("cards")){
+                this.displayCards = JSON.parse(localStorage.getItem("cards"))
+            }
     },
+
     components: {
         Button,
         AddTask,
-        
-
-
     },
     
     methods: {
