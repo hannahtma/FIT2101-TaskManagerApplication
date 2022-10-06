@@ -5,7 +5,7 @@
     <!-- Links -->
     <ul class="navbar-nav" style="position:absolute">
       <li class="nav-item">
-        <a class="nav-link active" id="navLink" href="#">Dashboard</a>
+        <a class="nav-link active" id="navLink" href="#">Home</a>
       </li>
       <li class="nav-item dropdown" style="position: relative; left: 10px">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
