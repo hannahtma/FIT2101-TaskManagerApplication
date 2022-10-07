@@ -107,6 +107,10 @@ export default{
         goToSprintBoard() {
             this.$router.push('sprintboard');
         },
+        
+        goToHome() {
+            this.$router.push('app');
+        },
 
         displayProductBacklog(card) {
           this.cards.push(card)
@@ -172,7 +176,7 @@ export default{
 
     <div class="container">
         <div class="d-grid gap-2">
-            <button class="btn btn-primary me-md-2" type="button" onclick="location.href='App'">HOME</button>
+            <button class="btn btn-primary me-md-2" type="button" @click="goToHome()">HOME</button>
         </div>
         <div class="d-grid gap-2">
             <button class="btn btn-primary me-md-2" type="button" @click="goToSprintBoard()">SPRINT BOARD</button>

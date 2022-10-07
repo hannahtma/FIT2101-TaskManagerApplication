@@ -223,10 +223,10 @@ body {
         background-color:#ff6961;
     }
     &.high{
-        background-color:#fdfd96;
+        background-color:#ffb347;
     }
     &.medium{
-        background-color:#ffb347;
+        background-color:#fdfd96;
     }
     &.low{
         background-color:#cff0cc;
