@@ -330,10 +330,10 @@ export default {
     },
 
     mounted(){
-        // this.displayCards = this.cards
-        // if (localStorage.getItem("cards")){
-        //         this.displayCards = JSON.parse(localStorage.getItem("cards"))
-        //     }
+        this.displayCards = this.cards
+        if (localStorage.getItem("cards")){
+                this.displayCards = JSON.parse(localStorage.getItem("cards"))
+            }
     },
 
     components: {
