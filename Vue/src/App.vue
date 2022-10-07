@@ -95,11 +95,17 @@ export default{
         },
 
         goToDashboard() {
-            this.$router.push('/Dashboard'); 
+            this.$router.push({
+                path: '/dashboard',
+                name: 'dashboard',
+                // route level code-splitting
+                // this generates a separate chunk (About.[hash].js) for this route
+                // which is lazy-loaded when the route is visited.
+            }); 
         },
 
         goToSprintBoard() {
-            this.$router.push('/SprintBoard');
+            this.$router.push('sprintboard');
         },
 
         displayProductBacklog(card) {
