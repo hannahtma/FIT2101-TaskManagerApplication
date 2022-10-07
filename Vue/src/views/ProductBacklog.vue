@@ -6,7 +6,7 @@
                 <div class="list">
                     <div class="list">
                         <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="onClickCardInProductBacklog(card.id)" class="product-backlog row" :class="card.id" v-for="card in this.productBacklog">
+                    <div @click="onClickCardInProductBacklog(card.id)" class="product-backlog row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -20,6 +20,27 @@
                     </div>
                 </div>
                 <div class="list"></div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cardPopupProductBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{this.selectedCard.taskName}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Description: {{this.selectedCard.description}}</p>
+                    <div>Status: {{this.selectedCard.status}}</div>
+                    <div>Type: {{this.selectedCard.type}}</div>
+                    <div class="story-points">
+                        {{this.selectedCard.storyPoints}}
+                    </div>
+                    <div>Assigned To: {{this.selectedCard.assign}}</div>
+                    <span class="tag" v-for="tag in this.selectedCard.tags">{{tag}}</span>
+                </div>
+                </div>
             </div>
         </div>
     </body>
@@ -53,18 +74,22 @@
                 this.productBacklog = this.cards
             },
 
-            // showCardInProductBacklog(id){
-            //     this.cardId = id
-            //     this.showEdit = !this.showEdit
-            //     this.selectedCard = this.cards.find((card)=>card.id ===id)
-            //     // this.$emit("edit-card",id)
-            // },
+            onClickCardInProductBacklog(id){
+                this.cardId = id
+                this.showCardInProductBacklog = !this.showCardInProductBacklog
+                this.selectedCard = this.productBacklog.find((card)=>card.id ===id)
+                console.log(this.productBacklog)
+                console.log(this.productBacklog.find((card)=>card.id ===id))
+                // this.$emit("edit-card",id)
+            },
         },
 
         data() {
             return {
                 productBacklog: [],
-                // showEdit: false,
+                showCardInProductBacklog: false,
+                selectedCard:{},
+
             }
         }
     }

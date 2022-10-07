@@ -72,7 +72,7 @@ export default {
         },
 
         goToProductBacklog() {
-            this.$router.push('/ProductBacklog');
+            this.$router.push('productbacklog');
         },
     }
 }
