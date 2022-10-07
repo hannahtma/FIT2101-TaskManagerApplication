@@ -1,12 +1,12 @@
 <template>
     <body>
         <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
-        <div class="app">
-            <div class="lists">
-                <div class="list">
-                    <div class="list">
-                        <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="onClickCardInProductBacklog(card.id)" class="product-backlog row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog">
+        
+        <div class="container text-start">
+            <div class="row align-items-top" >
+                <div class="col">
+                    <!-- <div class="row" id="progress3">Deployed</div> -->
+                    <div @click="onClickCardInProductBacklog(card.id)" class="card row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -17,11 +17,12 @@
                         <div>Assigned To: {{card.assign}}</div>
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                     </div>
-                    </div>
                 </div>
-                <div class="list"></div>
+                <div class="col"></div>
             </div>
+                
         </div>
+    
 
         <div class="modal fade" id="cardPopupProductBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -97,85 +98,85 @@
 </script>
 
 <style scoped lang="scss">
-    nav.navbar.navbar-expand-sm {
-    background-color: #ec746c;
-}
+//     nav.navbar.navbar-expand-sm {
+//     background-color: #ec746c;
+// }
 
-ul.navbar-nav {
-    position: relative;
-    left: 30px;
-}
+// ul.navbar-nav {
+//     position: relative;
+//     left: 30px;
+// }
 
-#navbarDropdown,
-#navbarDropdown2,
-#navbarDropdown3,
-#navLink {
-    font-weight: 500;
-    text-transform: uppercase;
-}
+// #navbarDropdown,
+// #navbarDropdown2,
+// #navbarDropdown3,
+// #navLink {
+//     font-weight: 500;
+//     text-transform: uppercase;
+// }
 
-a.nav-link.active {
-    color: white;
-}
+// a.nav-link.active {
+//     color: white;
+// }
 
-a.navbar-brand {
-    color: black;
-    position: relative;
-    left: 20px;
-    top: -1px;
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-style: italic;
-}
-a.navbar-brand:hover {
-    color: black;
-}
+// a.navbar-brand {
+//     color: black;
+//     position: relative;
+//     left: 20px;
+//     top: -1px;
+//     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+//     font-style: italic;
+// }
+// a.navbar-brand:hover {
+//     color: black;
+// }
 
-a.dropdown-item {
-    color: white;
-}
+// a.dropdown-item {
+//     color: white;
+// }
 
-div.dropdown-menu {
-    background-color: black;
-}
+// div.dropdown-menu {
+//     background-color: black;
+// }
 
-#createId {
-    position: relative;
-    left: 120px;
-    background-color: black;
-    text-transform: uppercase;
-    font-size: smaller;
-    top: 2.5px;
-}
+// #createId {
+//     position: relative;
+//     left: 120px;
+//     background-color: black;
+//     text-transform: uppercase;
+//     font-size: smaller;
+//     top: 2.5px;
+// }
 
-div.card {
-    margin-left: 10px;
-    margin-top: 10px;
-}
+// div.card {
+//     margin-left: 10px;
+//     margin-top: 10px;
+// }
 
-.btn-primary {
-    background-color: #ec746c;
-}
+// .btn-primary {
+//     background-color: #ec746c;
+// }
 
-/* ----------------------------- */
+// /* ----------------------------- */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
 
-body {
-    background-color: #ffce00;
-    font-family: "Roboto", Helvetica, sans-serif;
-}
+// body {
+//     background-color: white;
+//     font-family: "Roboto", Helvetica, sans-serif;
+// }
 
-.app {
-    display: flex;
-    flex-flow: column;
+// .app {
+//     display: flex;
+//     flex-flow: column;
 
-    width: 100vw;
-    height: 100vh;
-}
+//     width: 100vw;
+//     height: 100vh;
+// }
 
 .lists {
     display: flex;
@@ -209,45 +210,45 @@ body {
     margin: 4px 0px;
 }
 
-.product-backlog {
-    background: white;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    padding: 20px;
+// .product-backlog {
+//     background: white;
+//     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+//     border-radius: 10px;
+//     padding: 20px;
 
-    &:not(:last-child) {
-        margin-bottom: 10px;
-    }
+//     &:not(:last-child) {
+//         margin-bottom: 10px;
+//     }
 
-    &.critical{
-        background-color:#ff6961;
-    }
-    &.high{
-        background-color:#fdfd96;
-    }
-    &.medium{
-        background-color:#ffb347;
-    }
-    &.low{
-        background-color:#cff0cc;
-    }
+//     &.critical{
+//         background-color:#ff6961;
+//     }
+//     &.high{
+//         background-color:#fdfd96;
+//     }
+//     &.medium{
+//         background-color:#ffb347;
+//     }
+//     &.low{
+//         background-color:#cff0cc;
+//     }
 
-    .tag {
-        background: #01819A;
-        color: white;
-        font-size: 0.75rem;
-        padding: 5px 15px;
-        border-radius: 5px;
-        display: inline-block;
+//     .tag {
+//         background: #01819A;
+//         color: white;
+//         font-size: 0.75rem;
+//         padding: 5px 15px;
+//         border-radius: 5px;
+//         display: inline-block;
 
-        &:not(:last-child) {
-            margin-bottom: 3px;
-        }
-    }
-    p{
-        margin-bottom: 0px;
-    }
+//         &:not(:last-child) {
+//             margin-bottom: 3px;
+//         }
+//     }
+//     p{
+//         margin-bottom: 0px;
+//     }
     
-}
+// }
 
 </style>
