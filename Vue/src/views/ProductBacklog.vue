@@ -18,13 +18,44 @@
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                     </div>
                 </div>
-                <div class="col"></div>
-            </div>
-                
+                <div class="col">
+                    <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupSprintBacklog" v-for="card in this.sprintBacklog">
+                        <h3>{{card.taskName}}</h3>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                    </div>  
+                </div>
+            </div>        
         </div>
     
-
         <div class="modal fade" id="cardPopupProductBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{this.selectedCard.taskName}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Description: {{this.selectedCard.description}}</p>
+                    <div>Status: {{this.selectedCard.status}}</div>
+                    <div>Type: {{this.selectedCard.type}}</div>
+                    <div class="story-points">
+                        {{this.selectedCard.storyPoints}}
+                    </div>
+                    <div>Assigned To: {{this.selectedCard.assign}}</div>
+                    <span class="tag" v-for="tag in this.selectedCard.tags">{{tag}}</span>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="cardPopupInSprintBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -82,6 +113,25 @@
                 console.log(this.productBacklog)
                 console.log(this.productBacklog.find((card)=>card.id ===id))
                 // this.$emit("edit-card",id)
+            },
+
+            displaySprintBacklog(card) {
+                this.$emit("add-card",card)
+            },
+
+            onClickCardInSprintBacklog(id){
+                this.cardId = id
+                this.showCardInSprintBacklog = !this.showCardInSprintBacklog
+                this.selectedCard = this.sprintBacklog.find((card)=>card.id ===id)
+                console.log(this.sprintBacklog)
+                console.log(this.sprintBacklog.find((card)=>card.id ===id))
+                // this.$emit("edit-card",id)
+            },
+
+            startDrag(evt, card) {
+                evt.dataTransfer.dropEffect = 'move'
+                evt.dataTransfer.effectAllowed = 'move'
+                evt.dataTransfer.setData('cardID', card.id)
             },
         },
 
