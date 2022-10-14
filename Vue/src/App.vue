@@ -104,7 +104,11 @@ export default{
 
         displayProductBacklog(card) {
           this.cards.push(card)
-        }
+        },
+        // onDrop(list, cardID) {
+        //     const card = this.cards.find((card)=>card.id ===cardID)
+        //     card.list = list
+        // }
     }
 }
 </script>
@@ -183,7 +187,7 @@ export default{
 
   </body>
 
-  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" :sprints="sprints"/>
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" @drop="onDrop" :sprints="sprints"/>
 </template>
 
 <style>

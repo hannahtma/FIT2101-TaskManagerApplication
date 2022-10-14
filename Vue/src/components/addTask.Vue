@@ -281,7 +281,7 @@ export default {
         type:type,
         priority: priority,
         assign:assign,
-        list:1
+        list:1,
 
       }
       console.log(card)

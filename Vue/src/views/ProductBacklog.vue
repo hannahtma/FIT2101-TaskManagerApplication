@@ -4,13 +4,13 @@
 
         <div 
             class="drop-zone1"
-            @drop="onDrop($event, 1)"
+            @drop="onDrop($event, productBacklog)"
             @dragenetr.prevent
             @dragover.prevent
         >
             <div 
                 @click="onClickCardInProductBacklog(card.id)"
-                v-for="card in listOne"
+                v-for="card in productBacklog"
                 :key="card.id"
                 :class="card.id" 
                 class="product-backlog row"
@@ -31,13 +31,13 @@
 
         <div 
             class="drop-zone2"
-            @drop="onDrop($event, 2)"
+            @drop="onDrop($event, sprintBacklog)"
             @dragenetr.prevent
             @dragover.prevent
         >
             <div 
                 @click="onClickCardInProductBacklog(card.id)"
-                v-for="card in listTwo" 
+                v-for="card in sprintBacklog" 
                 :key="card.id"
                 :class="card.id" 
                 class="product-backlog row"
@@ -104,32 +104,32 @@
             },
 
             onDrop(event, list) {
-                var cardID = event.dataTransfer.getData("cardID")
-                var card = localStorage.getItem((card) => card.id == cardID)
-                card.list = list
+                const cardID = event.dataTransfer.getData("cardID")
+                const card = this.productBacklog.find((card) => card.id === cardID)
+                this.sprintBacklog.push(card)
+                console.log(this.productBacklog)
+                console.log(this.sprintBacklog)
+                // this.$emit('drop',list, cardID)
             },
-
         },
 
         computed: {
             listOne: function () {
-                return this.cards.filter(i => i.list === 1)
+                return this.cards.filter(card => card.list === 1)
                 },
             listTwo: function () {
-                return this.cards.filter(i => i.list === 2)
-                }
+                return this.cards.filter(card => card.list === 2)
+                },
             },
 
         data() {
             return {
                 productBacklog: [],
+                selectedCardID: 0,
+                sprintBacklog: [],
                 // showEdit: false,
             }
-        },
-
-        
-        
-        
+        }, 
     }
 
 </script>
@@ -301,7 +301,7 @@ body {
   margin: 50px auto;
   background-color: rgb(201, 152, 197);
   padding: 10px;
-  min-height: 10px;
+  min-height: 40px;
 }
 
 .product-backlog {
