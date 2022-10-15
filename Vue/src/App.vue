@@ -58,8 +58,6 @@ export default{
             ],
             // currentID: cards.length,
 
-            sprints: [],
-
         }
     },
 
@@ -67,7 +65,7 @@ export default{
       addCards(card) {
             // this.cards = [...this.cards, ref(card)]
             this.cards.push(card)
-            localStorage.setItem(card.id, card)
+            // localStorage.setItem(card.id, card)
             // console.log(this.cards)
             // this.$emit("add-card",card)
 
@@ -114,6 +112,16 @@ export default{
 
         displayProductBacklog(card) {
           this.cards.push(card)
+        },
+        onDropDelete(id){
+            console.log(this.cards)
+            this.cards = this.cards.filter((task)=> task.id !== id)
+            console.log(this.cards)
+        },
+        onDropAdd(passCard){
+            this.cards.push(passCard)
+            console.log(this.cards)
+
         }
     }
 }
@@ -124,7 +132,8 @@ export default{
 
 
 
-  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" :sprints="sprints"/>
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
+  @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd"/>
 </template>
 
 <style lang="scss">

@@ -2,6 +2,11 @@
     <body>
         <AddSprintBoard :sprints="this.sprints" @display-sprint-board="addSprintBoards"/>
         <h2>My Sprints</h2>
+
+        <div class="container">
+            <Button :text = "'test'" />
+            
+        </div>
     </body>
 </template>
 
@@ -19,8 +24,7 @@
 
         methods: {
             addSprintBoards(sprintBoard) {
-                this.$emit("add-sprint-board",sprintBoard)
-                this.displaySprintBoards=this.sprints
+                this.sprints.push(sprintBoard)
             },
 
             onClickSprintBoard(id){
@@ -32,7 +36,7 @@
 
         data() {
             return {
-                displaySprintBoards: [],
+                sprints : []
             }
         }
     }
