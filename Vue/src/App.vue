@@ -58,8 +58,6 @@ export default{
             ],
             // currentID: cards.length,
 
-            sprints: [],
-
         }
     },
 
@@ -124,7 +122,7 @@ export default{
 
 
 
-  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" :sprints="sprints"/>
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" />
 </template>
 
 <style lang="scss">

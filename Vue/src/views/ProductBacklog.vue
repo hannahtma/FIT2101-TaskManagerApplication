@@ -108,7 +108,7 @@
 
             onClickCardInProductBacklog(id){
                 this.cardId = id
-                this.showCardInProductBacklog = !this.showCardInProductBacklog
+                // this.showCardInProductBacklog = !this.showCardInProductBacklog
                 this.selectedCard = this.productBacklog.find((card)=>card.id ===id)
                 console.log(this.productBacklog)
                 console.log(this.productBacklog.find((card)=>card.id ===id))

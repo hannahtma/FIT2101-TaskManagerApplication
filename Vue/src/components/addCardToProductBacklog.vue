@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-sm">
       <!-- Brand -->
-      <a class="navbar-brand" href="HTML File.html">SCRUMFY</a>
+      <a class="navbar-brand" >SCRUMFY</a>
       <!-- Links -->
       <ul class="navbar-nav" style="position:absolute">
         <li class="nav-item">
