@@ -37,7 +37,7 @@
         </li>
         <li>
           <div>
-            <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
+            <button @click="addToSprintList" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
               data-bs-target="#exampleModal" style="left: -10px">Start Sprint
             </button>
           </div>
@@ -64,37 +64,37 @@
         },
       
         methods: {
-            addCardToProductBacklog() {
-            let newTitle = document.getElementById("task-title").value;
-            let newDesc = document.getElementById("task-desc").value;
-            let storyPoint = document.getElementById('story-point').value;
-            let status = document.getElementById('status').value;
-            let tag = document.getElementById('tag').value;
-            let type = document.getElementById('type').value;
-            let assign = document.getElementById('assign').value;
-            let priority = document.getElementById('priority').value;
+            // addCardToProductBacklog() {
+            // let newTitle = document.getElementById("task-title").value;
+            // let newDesc = document.getElementById("task-desc").value;
+            // let storyPoint = document.getElementById('story-point').value;
+            // let status = document.getElementById('status').value;
+            // let tag = document.getElementById('tag').value;
+            // let type = document.getElementById('type').value;
+            // let assign = document.getElementById('assign').value;
+            // let priority = document.getElementById('priority').value;
 
-            this.displayCardInProductBacklog(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
-            },
+            // this.displayCardInProductBacklog(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
+            // },
         
-            displayCardInProductBacklog(title, desc, story,status,tag,type,assign,priority) {
-                console.log("cards: ",this.cards)
-                let card = {
+            // displayCardInProductBacklog(title, desc, story,status,tag,type,assign,priority) {
+            //     console.log("cards: ",this.cards)
+            //     let card = {
             
-                    id: this.cards.length,
-                    taskName: title,
-                    description: desc,
-                    status: status,
-                    storyPoints: story,
-                    tags: [tag],
-                    type:type,
-                    priority: priority,
-                    assign:assign
+            //         id: this.cards.length,
+            //         taskName: title,
+            //         description: desc,
+            //         status: status,
+            //         storyPoints: story,
+            //         tags: [tag],
+            //         type:type,
+            //         priority: priority,
+            //         assign:assign
             
-                }
-                console.log(card)
-                this.$emit('display-card-in-product-backlog', card)
-            }
+            //     }
+            //     console.log(card)
+            //     this.$emit('display-card-in-product-backlog', card)
+            // }
         }
     }
 </script>

@@ -5,6 +5,7 @@
 
         <div class="container">
             <Button :text = "'test'" />
+           
             
         </div>
     </body>
@@ -13,10 +14,15 @@
 <script>
     import Button from '@/components/Button.vue';
     import AddSprintBoard from '@/components/addSprintBoard.vue';
-
-    import { ref } from 'vue';
+    
 
     export default {
+        props:{
+            sprints: Array,
+        },
+        mounted(){
+            console.log(this.sprints)
+        },
         components: {
             Button,
             AddSprintBoard,
@@ -32,11 +38,14 @@
                 this.showProductBacklog = !this.showProductBacklog
                 
             },
+           
         },
 
         data() {
             return {
-                sprints : []
+                // sprints : [],
+                
+
             }
         }
     }
