@@ -324,14 +324,17 @@ export default {
         cards: {
             handler(){
                 localStorage.setItem("cards", JSON.stringify(this.displayCards))
+                console.log('watch',this.cards)
             },
             deep: true
         }
     },
 
     mounted(){
-        this.displayCards = this.cards
+        // this.displayCards = this.cards
+        // console.log(JSON.parse(localStorage.getItem("cards")))
         if (localStorage.getItem("cards")){
+            console.log('mount',JSON.parse(localStorage.getItem("cards")))
                 this.displayCards = JSON.parse(localStorage.getItem("cards"))
             }
     },

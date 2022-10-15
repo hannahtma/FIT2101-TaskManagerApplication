@@ -1,12 +1,13 @@
 <template>
     <body>
-        <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
         
+    <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
         <div class="container text-start">
             <div class="row align-items-top" >
-                <div class="col">
+                <div class="col" @drop="onDrop($event, 'product')" @dragover.prevent @dragenter.prevent>
                     <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="onClickCardInProductBacklog(card.id)" class="card row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog">
+                    <div @click="onClickCardInProductBacklog(card.id)" class="card row" :class="card.priority"  data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog"
+                    draggable="true" @dragstart="startDrag($event, card)">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -18,8 +19,9 @@
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                     </div>
                 </div>
-                <div class="col">
-                    <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupSprintBacklog" v-for="card in this.sprintBacklog">
+                <div class="col" @drop="onDrop($event, 'sprint')" @dragover.prevent @dragenter.prevent>
+                    <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#cardPopupSprintBacklog" v-for="card in this.sprintBacklog"
+                    draggable="true" @dragstart="startDrag($event, card)">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -85,15 +87,39 @@
 
     export default{
         props: {
-            cards: Array
+            id: Number //this is for the sprint length
         },
-
+        
+        // watch: {
+        //     productBacklog: {
+        //         handler(){
+        //             console.log(this.productBacklog)
+        //             localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                    
+        //         },
+        //         deep: true
+        //     },
+        //     sprintBacklog: {
+        //         handler(){
+        //             localStorage.setItem("sprint"+this.id, JSON.stringify(this.sprintBacklog))
+        //             // console.log('test')
+        //         },
+        //         deep: true
+        //     }
+        // },
         mounted(){
+            // this.productBacklog = this.cards
+            // console.log(this.cards)
+
             if (localStorage.getItem("cards")){
                 this.productBacklog = JSON.parse(localStorage.getItem("cards"))
+                // console.log(this.productBacklog)
+            }
+            if (localStorage.getItem("sprint"+this.id)){
+                this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.id))
+                console.log(this.sprintBacklog)
             }
         },
-
         components: {
             Button,
             AddCardToProductBacklog,
@@ -121,17 +147,41 @@
 
             onClickCardInSprintBacklog(id){
                 this.cardId = id
-                this.showCardInSprintBacklog = !this.showCardInSprintBacklog
+                // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
                 this.selectedCard = this.sprintBacklog.find((card)=>card.id ===id)
                 console.log(this.sprintBacklog)
                 console.log(this.sprintBacklog.find((card)=>card.id ===id))
                 // this.$emit("edit-card",id)
             },
 
-            startDrag(evt, card) {
-                evt.dataTransfer.dropEffect = 'move'
-                evt.dataTransfer.effectAllowed = 'move'
-                evt.dataTransfer.setData('cardID', card.id)
+            startDrag(event, card) {
+                console.log(card)
+                event.dataTransfer.dropEffect = 'move'
+                event.dataTransfer.effectAllowed = 'move'
+                event.dataTransfer.setData('cardID', card.id)
+            },
+
+            onDrop(event, dropList) {
+                const cardID = event.dataTransfer.getData('cardID')
+                if (dropList === 'sprint'){
+                    const returnCard = this.productBacklog.find((card) => card.id == cardID)
+                    this.productBacklog = this.productBacklog.filter((card)=> card!==returnCard)
+                    this.sprintBacklog.push(returnCard)
+                    this.$emit('on-drop-delete',returnCard.id)
+                }
+                else{
+                    const returnCard = this.sprintBacklog.find((card) => card.id == cardID)
+                    console.log(this.sprintBacklog)
+                    this.sprintBacklog = this.sprintBacklog.filter((card)=> card!==returnCard)
+                    console.log(this.sprintBacklog)
+                    localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                    this.productBacklog.push(returnCard)
+                    this.$emit('on-drop-add',returnCard)
+
+                }
+                localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                localStorage.setItem("sprint"+this.id, JSON.stringify(this.sprintBacklog))
+                
             },
         },
 
@@ -140,6 +190,7 @@
                 productBacklog: [],
                 showCardInProductBacklog: false,
                 selectedCard:{},
+                sprintBacklog: [],
 
             }
         }
