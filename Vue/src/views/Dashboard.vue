@@ -335,7 +335,9 @@ export default {
         // console.log(JSON.parse(localStorage.getItem("cards")))
         if (localStorage.getItem("cards")){
             console.log('mount',JSON.parse(localStorage.getItem("cards")))
-                this.displayCards = JSON.parse(localStorage.getItem("cards"))
+            const localCards = JSON.parse(localStorage.getItem("cards"))
+            this.$emit('load-card-from-local-storage',localCards)
+                this.displayCards = localCards
             }
     },
 

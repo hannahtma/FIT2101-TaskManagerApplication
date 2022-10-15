@@ -126,8 +126,11 @@ export default{
         },
         addToSprint(sprint){
           this.sprints.push(sprint)
-          console.log(this.sprints, 'app')
+          // console.log(this.sprints, 'app')
         },
+        loadCards(cards){
+          this.cards = cards
+        }
     }
 }
 </script>
@@ -138,7 +141,7 @@ export default{
 
 
   <RouterView :cards="cards" :sprints="sprints"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
-  @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd" @add-to-sprint="addToSprint"/>
+  @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd" @add-to-sprint="addToSprint" @load-card-from-local-storage="loadCards"/>
 </template>
 
 <style lang="scss">

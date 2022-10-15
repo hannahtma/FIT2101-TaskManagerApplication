@@ -368,6 +368,7 @@
                 }
                 console.log(sprint)
                 this.$emit('add-to-sprint',sprint)
+                this.$router.pop()
             }
         },
 
