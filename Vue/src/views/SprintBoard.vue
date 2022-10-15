@@ -1,7 +1,6 @@
 <template>
     <body>
         <AddSprintBoard :sprints="this.sprints" @display-sprint-board="addSprintBoards"/>
-        <h2>My Sprints</h2>
     </body>
 </template>
 
