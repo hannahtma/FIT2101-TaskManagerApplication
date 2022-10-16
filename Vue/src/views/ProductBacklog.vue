@@ -255,6 +255,7 @@
     import Button from '@/components/Button.vue';
     import AddCardToProductBacklog from '@/components/addCardToProductBacklog.vue';
     import AddTask from '@/components/addTask.vue';
+    import {toRaw} from 'vue';
 
     export default{
         props: {
@@ -285,19 +286,40 @@
             // this.productBacklog = this.cards
             // console.log(this.cards)
             console.log('mount')
-            console.log(this.clickSprint)
-            if (this.clickSprint){
-                this.onCreate = !this.onCreate
+            console.log(this.$route.query.clickSprint)
+            
+            // console.log(this.$route.params.data)
+            // this.onCreate = this.$route.params.data
+            // console.log("create",this.onCreate)
+            // if (this.clickSprint){
+            //     this.onCreate = !this.onCreate
+            // }
+            
+            this.sprintID = this.$route.query.id
+            if(this.$route.query.id){this.sprintID = parseInt(this.sprintID)}
+            else {
+                this.sprintID = -1
             }
+            
+            console.log(parseInt(this.sprintID))
+            // console.log({id:this.$route.query.id})
+            // console.log(parseInt(this.$route.query.id))
+            // if (this.$route.query.id){
+            //     this.id = JSON.parse(this.$route.query.id)
+            // }
+            
+            console.log("id",this.sprintID)
+            this.onCreate = this.$route.query.clickSprint !== 'true'
+            console.log(this.onCreate)
 
             if (localStorage.getItem("cards")){
                 this.productBacklog = JSON.parse(localStorage.getItem("cards"))
                 // console.log(this.productBacklog)
             }
             if(!this.onCreate){
-                if (localStorage.getItem("sprint"+this.id)){
-                this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.sprints.length))
-                console.log(this.sprintBacklog,'mount')
+                if (localStorage.getItem("sprint"+this.sprintID)){
+                this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.sprintID))
+                // console.log(this.sprintBacklog,'mount')
             }
             }
            
@@ -362,7 +384,7 @@
 
                 }
                 localStorage.setItem("cards", JSON.stringify(this.productBacklog))
-                localStorage.setItem("sprint"+this.sprints.length, JSON.stringify(this.sprintBacklog))
+                localStorage.setItem("sprint"+this.sprintID, JSON.stringify(this.sprintBacklog))
                 
             },
             addToSprintBoard(){
@@ -375,8 +397,8 @@
                 }
                 // console.log(sprint)
                 this.$emit('add-to-sprint',sprint)
-                // this.$router.back()
-                this.$router.push('sprintboard')
+                this.$router.back()
+                // this.$router.push('sprintboard')
             }
         },
 
@@ -390,6 +412,7 @@
                 sprintTitle: '',
                 sprintStartDate : '',
                 sprintEndDate : '',
+                sprintID: 0,
 
 
 

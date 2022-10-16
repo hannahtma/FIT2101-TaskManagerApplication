@@ -40,12 +40,21 @@ const router = createRouter({
     },
     {
       path: '/productbacklog',
-      name: 'produckbacklog',
+      name: 'productbacklog',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/ProductBacklog.vue')
+      component: () => import('../views/ProductBacklog.vue'),
     },
+    // {
+    //   path: '/productbacklog/:id',
+    //   name: 'productbacklog/:id',
+    //   // route level code-splitting
+    //   // this generates a separate chunk (About.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: () => import('../views/ProductBacklog.vue'),
+    //   props:true
+    // },
     
     {
       path: '/home',
