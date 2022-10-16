@@ -260,6 +260,8 @@
         props: {
             id: Number, //this is for the sprint length
             sprints : Array,
+            clickSprint: Boolean,
+
         },
         
         // watch: {
@@ -282,6 +284,11 @@
         mounted(){
             // this.productBacklog = this.cards
             // console.log(this.cards)
+            console.log('mount')
+            console.log(this.clickSprint)
+            if (this.clickSprint){
+                this.onCreate = !this.onCreate
+            }
 
             if (localStorage.getItem("cards")){
                 this.productBacklog = JSON.parse(localStorage.getItem("cards"))
@@ -289,8 +296,8 @@
             }
             if(!this.onCreate){
                 if (localStorage.getItem("sprint"+this.id)){
-                this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.id))
-                console.log(this.sprintBacklog)
+                this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.sprints.length))
+                console.log(this.sprintBacklog,'mount')
             }
             }
            
@@ -330,7 +337,7 @@
             },
 
             startDrag(event, card) {
-                console.log(card)
+                // console.log(card)
                 event.dataTransfer.dropEffect = 'move'
                 event.dataTransfer.effectAllowed = 'move'
                 event.dataTransfer.setData('cardID', card.id)
@@ -355,20 +362,21 @@
 
                 }
                 localStorage.setItem("cards", JSON.stringify(this.productBacklog))
-                localStorage.setItem("sprint"+this.id, JSON.stringify(this.sprintBacklog))
+                localStorage.setItem("sprint"+this.sprints.length, JSON.stringify(this.sprintBacklog))
                 
             },
             addToSprintBoard(){
-                console.log('test')
+                // console.log('test')
                 const sprint = {
                     sprintID: this.sprints.length,
                     sprintName: this.sprintTitle,
                     startDate : this.sprintStartDate,
                     endDate : this.sprintEndDate
                 }
-                console.log(sprint)
+                // console.log(sprint)
                 this.$emit('add-to-sprint',sprint)
-                this.$router.pop()
+                // this.$router.back()
+                this.$router.push('sprintboard')
             }
         },
 

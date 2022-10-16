@@ -140,7 +140,7 @@ export default{
 
 
 
-  <RouterView :cards="cards" :sprints="sprints"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
+  <RouterView :key="$route.fullPath" :cards="cards" :sprints="sprints"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
   @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd" @add-to-sprint="addToSprint" @load-card-from-local-storage="loadCards"/>
 </template>
 

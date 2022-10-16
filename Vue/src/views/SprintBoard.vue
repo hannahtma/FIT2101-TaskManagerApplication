@@ -4,11 +4,11 @@
         <h2>My Sprints</h2>
 
         <div class="container" v-for="sprint in this.sprints">
-            <RouterLink class="btn btn-primary me-md-2 " to="/productbacklog" :id="sprint.id">
+            <button class="btn btn-primary me-md-2 " @click="goToProductBacklog" :id="sprint.id" :clickSprint="this.clickSprint" >
                 {{sprint.sprintName}}
                 Start Date : {{sprint.startDate}}
                 End Date : {{sprint.endDate}}
-            </RouterLink>
+            </button>
            
             
         </div>
@@ -18,6 +18,7 @@
 <script>
     import Button from '@/components/Button.vue';
     import AddSprintBoard from '@/components/addSprintBoard.vue';
+import ProductBacklogVue from './ProductBacklog.vue';
     
 
     export default {
@@ -42,12 +43,20 @@
                 this.showProductBacklog = !this.showProductBacklog
                 
             },
+            goToProductBacklog(){
+                this.$router.push({
+                    path: '/productbacklog',
+                    component : ProductBacklogVue,
+                    props: {clickSprint : true}
+                })
+            }
            
         },
 
         data() {
             return {
                 // sprints : [],
+                clickSprint :true
                 
 
             }
