@@ -1,65 +1,113 @@
 <template>
     <body>
         <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/>
+        
+        <div class="container text-start">
+            <div class="row align-items-top" >
+                <!-- list -->
+                <div 
+                class="col"
+                @drop="onDropInProduct($event, productBacklog)"
+                @dragenter.prevent
+                @dragover.prevent
+                >
 
-        <div 
-            class="drop-zone1"
-            @drop="onDrop($event, productBacklog)"
-            @dragenetr.prevent
-            @dragover.prevent
-        >
-            <div 
-                @click="onClickCardInProductBacklog(card.id)"
-                v-for="card in productBacklog"
-                :key="card.id"
-                :class="card.id" 
-                class="product-backlog row"
-                draggable="true"
-                @dragstart="startDrag($event, card)"
-            >
-                <h3>{{card.taskName}}</h3>
-                    <p >Description: {{card.description}}</p>
-                    <div>Status: {{card.status}}</div>
-                    <div>Type: {{card.type}}</div>
-                    <div class="story-points">
-                        {{card.storyPoints}}
+                    <!-- <div class="row" id="progress3">Deployed</div> -->
+                    <!-- cards -->
+                    <div 
+                    @click="onClickCardInProductBacklog(card.id)" 
+                    class="card row" :class="card.id" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#cardPopupProductBacklog" 
+                    v-for="card in this.productBacklog"
+                    draggable="true"
+                    @dragstart="startDrag($event, card)">
+                        <h3>{{card.taskName}}</h3>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                     </div>
-                    <div>Assigned To: {{card.assign}}</div>
-                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                 </div>
+
+                <!-- list -->
+                <div 
+                class="col"
+                @drop="onDropInSprint($event, sprintBacklog)"
+                @dragenter.prevent
+                @dragover.prevent
+                >
+
+                    <!-- cards -->
+                    <div 
+                    @click="onClickCardInSprintBacklog(card.id)" 
+                    class="card row" :class="card.id" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#cardPopupSprintBacklog" 
+                    v-for="card in this.sprintBacklog"
+                    draggable="true"
+                    @dragstart="startDrag($event, card)"
+                    >
+                        <h3>{{card.taskName}}</h3>
+                        <p>Description: {{card.description}}</p>
+                        <div>Status: {{card.status}}</div>
+                        <div>Type: {{card.type}}</div>
+                        <div class="story-points">
+                            {{card.storyPoints}}
+                        </div>
+                        <div>Assigned To: {{card.assign}}</div>
+                        <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                    </div>  
+                </div>
+            </div>        
+        </div>
+    
+        <div class="modal fade" id="cardPopupProductBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{this.selectedCard.taskName}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Description: {{this.selectedCard.description}}</p>
+                    <div>Status: {{this.selectedCard.status}}</div>
+                    <div>Type: {{this.selectedCard.type}}</div>
+                    <div class="story-points">
+                        {{this.selectedCard.storyPoints}}
+                    </div>
+                    <div>Assigned To: {{this.selectedCard.assign}}</div>
+                    <span class="tag" v-for="tag in this.selectedCard.tags">{{tag}}</span>
+                </div>
+                </div>
+            </div>
         </div>
 
-        <div 
-            class="drop-zone2"
-            @drop="onDrop($event, sprintBacklog)"
-            @dragenetr.prevent
-            @dragover.prevent
-        >
-            <div 
-                @click="onClickCardInProductBacklog(card.id)"
-                v-for="card in sprintBacklog" 
-                :key="card.id"
-                :class="card.id" 
-                class="product-backlog row"
-                draggable="true"
-                @dragstart="startDrag($event, card)"
-            >
-                <h3>{{card.taskName}}</h3>
-                    <p>Description: {{card.description}}</p>
-                    <div>Status: {{card.status}}</div>
-                    <div>Type: {{card.type}}</div>
+        <div class="modal fade" id="cardPopupInSprintBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{this.selectedCard.taskName}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Description: {{this.selectedCard.description}}</p>
+                    <div>Status: {{this.selectedCard.status}}</div>
+                    <div>Type: {{this.selectedCard.type}}</div>
                     <div class="story-points">
-                        {{card.storyPoints}}
+                        {{this.selectedCard.storyPoints}}
                     </div>
-                    <div>Assigned To: {{card.assign}}</div>
-                    <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                    <div>Assigned To: {{this.selectedCard.assign}}</div>
+                    <span class="tag" v-for="tag in this.selectedCard.tags">{{tag}}</span>
+                </div>
+                </div>
             </div>
         </div>
     </body>
-
-    
-
-
 </template>    
 
 <script>
@@ -90,25 +138,49 @@
                 this.productBacklog = this.cards
             },
 
-            // showCardInProductBacklog(id){
-            //     this.cardId = id
-            //     this.showEdit = !this.showEdit
-            //     this.selectedCard = this.cards.find((card)=>card.id ===id)
-            //     // this.$emit("edit-card",id)
-            // },
-            startDrag(event, card) {
-                console.log(card)
-                event.dataTransfer.dropEffect = "move"
-                event.dataTransfer.effectAllowed = "move"
-                event.dataTransfer.setData("cardID", card.id)
+            onClickCardInProductBacklog(id){
+                this.cardId = id
+                this.showCardInProductBacklog = !this.showCardInProductBacklog
+                this.selectedCard = this.productBacklog.find((card)=>card.id ===id)
+                console.log(this.productBacklog)
+                console.log(this.productBacklog.find((card)=>card.id ===id))
+                // this.$emit("edit-card",id)
             },
 
-            onDrop(event, list) {
+            displaySprintBacklog(card) {
+                this.$emit("add-card",card)
+            },
+
+            onClickCardInSprintBacklog(id){
+                this.cardId = id
+                this.showCardInSprintBacklog = !this.showCardInSprintBacklog
+                this.selectedCard = this.sprintBacklog.find((card)=>card.id ===id)
+                console.log(this.sprintBacklog)
+                console.log(this.sprintBacklog.find((card)=>card.id ===id))
+                // this.$emit("edit-card",id)
+            },
+
+            startDrag(evt, card) {
+                evt.dataTransfer.dropEffect = 'move'
+                evt.dataTransfer.effectAllowed = 'move'
+                evt.dataTransfer.setData('cardID', card.id)
+            },
+
+            onDropInProduct(event) {
+                const cardID = event.dataTransfer.getData("cardID")
+                const card = this.sprintBacklog.find((card) => card.id === cardID)
+                this.productBacklog.push(card)
+                const index = cardID - 1;
+                this.sprintBacklog.splice(index, 1)
+                // this.$emit('drop',list, cardID)
+            },
+
+            onDropInSprint(event) {
                 const cardID = event.dataTransfer.getData("cardID")
                 const card = this.productBacklog.find((card) => card.id === cardID)
                 this.sprintBacklog.push(card)
-                console.log(this.productBacklog)
-                console.log(this.sprintBacklog)
+                const index = cardID - 1;
+                this.productBacklog.splice(index, 1)
                 // this.$emit('drop',list, cardID)
             },
         },
@@ -125,95 +197,95 @@
         data() {
             return {
                 productBacklog: [],
-                selectedCardID: 0,
-                sprintBacklog: [],
-                // showEdit: false,
+                showCardInProductBacklog: false,
+                selectedCard:{},
+
             }
-        }, 
+        }
     }
 
 </script>
 
 <style scoped lang="scss">
-    nav.navbar.navbar-expand-sm {
-    background-color: #ec746c;
-}
+//     nav.navbar.navbar-expand-sm {
+//     background-color: #ec746c;
+// }
 
-ul.navbar-nav {
-    position: relative;
-    left: 30px;
-}
+// ul.navbar-nav {
+//     position: relative;
+//     left: 30px;
+// }
 
-#navbarDropdown,
-#navbarDropdown2,
-#navbarDropdown3,
-#navLink {
-    font-weight: 500;
-    text-transform: uppercase;
-}
+// #navbarDropdown,
+// #navbarDropdown2,
+// #navbarDropdown3,
+// #navLink {
+//     font-weight: 500;
+//     text-transform: uppercase;
+// }
 
-a.nav-link.active {
-    color: white;
-}
+// a.nav-link.active {
+//     color: white;
+// }
 
-a.navbar-brand {
-    color: black;
-    position: relative;
-    left: 20px;
-    top: -1px;
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-style: italic;
-}
-a.navbar-brand:hover {
-    color: black;
-}
+// a.navbar-brand {
+//     color: black;
+//     position: relative;
+//     left: 20px;
+//     top: -1px;
+//     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+//     font-style: italic;
+// }
+// a.navbar-brand:hover {
+//     color: black;
+// }
 
-a.dropdown-item {
-    color: white;
-}
+// a.dropdown-item {
+//     color: white;
+// }
 
-div.dropdown-menu {
-    background-color: black;
-}
+// div.dropdown-menu {
+//     background-color: black;
+// }
 
-#createId {
-    position: relative;
-    left: 120px;
-    background-color: black;
-    text-transform: uppercase;
-    font-size: smaller;
-    top: 2.5px;
-}
+// #createId {
+//     position: relative;
+//     left: 120px;
+//     background-color: black;
+//     text-transform: uppercase;
+//     font-size: smaller;
+//     top: 2.5px;
+// }
 
-div.card {
-    margin-left: 10px;
-    margin-top: 10px;
-}
+// div.card {
+//     margin-left: 10px;
+//     margin-top: 10px;
+// }
 
-.btn-primary {
-    background-color: #ec746c;
-}
+// .btn-primary {
+//     background-color: #ec746c;
+// }
 
-/* ----------------------------- */
+// /* ----------------------------- */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
 
-body {
-    background-color: #ffce00;
-    font-family: "Roboto", Helvetica, sans-serif;
-}
+// body {
+//     background-color: white;
+//     font-family: "Roboto", Helvetica, sans-serif;
+// }
 
-.app {
-    display: flex;
-    flex-flow: column;
+// .app {
+//     display: flex;
+//     flex-flow: column;
 
-    width: 100vw;
-    height: 100vh;
-}
+//     width: 100vw;
+//     height: 100vh;
+// }
 
 .lists {
     display: flex;
@@ -247,61 +319,12 @@ body {
     margin: 4px 0px;
 }
 
-.product-backlog {
-    background: white;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
-    padding: 20px;
-
-    &:not(:last-child) {
-        margin-bottom: 10px;
-    }
-
-    &.critical{
-        background-color:#ff6961;
-    }
-    &.high{
-        background-color:#fdfd96;
-    }
-    &.medium{
-        background-color:#ffb347;
-    }
-    &.low{
-        background-color:#cff0cc;
-    }
-
-    .tag {
-        background: #01819A;
-        color: white;
-        font-size: 0.75rem;
-        padding: 5px 15px;
-        border-radius: 5px;
-        display: inline-block;
-
-        &:not(:last-child) {
-            margin-bottom: 3px;
-        }
-    }
-    p{
-        margin-bottom: 0px;
-    }
-    
-}
-
-.drop-zone1 {
-  width: 500px;
-  margin: 50px auto;
-  background-color: rgb(201, 152, 197);
-  padding: 10px;
-  min-height: 10px;
-}
-
-.drop-zone2 {
-  width: 500px;
-  margin: 50px auto;
-  background-color: rgb(201, 152, 197);
-  padding: 10px;
-  min-height: 40px;
+.col {
+    width: 500px;
+    margin: 50px auto;
+    background-color: rgb(201, 152, 197);
+    padding: 10px;
+    min-height: 4px;
 }
 
 .product-backlog {
@@ -315,4 +338,230 @@ body {
   margin-bottom: 0;
 }
 
+// .product-backlog {
+//     background: white;
+//     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+//     border-radius: 10px;
+//     padding: 20px;
+
+//     &:not(:last-child) {
+//         margin-bottom: 10px;
+//     }
+
+//     &.critical{
+//         background-color:#ff6961;
+//     }
+//     &.high{
+//         background-color:#ffb347;
+//     }
+//     &.medium{
+//         background-color:#fdfd96;
+//     }
+//     &.low{
+//         background-color:#cff0cc;
+//     }
+
+//     .tag {
+//         background: #01819A;
+//         color: white;
+//         font-size: 0.75rem;
+//         padding: 5px 15px;
+//         border-radius: 5px;
+//         display: inline-block;
+
+//         &:not(:last-child) {
+//             margin-bottom: 3px;
+//         }
+//     }
+//     p{
+//         margin-bottom: 0px;
+//     }
+    
+// }
+
 </style>
+
+
+
+// <style scoped lang="scss">
+//     nav.navbar.navbar-expand-sm {
+//     background-color: #ec746c;
+// }
+
+// ul.navbar-nav {
+//     position: relative;
+//     left: 30px;
+// }
+
+// #navbarDropdown,
+// #navbarDropdown2,
+// #navbarDropdown3,
+// #navLink {
+//     font-weight: 500;
+//     text-transform: uppercase;
+// }
+
+// a.nav-link.active {
+//     color: white;
+// }
+
+// a.navbar-brand {
+//     color: black;
+//     position: relative;
+//     left: 20px;
+//     top: -1px;
+//     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+//     font-style: italic;
+// }
+// a.navbar-brand:hover {
+//     color: black;
+// }
+
+// a.dropdown-item {
+//     color: white;
+// }
+
+// div.dropdown-menu {
+//     background-color: black;
+// }
+
+// #createId {
+//     position: relative;
+//     left: 120px;
+//     background-color: black;
+//     text-transform: uppercase;
+//     font-size: smaller;
+//     top: 2.5px;
+// }
+
+// div.card {
+//     margin-left: 10px;
+//     margin-top: 10px;
+// }
+
+// .btn-primary {
+//     background-color: #ec746c;
+// }
+
+// /* ----------------------------- */
+
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
+
+// body {
+//     background-color: #ffce00;
+//     font-family: "Roboto", Helvetica, sans-serif;
+// }
+
+// .app {
+//     display: flex;
+//     flex-flow: column;
+
+//     width: 100vw;
+//     height: 100vh;
+// }
+
+// .lists {
+//     display: flex;
+//     flex: 1;
+//     width: 100%;
+//     overflow-x: scroll;
+// }
+
+// .lists .list {
+//     display: flex;
+//     flex-flow: column;
+//     flex: 1;
+
+//     width: 100%;
+//     min-width: 250px;
+//     max-width: 350px;
+//     height: 100%;
+//     min-height: 150px;
+
+//     background-color: rgba(0, 0, 0, 0.1);
+//     margin: 0 15px;
+//     padding: 8px;
+//     transition: all 0.2s linear;
+// }
+
+// .lists .list .list-item {
+//     background-color: #f3f3f3;
+//     border-radius: 8px;
+//     padding: 15px 20px;
+//     text-align: center;
+//     margin: 4px 0px;
+// }
+
+// .product-backlog {
+//     background: white;
+//     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+//     border-radius: 10px;
+//     padding: 20px;
+
+//     &:not(:last-child) {
+//         margin-bottom: 10px;
+//     }
+
+//     &.critical{
+//         background-color:#ff6961;
+//     }
+//     &.high{
+//         background-color:#fdfd96;
+//     }
+//     &.medium{
+//         background-color:#ffb347;
+//     }
+//     &.low{
+//         background-color:#cff0cc;
+//     }
+
+//     .tag {
+//         background: #01819A;
+//         color: white;
+//         font-size: 0.75rem;
+//         padding: 5px 15px;
+//         border-radius: 5px;
+//         display: inline-block;
+
+//         &:not(:last-child) {
+//             margin-bottom: 3px;
+//         }
+//     }
+//     p{
+//         margin-bottom: 0px;
+//     }
+    
+// }
+
+// .drop-zone1 {
+//   width: 500px;
+//   margin: 50px auto;
+//   background-color: rgb(201, 152, 197);
+//   padding: 10px;
+//   min-height: 10px;
+// }
+
+// .drop-zone2 {
+//   width: 500px;
+//   margin: 50px auto;
+//   background-color: rgb(201, 152, 197);
+//   padding: 10px;
+//   min-height: 40px;
+// }
+
+// .product-backlog {
+//   background-color: rgb(138, 105, 136);
+//   color: white;
+//   padding: 5px;
+//   margin-bottom: 10px;
+// }
+
+// .product-backlog:nth-last-of-type(1) {
+//   margin-bottom: 0;
+// }
+
+// </style>
