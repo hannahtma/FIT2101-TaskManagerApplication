@@ -73,11 +73,12 @@
             let type = document.getElementById('type').value;
             let assign = document.getElementById('assign').value;
             let priority = document.getElementById('priority').value;
+            let time = document.getElementById('time').value;
 
-            this.displayCardInProductBacklog(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
+            this.displayCardInProductBacklog(newTitle, newDesc, storyPoint, status, tag, type, assign, priority);
             },
         
-            displayCardInProductBacklog(title, desc, story,status,tag,type,assign,priority) {
+            displayCardInProductBacklog(title, desc, story,status,tag,type,assign,priority, time) {
                 console.log("cards: ",this.cards)
                 let card = {
             
@@ -89,7 +90,8 @@
                     tags: [tag],
                     type:type,
                     priority: priority,
-                    assign:assign
+                    assign:assign,
+                    time: time
             
                 }
                 console.log(card)
