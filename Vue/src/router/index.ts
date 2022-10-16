@@ -4,22 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/createcard',
-      name: 'createcard',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/CreateCard.vue')
-    },
-    {
-      path: '/createcard_pt2',
-      name: 'createcard_pt2',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/CreateCard_pt2.vue')
-    },
+    
     {
       path: '/dashboard',
       name: 'dashboard',
@@ -36,14 +21,7 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../components/addTask.vue')
     },
-    {
-      path: '/popup',
-      name: 'popup',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../components/popUpForEdit.vue')
-    },
+    
     {
       path: '/sprintboard',
       name: 'sprintboard',
@@ -62,11 +40,29 @@ const router = createRouter({
     },
     {
       path: '/productbacklog',
-      name: 'produckbacklog',
+      name: 'productbacklog',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/ProductBacklog.vue')
+      component: () => import('../views/ProductBacklog.vue'),
+    },
+    // {
+    //   path: '/productbacklog/:id',
+    //   name: 'productbacklog/:id',
+    //   // route level code-splitting
+    //   // this generates a separate chunk (About.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: () => import('../views/ProductBacklog.vue'),
+    //   props:true
+    // },
+    
+    {
+      path: '/home',
+      name: 'home',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/Home.vue')
     },
   ]
 })

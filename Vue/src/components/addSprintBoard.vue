@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-sm">
     <!-- Brand -->
-    <a class="navbar-brand" href="HTML File.html">SCRUMFY</a>
+    <a class="navbar-brand" >SCRUMFY</a>
     <!-- Links -->
     <ul class="navbar-nav" style="position:absolute">
       <li class="nav-item">
@@ -38,7 +38,7 @@
       <li>
         <div>
           <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="left: -10px" @click="goToProductBacklog()">Create Sprint +
+            data-bs-target="#exampleModal" style="left: -10px" @click="goToProductBacklog()">Create Sprint 
           </button>
         </div>
       </li>
@@ -72,7 +72,7 @@ export default {
         },
 
         goToProductBacklog() {
-            this.$router.push('/ProductBacklog');
+            this.$router.push('productbacklog');
         },
     }
 }

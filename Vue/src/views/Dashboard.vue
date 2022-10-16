@@ -110,7 +110,7 @@
             </div>
         </div>
         <!-- <Edit v-if="showEdit" @delete-task="deleteCard" />     -->
-        <div v-if="showEdit" class="modal fade" id="popUpForEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div  class="modal fade" id="popUpForEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -324,15 +324,20 @@ export default {
         cards: {
             handler(){
                 localStorage.setItem("cards", JSON.stringify(this.displayCards))
+                console.log('watch',this.cards)
             },
             deep: true
         }
     },
 
     mounted(){
-        this.displayCards = this.cards
+        // this.displayCards = this.cards
+        // console.log(JSON.parse(localStorage.getItem("cards")))
         if (localStorage.getItem("cards")){
-                this.displayCards = JSON.parse(localStorage.getItem("cards"))
+            console.log('mount',JSON.parse(localStorage.getItem("cards")))
+            const localCards = JSON.parse(localStorage.getItem("cards"))
+            this.$emit('load-card-from-local-storage',localCards)
+                this.displayCards = localCards
             }
     },
 
