@@ -2,25 +2,25 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            cards: Array,
-        },
+export default {
+  props: {
+    cards: Array,
+  },
 
-        mounted() {
-            this.sprintBacklogCards = this.cards
-        },
+  mounted() {
+    this.sprintBacklogCards = this.cards
+  },
 
-        methods: {
-            getCardsForSprintBacklog() {
-                return this.cards;
-            },
-        },
-        
-        data() {
-            return {
-                sprintBacklogCards: [],
-            }
-        }
+  methods: {
+    getCardsForSprintBacklog() {
+      return this.cards;
+    },
+  },
+
+  data() {
+    return {
+      sprintBacklogCards: [],
     }
+  }
+}
 </script>

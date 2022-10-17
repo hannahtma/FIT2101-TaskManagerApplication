@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm">
     <!-- Brand -->
-    <a class="navbar-brand" href="HTML File.html">SCRUMFY</a>
+    <a class="navbar-brand" href="/home">SCRUMFY</a>
     <!-- Links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -41,18 +41,18 @@
 
   <div class="container">
     <div class="d-grid gap-2">
-      <RouterLink class="btn btn-primary me-md-2" to="/home">HOME</RouterLink>
+      <RouterLink class="btn btn-primary me-md-2" id="homeid1" to="/home">HOME</RouterLink>
     </div>
     <div class="d-grid gap-2">
-      <RouterLink class="btn btn-primary me-md-2" to="/sprintboard">SPRINT BOARD</RouterLink>
+      <RouterLink class="btn btn-primary me-md-2" id="homeid2" to="/sprintboard">SPRINT BOARD</RouterLink>
     </div>
     <div class="d-grid gap-2">
-      <RouterLink class="btn btn-primary me-md-2" to="/dashboard">TASK
+      <RouterLink class="btn btn-primary me-md-2" id="homeid3" to="/dashboard">TASK
         BOARD
       </RouterLink>
     </div>
     <div class="d-grid gap-2">
-      <RouterLink class="btn btn-primary me-md-2" to="teamboard">TEAM BOARD</RouterLink>
+      <RouterLink class="btn btn-primary me-md-2" id="homeid4" to="teamboard">TEAM BOARD</RouterLink>
     </div>
 
   </div>
@@ -174,17 +174,24 @@ export default {
 </script>
 
 <style>
-.btn.btn-primary.me-md-2 {
-  background-color: black;
-  border-color: white;
+#homeid1, #homeid2, #homeid3, #homeid4 {
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(222, 116, 187, 1) 0%, rgba(255, 102, 0, 1) 100%, rgba(90, 255, 0, 1) 100%);
+  color: white;
   width: 50%;
   padding-top: 10px;
   padding-bottom: 10px;
   margin-bottom: 20px;
   text-align: left;
+  font-family: "Century Gothic", AppleGothic, sans-serif;
+  font-weight: 300;
+  border: none white;
 }
 
-.btn.btn-primary.me-md-2:active {
+body {
+  background-color: #ffeaa9;
+}
+
+router-link:active {
   color: black;
 }
 
