@@ -80,7 +80,7 @@ export default {
       clickSprint: true,
       styleObject: {
         colorVar: 'white',
-        backgroundColor: 'rgb(157,59,59)',
+        backgroundColor: 'rgb(229,102,102)',
         border: 'none',
         fontFamily: 'Century Gothic',
         marginLeft: '-12px',
