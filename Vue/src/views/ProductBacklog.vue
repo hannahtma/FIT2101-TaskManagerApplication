@@ -79,12 +79,13 @@
                         </div>
                         <div>Assigned To: {{card.assign}}</div>
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                        <div>Time: {{card.time}}</div>
                     </div>  
                 </div>
             </div>        
         </div>
     
-        <div class="modal fade" id="cardPopupProductBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="cardPopupSprintBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -109,24 +110,30 @@
             </div>
         </div>
 
-        <div class="modal fade" id="cardPopupInSprintBacklog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="logTimeAndDate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{this.selectedCard.taskName}}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">Log Time and Date</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Description: {{this.selectedCard.description}}</p>
-                    <div>Status: {{this.selectedCard.status}}</div>
-                    <div>Type: {{this.selectedCard.type}}</div>
-                    <div class="story-points">
-                        {{this.selectedCard.storyPoints}}
-                    </div>
-                    <div>Assigned To: {{this.selectedCard.assign}}</div>
-                    <span class="tag" v-for="tag in this.selectedCard.tags">{{tag}}</span>
+                <form id="myForm">
+                    <div class="mb-3">
+                    <label for="task-title" class="col-form-label">Enter time:</label>
+                    <input type="text" class="form-control" id="accumulated-time" placeholder="Enter hours here" v-model="accumulatedTime" />
+                    </div>                
+                </form>
                 </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal" @click="addTimeToCard(this.onClickCardID)">
+                    Add Time
+                </button>
                 </div>
+            </div>
             </div>
         </div>
 
@@ -355,7 +362,18 @@
                 this.selectedCard = this.sprintBacklog.find((card)=>card.id ===id)
                 console.log(this.sprintBacklog)
                 console.log(this.sprintBacklog.find((card)=>card.id ===id))
-                // this.$emit("edit-card",id)
+                // this.$emit("edit-card",id)        
+                },
+            
+            addTimeToCard(id) {
+                const index = this.sprintBacklog.findIndex((task)=>task.id ===id)
+                let newTime = document.getElementById('accumulated-time')
+                console.log(newTime)
+
+                card.time = newTime
+                console.log(card)
+                this.$emit("time",index,card)
+                this.sprintBacklog[index] = card
             },
 
             startDrag(event, card) {
