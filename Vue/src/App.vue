@@ -1,234 +1,152 @@
-<script >
-import { RouterLink, RouterView } from 'vue-router'
-export default{
-  data() {
-        return {
-            cards: [
-                // {
-                //     id: 1,
-                //     status: 'todoblocked',
-                //     taskName: 'Task Name 1',
-                //     description: 'Description 1',
-                //     tags: ['CORE', 'UI'],
-                //     taskType: 'bug',
-                //     storyPoints: 5,
-                //     priority: 'low'
-                    
-                // }, {
-                //     id: 2,
-                //     status: 'todoblocked',
-                //     taskName: 'Task Name 2',
-                //     description: 'Description 2',
-                //     tags: ['CORE', 'UI'],
-                //     storyPoints: 3,
-                //     priority: 'high'
-                // }, {
-                //     id: 3,
-                //     status: 'inprogress',
-                //     taskName: 'Task Name 3',
-                //     description: 'Description 3',
-                //     tags: ['CORE'],
-                //     storyPoints: 2,
-                //     priority: 'medium'
-                // }, {
-                //     id: 6,
-                //     status: 'inprogress',
-                //     taskName: 'Task Name 6',
-                //     description: 'Description 6',
-                //     tags: ['CORE', 'UI'],
-                //     storyPoints: 2,
-                //     priority: 'critical'
-                // }, {
-                //     id: 4,
-                //     status: 'deployed',
-                //     taskName: 'Task Name 4',
-                //     description: 'Description 4',
-                //     tags: ['CORE', 'UI'],
-                //     storyPoints: 4,
-                //     priority: 'low'
-                // }, {
-                //     id: 5,
-                //     status: 'done',
-                //     taskName: 'Task Name 5',
-                //     description: 'Description 5',
-                //     tags: ['CORE', 'UI'],
-                //     storyPoints: 5,
-                //     priority: 'low'
-                // }
-            ],
-            sprints :[],
-            // currentID: cards.length,
+<script>
 
-        }
+export default {
+  data() {
+    return {
+      cards: [
+        // {
+        //     id: 1,
+        //     status: 'todoblocked',
+        //     taskName: 'Task Name 1',
+        //     description: 'Description 1',
+        //     tags: ['CORE', 'UI'],
+        //     taskType: 'bug',
+        //     storyPoints: 5,
+        //     priority: 'low'
+
+        // }, {
+        //     id: 2,
+        //     status: 'todoblocked',
+        //     taskName: 'Task Name 2',
+        //     description: 'Description 2',
+        //     tags: ['CORE', 'UI'],
+        //     storyPoints: 3,
+        //     priority: 'high'
+        // }, {
+        //     id: 3,
+        //     status: 'inprogress',
+        //     taskName: 'Task Name 3',
+        //     description: 'Description 3',
+        //     tags: ['CORE'],
+        //     storyPoints: 2,
+        //     priority: 'medium'
+        // }, {
+        //     id: 6,
+        //     status: 'inprogress',
+        //     taskName: 'Task Name 6',
+        //     description: 'Description 6',
+        //     tags: ['CORE', 'UI'],
+        //     storyPoints: 2,
+        //     priority: 'critical'
+        // }, {
+        //     id: 4,
+        //     status: 'deployed',
+        //     taskName: 'Task Name 4',
+        //     description: 'Description 4',
+        //     tags: ['CORE', 'UI'],
+        //     storyPoints: 4,
+        //     priority: 'low'
+        // }, {
+        //     id: 5,
+        //     status: 'done',
+        //     taskName: 'Task Name 5',
+        //     description: 'Description 5',
+        //     tags: ['CORE', 'UI'],
+        //     storyPoints: 5,
+        //     priority: 'low'
+        // }
+      ],
+      sprints: [],
+      // currentID: cards.length,
+
+    }
+  },
+
+  methods: {
+    addCards(card) {
+      // this.cards = [...this.cards, ref(card)]
+      this.cards.push(card)
+
+    },
+    deleteCard(id) {
+      this.cards = this.cards.filter((task) => task.id !== id)
+
+    },
+    editTaskCard(index, card) {
+      this.cards[index] = card
+      // console.log(this.cards)
     },
 
-    methods:{
-      addCards(card) {
-            // this.cards = [...this.cards, ref(card)]
-            this.cards.push(card)
-            // localStorage.setItem(card.id, card)
-            // console.log(this.cards)
-            // this.$emit("add-card",card)
+    addSprintBoards(sprintBoard) {
+      this.sprints.push(sprintBoard)
+    },
 
-        },
-        // editTask(id){
-        //     this.editCardID = id
-        //     this.showEdit = !this.showEdit
-            
-        // },
-        deleteCard(id){
-            // console.log("imhere")
-            // console.log(id)
-            // console.log(this.cards)
-            this.cards = this.cards.filter((task)=> task.id !== id)
-            // console.log(this.cards)
-            
-        },
-        editTaskCard(index,card){
-          this.cards[index] = card
-          // console.log(this.cards)
-        },
+    goToDashboard() {
+      this.$router.push({
+        path: '/dashboard',
+        name: 'dashboard',
+        // route level code-splitting
+        // this generates a separate chunk (About.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+      });
+    },
 
-        addSprintBoards(sprintBoard) {
-          this.sprints.push(sprintBoard)
-        },
+    goToSprintBoard() {
+      this.$router.push('sprintboard');
+    },
 
-        goToDashboard() {
-            this.$router.push({
-                path: '/dashboard',
-                name: 'dashboard',
-                // route level code-splitting
-                // this generates a separate chunk (About.[hash].js) for this route
-                // which is lazy-loaded when the route is visited.
-            }); 
-        },
+    goToHome() {
+      this.$router.push('app');
+    },
 
-        goToSprintBoard() {
-            this.$router.push('sprintboard');
-        },
+    displayProductBacklog(card) {
+      this.cards.push(card)
+    },
+    onDropDelete(id) {
+      // console.log(this.cards)
+      this.cards = this.cards.filter((task) => task.id !== id)
+      // console.log(this.cards)
+    },
+    onDropAdd(passCard) {
+      this.cards.push(passCard)
+      // console.log(this.cards)
 
-        goToHome() {
-            this.$router.push('app');
-        },
-
-        displayProductBacklog(card) {
-          this.cards.push(card)
-        },
-        onDropDelete(id){
-            // console.log(this.cards)
-            this.cards = this.cards.filter((task)=> task.id !== id)
-            // console.log(this.cards)
-        },
-        onDropAdd(passCard){
-            this.cards.push(passCard)
-            // console.log(this.cards)
-
-        },
-        addToSprint(sprint){
-          this.sprints.push(sprint)
-          // console.log(this.sprints, 'app')
-        },
-        loadCards(cards){
-          this.cards = cards
-        }
+    },
+    addToSprint(sprint) {
+      this.sprints.push(sprint)
+      // console.log(this.sprints, 'app')
+    },
+    loadCards(cards) {
+      this.cards = cards
     }
+  }
 }
 </script>
 
 <template>
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
 
 
-
-  <RouterView :key="$route.fullPath" :cards="cards" :sprints="sprints"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
-  @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd" @add-to-sprint="addToSprint" @load-card-from-local-storage="loadCards"/>
+  <RouterView :key="$route.fullPath" :cards="cards" :sprints="sprints" @add-card="addCards" @delete-card="deleteCard"
+              @edit-card="editTaskCard"
+              @on-drop-delete="onDropDelete" @on-drop-add="onDropAdd" @add-to-sprint="addToSprint"
+              @load-card-from-local-storage="loadCards"/>
 </template>
 
 <style lang="scss">
-    .col:not(:last-child) {
-        margin-right: 10px;
-    }
-    
-    .modal-body{
-        p{
-            margin-bottom: 0px;
-        }
-    }
-    
-    .card {
-        background: white;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-        border-radius: 10px;
-        padding: 20px;
-    
-        &:not(:last-child) {
-            margin-bottom: 10px;
-        }
-    
-        &.critical{
-            background-color:#ff6961;
-        }
-        &.high{
-            background-color:#fdfd96;
-        }
-        &.medium{
-            background-color:#ffb347;
-        }
-        &.low{
-            background-color:#cff0cc;
-        }
-    
-        .tag {
-            background: #01819A;
-            color: white;
-            font-size: 0.75rem;
-            padding: 5px 15px;
-            border-radius: 5px;
-            display: inline-block;
-    
-            &:not(:last-child) {
-                margin-bottom: 3px;
-            }
-        }
-        p{
-            margin-bottom: 0px;
-        }
-        
-    }
-    
-    h2 {
-        margin-top: 15px;
-        margin-left: 85px;
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        font-style: italic;
-        text-transform: uppercase;
-    }
-    
-    div.col-2{
-        margin-top: 10px;
-        margin-bottom: 15px;
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        font-size: x-large;
-        text-transform: uppercase;
-    }
-    
-    #progress1, #progress2, #progress3, #progress4{
-        margin-top: 10px;
-        margin-bottom: 15px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    
-    #button1, #button2, #button3, #button4{
-        text-transform: uppercase;
-        width: 160px;
-        box-shadow: 0px 10px rgb(255, 136, 25);
-        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,231,0,1) 0%, rgba(255,102,0,1) 100%, rgba(90,255,0,1) 100%);
-    }
+body {
+  background-color: #ffeaa9;
+}
 
-    body {
-  background-color: #fff;
-  font-family: "Poppins";
+.col:not(:last-child) {
+  margin-right: 10px;
+}
+
+.modal-body, .modal-footer, .modal-header {
+  p {
+    margin-bottom: 0;
+  }
+
+  background-color: #ffeaa9;
 }
 
 .task-container {
@@ -441,6 +359,7 @@ ul.navbar-nav {
   margin: 0;
   padding: 0;
   left: 150px;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 #navbarDropdown,
@@ -463,8 +382,9 @@ a.navbar-brand {
   color: white;
   position: relative;
   left: 20px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Century Gothic", serif;
   font-style: italic;
+  font-weight: bold;
 }
 
 a.navbar-brand:hover {
@@ -481,83 +401,20 @@ div.dropdown-menu {
 
 #createId {
   position: relative;
-  left: 120px;
-  background-color: rgb(255, 136, 25);
+
+  background-color: rgb(175, 65, 139);
   text-transform: uppercase;
   font-size: smaller;
   top: 39.5px;
   border: none;
 }
 
+
 div.card {
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 li.nav-item.dropdown {
   top: 4.5px;
 }
-    </style>
-
-<!-- <style>
-  button.btn.btn-primary.me-md-2 {
-    background-color: black;
-    border-color: white;
-    width: 50%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-button.btn.btn-primary.me-md-2:active {
-    color: black;
-  }
-
-nav.navbar.navbar-expand-sm {
-    background-color: rgb(0, 128, 255);
-}
-
-ul.navbar-nav{
-    position:relative; 
-    left:30px;
-}
-
-#navbarDropdown, #navbarDropdown2, #navbarDropdown3, #navLink {
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-a.nav-link.active{
-    color: white;
-    
-}
-
-a.navbar-brand{
-    color: black;
-    position:relative; 
-    left:20px; 
-    top:-1px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-style: italic;
-}
-a.navbar-brand:hover{
-    color: black;
-}
-
-a.dropdown-item{
-    color: white;
-}
-
-div.dropdown-menu{
-    background-color: black;
-}
-
-div.container {
-    position:relative; 
-    left:40px;
-}
-
-
-
-</style> -->
+</style>
