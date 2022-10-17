@@ -286,7 +286,7 @@
             Close
           </button>
           <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
-                  @click="addToSprintBoard">
+                  @click="">
             Confirm
           </button>
         </div>
