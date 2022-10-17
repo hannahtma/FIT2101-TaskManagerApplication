@@ -276,7 +276,7 @@
             </div>
             <div class="mb-3">
               <label for="task-title" class="col-form-label">Time Hours:</label>
-              <input type="number" id="timeLog" placeholder="Enter time hours here"
+              <input type="number" min="0" id="timeLog" placeholder="Enter time hours here"
                      v-model="sprintTimeHours"/>
             </div>
           </form>
