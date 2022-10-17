@@ -95,6 +95,10 @@ export default {
       this.$router.push('sprintboard');
     },
 
+    goToTeamBoard() {
+      this.$router.push('teamboard');
+    },
+
     goToHome() {
       this.$router.push('app');
     },
