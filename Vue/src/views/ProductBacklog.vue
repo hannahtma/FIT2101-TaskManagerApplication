@@ -265,7 +265,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="myForm">
+          <form id="myForm" style="display: inline-block">
             <div class="mb-3">
               <label for="sprintStartDate">Start Date:</label>
               <input type="datetime-local" id="sprintStartDate" name="sprintStartDate" v-model="sprintStartDate">
@@ -276,7 +276,7 @@
             </div>
             <div class="mb-3">
               <label for="task-title" class="col-form-label">Time Hours:</label>
-              <input type="number" class="form-control" id="task-title" placeholder="Enter time hours here"
+              <input type="number" id="timeLog" placeholder="Enter time hours here"
                      v-model="sprintTimeHours"/>
             </div>
           </form>
@@ -538,6 +538,9 @@ export default {
 }
 #sprintStartDate, #sprintEndDate {
   padding-left: 5px;
+  margin-left: 5px;
+}
+#timeLog{
   margin-left: 5px;
 }
 </style>
