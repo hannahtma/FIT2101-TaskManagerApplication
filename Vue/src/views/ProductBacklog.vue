@@ -103,7 +103,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                  data-bs-target="#logTimeAndDate">Log Time and Date
+                  data-bs-target="#popUpForLogWork">Log Time and Date
           </button>
         </div>
       </div>
@@ -241,6 +241,44 @@
               <input type="datetime-local" id="sprintEndDate" name="sprintEndDate" v-model="sprintEndDate">
             </div>
 
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
+                  @click="addToSprintBoard">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="popUpForLogWork" tabindex="-1" aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Log Work Time Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="myForm">
+            <div class="mb-3">
+              <label for="sprintStartDate">Start Date:</label>
+              <input type="datetime-local" id="sprintStartDate" name="sprintStartDate" v-model="sprintStartDate">
+            </div>
+            <div class="mb-3">
+              <label for="sprintEndDate">End Date:</label>
+              <input type="datetime-local" id="sprintEndDate" name="sprintEndDate" v-model="sprintEndDate">
+            </div>
+            <div class="mb-3">
+              <label for="task-title" class="col-form-label">Time Hours:</label>
+              <input type="number" class="form-control" id="task-title" placeholder="Enter time hours here"
+                     v-model="sprintTimeHours"/>
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -451,7 +489,6 @@ export default {
   text-align: center;
   margin: 4px 0;
 }
-
 .card {
   background: white;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
@@ -492,19 +529,15 @@ export default {
       margin-bottom: 3px;
     }
   }
-
-  .h3 {
+  .h3{
     color: blue;
   }
-
   .p {
     margin-bottom: 0;
   }
 }
-
 #sprintStartDate, #sprintEndDate {
   padding-left: 5px;
   margin-left: 5px;
 }
-
 </style>
