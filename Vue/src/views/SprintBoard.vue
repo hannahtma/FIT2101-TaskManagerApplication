@@ -3,8 +3,13 @@
         <AddSprintBoard :sprints="this.sprints" @display-sprint-board="addSprintBoards"/>
         <h2>My Sprints</h2>
 
-        <div class="container">
-            <Button :text = "'test'" />
+        <div class="container" v-for="sprint in this.sprints">
+            <button class="btn btn-primary me-md-2 " @click="goToProductBacklog(sprint.sprintID)" :id="sprint.id" :clickSprint="this.clickSprint" >
+                {{sprint.sprintName}}
+                Start Date : {{sprint.startDate}}
+                End Date : {{sprint.endDate}}
+            </button>
+           
             
         </div>
     </body>
@@ -13,10 +18,16 @@
 <script>
     import Button from '@/components/Button.vue';
     import AddSprintBoard from '@/components/addSprintBoard.vue';
-
-    import { ref } from 'vue';
+import ProductBacklogVue from './ProductBacklog.vue';
+    
 
     export default {
+        props:{
+            sprints: Array,
+        },
+        mounted(){
+            // console.log(this.sprints)
+        },
         components: {
             Button,
             AddSprintBoard,
@@ -32,11 +43,32 @@
                 this.showProductBacklog = !this.showProductBacklog
                 
             },
+            goToProductBacklog(sprintID){
+                // let data={
+                //     clickSprint:true
+                // }
+                // console.log(data)
+                console.log(this.sprints)
+                console.log(sprintID)
+                this.$router.push({
+                    name: 'productbacklog',
+                    component : ProductBacklogVue,
+                    
+                    // props:true,
+                    // params:{id},
+                    query: {clickSprint:true , id:sprintID}
+                    // props: {clickSprint:true}
+                })
+            }
+           
         },
 
         data() {
             return {
-                sprints : []
+                // sprints : [],
+                clickSprint :true
+                
+
             }
         }
     }
