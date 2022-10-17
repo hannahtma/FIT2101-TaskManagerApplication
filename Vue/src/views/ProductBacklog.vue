@@ -268,11 +268,11 @@
           <form id="myForm" style="display: inline-block">
             <div class="mb-3">
               <label for="sprintStartDate">Start Date:</label>
-              <input type="datetime-local" id="logTimeStartDate" name="sprintStartDate" v-model="sprintStartDate">
+              <input type="datetime-local" id="logTimeStartDate" name="sprintStartDate" v-model="logTimeStartDate">
             </div>
             <div class="mb-3">
               <label for="sprintEndDate">End Date:</label>
-              <input type="datetime-local" id="logTimeEndDate" name="sprintEndDate" v-model="sprintEndDate">
+              <input type="datetime-local" id="logTimeEndDate" name="sprintEndDate" v-model="logTimeEndDate">
             </div>
             <div class="mb-3">
               <label for="task-title" class="col-form-label">Time Hours:</label>
@@ -442,6 +442,8 @@ export default {
       sprintTitle: '',
       sprintStartDate: '',
       sprintEndDate: '',
+      logTimeStartDate: '',
+      logTimeEndDate: '',
       sprintID: 0,
 
 
