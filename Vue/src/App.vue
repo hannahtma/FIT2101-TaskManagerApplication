@@ -56,7 +56,6 @@ export default{
                 //     priority: 'low'
                 // }
             ],
-            sprints :[],
             // currentID: cards.length,
 
         }
@@ -115,21 +114,14 @@ export default{
           this.cards.push(card)
         },
         onDropDelete(id){
-            // console.log(this.cards)
+            console.log(this.cards)
             this.cards = this.cards.filter((task)=> task.id !== id)
-            // console.log(this.cards)
+            console.log(this.cards)
         },
         onDropAdd(passCard){
             this.cards.push(passCard)
-            // console.log(this.cards)
+            console.log(this.cards)
 
-        },
-        addToSprint(sprint){
-          this.sprints.push(sprint)
-          // console.log(this.sprints, 'app')
-        },
-        loadCards(cards){
-          this.cards = cards
         }
     }
 }
@@ -140,8 +132,8 @@ export default{
 
 
 
-  <RouterView :key="$route.fullPath" :cards="cards" :sprints="sprints"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
-  @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd" @add-to-sprint="addToSprint" @load-card-from-local-storage="loadCards"/>
+  <RouterView :cards="cards"  @add-card="addCards"  @delete-card="deleteCard" @edit-card="editTaskCard" 
+  @on-drop-delete = "onDropDelete" @on-drop-add= "onDropAdd"/>
 </template>
 
 <style lang="scss">

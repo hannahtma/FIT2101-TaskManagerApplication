@@ -110,7 +110,7 @@
             </div>
         </div>
         <!-- <Edit v-if="showEdit" @delete-task="deleteCard" />     -->
-        <div  class="modal fade" id="popUpForEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div v-if="showEdit" class="modal fade" id="popUpForEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -335,9 +335,7 @@ export default {
         // console.log(JSON.parse(localStorage.getItem("cards")))
         if (localStorage.getItem("cards")){
             console.log('mount',JSON.parse(localStorage.getItem("cards")))
-            const localCards = JSON.parse(localStorage.getItem("cards"))
-            this.$emit('load-card-from-local-storage',localCards)
-                this.displayCards = localCards
+                this.displayCards = JSON.parse(localStorage.getItem("cards"))
             }
     },
 
