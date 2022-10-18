@@ -48,9 +48,11 @@
       </li>
     </ul>
   </nav>
+
   <div class="container text-start">
     <div class="row align-items-top">
-      <div class="col" @drop="onDrop($event, 'product')" @dragover.prevent @dragenter.prevent>
+      <div class="col" id="col1" @drop="onDrop($event, 'product')" @dragover.prevent @dragenter.prevent>
+        <h3 id="col-header1">Product Backlog</h3>
         <div @click="onClickCardInProductBacklog(card.id)" class="card row" :class="card.priority"
              data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog"
              draggable="true" @dragstart="startDrag($event, card)">
@@ -65,7 +67,8 @@
           <span class="tag" v-for="tag in card.tags">{{ tag }}</span>
         </div>
       </div>
-      <div class="col" @drop="onDrop($event, 'sprint')" @dragover.prevent @dragenter.prevent>
+      <div class="col" id="col2" @drop="onDrop($event, 'sprint')" @dragover.prevent @dragenter.prevent>
+        <h3 id="col-header2">Sprint Backlog</h3>
         <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal"
              data-bs-target="#cardPopupSprintBacklog" v-for="card in this.sprintBacklog"
              draggable="true" @dragstart="startDrag($event, card)">
@@ -491,6 +494,7 @@ export default {
   text-align: center;
   margin: 4px 0;
 }
+
 .card {
   background: white;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
@@ -531,18 +535,44 @@ export default {
       margin-bottom: 3px;
     }
   }
-  .h3{
+
+  .h3 {
     color: blue;
   }
+
   .p {
     margin-bottom: 0;
   }
 }
+
 #sprintStartDate, #sprintEndDate {
   padding-left: 5px;
   margin-left: 5px;
 }
-#timeLog{
+
+#timeLog {
   margin-left: 5px;
+}
+
+div.col {
+  box-shadow: 0 0 0 5px #9d3b3b;
+  border-radius: 1em;
+  padding: 1em 2em;
+  margin-top: 15px;
+}
+
+#col1 {
+  margin-right: 20px;
+}
+
+#col2 {
+  margin-left: 20px;
+}
+
+#col-header1, #col-header2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Century Gothic", AppleGothic, sans-serif;
+  font-weight: bold;
 }
 </style>
