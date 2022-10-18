@@ -570,9 +570,11 @@ div.col {
 }
 
 #col-header1, #col-header2 {
+  color: white;
   text-align: center;
   text-transform: uppercase;
   font-family: "Century Gothic", AppleGothic, sans-serif;
   font-weight: bold;
+  background: -webkit-linear-gradient(#e16dbb, #ef8983);
 }
 </style>
