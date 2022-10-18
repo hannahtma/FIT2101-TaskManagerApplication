@@ -5,7 +5,7 @@
     <!-- Links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link active" id="navLink" href="#">Home</a>
+        <a class="nav-link active" id="navLink" href="/home">Home</a>
       </li>
       <li class="nav-item dropdown" style="position:relative; left:30px;">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -52,7 +52,7 @@
       </RouterLink>
     </div>
     <div class="d-grid gap-2">
-      <RouterLink class="btn btn-primary me-md-2" id="homeid4" to="teamboard">TEAM BOARD</RouterLink>
+      <RouterLink class="btn btn-primary me-md-2" id="homeid4" to="/teamboard">TEAM BOARD</RouterLink>
     </div>
 
   </div>
@@ -160,6 +160,10 @@ export default {
 
     goToSprintBoard() {
       this.$router.push('sprintboard');
+    },
+
+    goToTeamBoard() {
+      this.$router.push('teamboard');
     },
 
     goToHome() {
