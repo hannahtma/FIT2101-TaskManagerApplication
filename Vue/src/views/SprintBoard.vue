@@ -4,7 +4,7 @@
   <h2>My Sprints</h2>
 
   <div class="container" v-for="sprint in this.sprints">
-    <button class="btn btn-primary me-md-2 " :style="styleObject" @click="goToProductBacklog(sprint.sprintID)"
+    <button class="btn btn-primary me-md-2 " :style="styleObject" @click="goToSprint(sprint.sprintID)"
             :id="sprint.id"
             :clickSprint="this.clickSprint">
       {{ sprint.sprintName }}
@@ -34,13 +34,31 @@ body {
 import Button from '@/components/Button.vue';
 import AddSprintBoard from '@/components/addSprintBoard.vue';
 import ProductBacklogVue from './ProductBacklog.vue';
+import SprintBacklogVue from './SprintBacklog.vue';
 
 
 export default {
   props: {
     sprints: Array,
   },
+
+  watch: {
+    sprints: {
+      handler() {
+        localStorage.setItem("sprints", JSON.stringify(this.sprints))
+        console.log('watch', this.sprints)
+      },
+      deep: true
+    }
+  },
+
   mounted() {
+    if (localStorage.getItem("sprints")) {
+      console.log('mount', JSON.parse(localStorage.getItem("sprints")))
+      const localSprints = JSON.parse(localStorage.getItem("sprints"))
+      this.$emit('load-sprint-from-local-storage', localSprints)
+      this.displayCards = localSprints
+    }
     // console.log(this.sprints)
   },
   components: {
@@ -70,6 +88,14 @@ export default {
         query: {clickSprint: true, id: sprintID}
         // props: {clickSprint:true}
       })
+    },
+    goToSprint(sprintID) {
+        this.$router.push({
+            name: 'sprintbacklog',
+            component: SprintBacklogVue,
+
+            query: {clickSprint: true, id: sprintID}
+        })
     }
 
   },
@@ -85,6 +111,7 @@ export default {
         fontFamily: 'Century Gothic',
         marginLeft: '-12px',
         marginTop: '10px',
+        sprints: [],
       }
     }
   }
