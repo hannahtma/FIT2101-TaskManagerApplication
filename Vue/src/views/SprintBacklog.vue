@@ -87,6 +87,12 @@ export default {
       this.$emit("add-card", card)
       this.displaySprintBacklog = this.sprintBacklog
     },
+    addTimeToCard(id) {
+      const index = this.displaySprintBacklog.findIndex((task) => task.id === id)
+      let newTime = document.getElementById("timeLog").value;
+      card.push(newTime);
+      this.displaySprintBacklog[index] = card
+    }
   },
 
   data() {
