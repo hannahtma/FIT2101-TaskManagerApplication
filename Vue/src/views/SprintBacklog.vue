@@ -1,19 +1,72 @@
 <template>
   <body>
-    <div class="row align-items-top">
-      <div class="col">
-        <div class="card row" :class="card.priority"
-             data-bs-toggle="modal" data-bs-target="#cardPopupSprintBacklog" v-for="card in this.displaySprintBacklog">
-          <h3>{{ card.taskName }}</h3>
-          <p>Description: {{ card.description }}</p>
-          <div>Status: {{ card.status }}</div>
-          <div>Type: {{ card.type }}</div>
-          <div class="story-points">
-            {{ card.storyPoints }}
+    <nav class="navbar navbar-expand-sm">
+      <!-- Brand -->
+      <a class="navbar-brand" href="/home">SCRUMFY</a>
+      <!-- Links -->
+      <ul class="navbar-nav" style="position:absolute">
+        <li class="nav-item">
+          <a class="nav-link active" id="navLink" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item dropdown" style="position: relative; left: 10px">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Sprints</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
           </div>
-          <div>Assigned To: {{ card.assign }}</div>
-          <span class="tag" v-for="tag in card.tags">{{ tag }}</span>
-          <div>Time: {{ card.time }}</div>
+        </li>
+        <!-- Dropdown -->
+        <li class="nav-item dropdown" style="position: relative; left: 0">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Tasks</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown" style="position: relative; left: -15px">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Teams</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
+          </div>
+        </li>
+        <li>
+          <div>
+            <button v-show="onCreate" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
+                    data-bs-target="#popUpForCreateSprint" style="left: -10px">Start Sprint
+            </button>
+            <button v-show="!onCreate" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
+                    data-bs-target="#popUpFor" style="left: -10px">Save & Exit
+            </button>
+          </div>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container text-start">
+      <div class="row align-items-top">
+        <div class="col">
+          <h3 id="col-header2">Sprint Backlog</h3>
+          <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal"
+              data-bs-target="#popUpForLogWork" v-for="card in this.displaySprintBacklog"
+              draggable="true">
+            <h3>{{ card.taskName }}</h3>
+            <p>Description: {{ card.description }}</p>
+            <div>Status: {{ card.status }}</div>
+            <div>Type: {{ card.type }}</div>
+            <div class="story-points">
+              {{ card.storyPoints }}
+            </div>
+            <div>Assigned To: {{ card.assign }}</div>
+            <span class="tag" v-for="tag in card.tags">{{ tag }}</span>
+            <div>Time: {{ card.time }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -65,16 +118,16 @@ export default {
   },
 
   mounted() {
-    this.sprintID = this.$route.query.id
+    // this.sprintID = this.$route.query.id
     console.log(this.sprintID)
     console.log(parseInt(this.sprintID))
     if (localStorage.getItem("sprint" + this.sprintID)) {
       console.log('mount', JSON.parse(localStorage.getItem("sprint" + this.sprintID)))
-      const localCards = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
-      this.$emit('load-sprint-backlog-from-local-storage', localSprintBacklog)
-      this.displaySprintBacklog = localSprintBacklog
+      this.displaySprintBacklog = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
+      // const localCards = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
+      // this.$emit('load-sprint-backlog-from-local-storage', localSprintBacklog)
+      // this.displaySprintBacklog = localSprintBacklog
     }
-    console.log(localStorage.getItem("sprint-1"))
     console.log(this.sprintBacklog)
   },
 
@@ -87,18 +140,161 @@ export default {
       this.$emit("add-card", card)
       this.displaySprintBacklog = this.sprintBacklog
     },
+
     addTimeToCard(id) {
       const index = this.displaySprintBacklog.findIndex((task) => task.id === id)
       let newTime = document.getElementById("timeLog").value;
       card.push(newTime);
       this.displaySprintBacklog[index] = card
-    }
+    },
+
+    onClickCardInSprintBacklog(id) {
+      this.cardId = id
+      // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
+      this.selectedCard = this.displaySprintBacklog.find((card) => card.id === id)
+      console.log(this.selectedCard)
+      // this.$emit("edit-card",id)
+    },
+
+    logTimeAndDateForCard(id) {
+      this.cardId = id
+      this.selectedCard = this.displaySprintBacklog.find((card) => card.id === id)
+      let newTime = document.getElementById("timeLog").value;
+      console.log(newTime)
+      this.cardId.push(newTime)
+      console.log(card)
+    },
   },
 
   data() {
     return {
       displaySprintBacklog: [],
+      sprintID: 0,
+      selectedCard: {},
     }
   }
 }
 </script>
+
+<style scoped lang="scss">
+#createId {
+  background-color: #af418b;
+  text-transform: uppercase;
+  font-size: smaller;
+}
+
+.lists {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.lists .list {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+
+  width: 100%;
+  min-width: 250px;
+  max-width: 350px;
+  height: 100%;
+  min-height: 150px;
+
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0 15px;
+  padding: 8px;
+  transition: all 0.2s linear;
+}
+
+.lists .list .list-item {
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  padding: 15px 20px;
+  text-align: center;
+  margin: 4px 0;
+}
+
+.card {
+  background: white;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  margin: 20px auto;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &.critical {
+    background-color: #ff6961;
+  }
+
+  &.high {
+    background-color: #fdfd96;
+  }
+
+  &.medium {
+    background-color: #ffb347;
+  }
+
+  &.low {
+    background-color: #cff0cc;
+  }
+
+  .tag {
+    background: #01819A;
+    color: white;
+    font-size: 0.75rem;
+    padding: 5px 15px;
+    border-radius: 5px;
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-bottom: 3px;
+    }
+  }
+
+  .h3 {
+    color: blue;
+  }
+
+  .p {
+    margin-bottom: 0;
+  }
+}
+
+#sprintStartDate, #sprintEndDate {
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+#timeLog {
+  margin-left: 5px;
+}
+
+div.col {
+  box-shadow: 0 0 0 5px #9d3b3b;
+  border-radius: 1em;
+  padding: 1em 2em;
+  margin-top: 15px;
+}
+
+#col1 {
+  margin-right: 20px;
+}
+
+#col2 {
+  margin-left: 20px;
+}
+
+#col-header1, #col-header2 {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Century Gothic", AppleGothic, sans-serif;
+  font-weight: bold;
+  background: -webkit-linear-gradient(#e16dbb, #ef8983);
+}
+</style>
