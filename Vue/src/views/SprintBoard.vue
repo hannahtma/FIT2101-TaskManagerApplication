@@ -1,21 +1,78 @@
 <template>
-  <body>
-  <AddSprintBoard :sprints="this.sprints" @display-sprint-board="addSprintBoards"/>
-  <h2>My Sprints</h2>
+    <body>
+        <AddSprintBoard :sprints="this.sprints" @display-sprint-board="addSprintBoards"/>
+        <h2>My Sprints</h2>
 
-  <div class="container" v-for="sprint in this.sprints">
-    <button class="btn btn-primary me-md-2 " :style="styleObject" @click="goToSprint(sprint.sprintID)"
-            :id="sprint.id"
-            :clickSprint="this.clickSprint">
-      {{ sprint.sprintName }}
-      Start Date : {{ sprint.startDate }}
-      End Date : {{ sprint.endDate }}
-    </button>
-
-
-  </div>
-  </body>
+        <div class="container" v-for="sprint in this.sprints">
+            <button class="btn btn-primary me-md-2 " @click="goToProductBacklog(sprint.sprintID)" :id="sprint.id" :clickSprint="this.clickSprint" >
+                {{sprint.sprintName}}
+                Start Date : {{sprint.startDate}}
+                End Date : {{sprint.endDate}}
+            </button>
+           
+            
+        </div>
+    </body>
 </template>
+
+<script>
+    import Button from '@/components/Button.vue';
+    import AddSprintBoard from '@/components/addSprintBoard.vue';
+import ProductBacklogVue from './ProductBacklog.vue';
+    
+
+    export default {
+        props:{
+            sprints: Array,
+        },
+        mounted(){
+            // console.log(this.sprints)
+        },
+        components: {
+            Button,
+            AddSprintBoard,
+        },
+
+        methods: {
+            addSprintBoards(sprintBoard) {
+                this.sprints.push(sprintBoard)
+            },
+
+            onClickSprintBoard(id){
+                this.onClickSprintBoardID = id
+                this.showProductBacklog = !this.showProductBacklog
+                
+            },
+            goToProductBacklog(sprintID){
+                // let data={
+                //     clickSprint:true
+                // }
+                // console.log(data)
+                console.log(this.sprints)
+                console.log(sprintID)
+                this.$router.push({
+                    name: 'productbacklog',
+                    component : ProductBacklogVue,
+                    
+                    // props:true,
+                    // params:{id},
+                    query: {clickSprint:true , id:sprintID}
+                    // props: {clickSprint:true}
+                })
+            }
+           
+        },
+
+        data() {
+            return {
+                // sprints : [],
+                clickSprint :true
+                
+
+            }
+        }
+    }
+</script>
 
 <style>
 h2 {
@@ -30,93 +87,3 @@ body {
   background-color: #ffeaa9;
 }
 </style>
-
-<script>
-import Button from '@/components/Button.vue';
-import AddSprintBoard from '@/components/addSprintBoard.vue';
-import ProductBacklogVue from './ProductBacklog.vue';
-import SprintBacklogVue from './SprintBacklog.vue';
-
-
-export default {
-  props: {
-    sprints: Array,
-  },
-
-  watch: {
-    sprints: {
-      handler() {
-        localStorage.setItem("sprints", JSON.stringify(this.displaySprints))
-        console.log('watch', this.sprints)
-      },
-      deep: true
-    }
-  },
-
-  mounted() {
-    if (localStorage.getItem("sprints")) {
-      console.log('mount', JSON.parse(localStorage.getItem("sprints")))
-      const localSprints = JSON.parse(localStorage.getItem("sprints"))
-      this.$emit('load-sprint-from-local-storage', localSprints)
-      this.displaySprints = localSprints
-    }
-    // console.log(this.sprints)
-  },
-  components: {
-    Button,
-    AddSprintBoard,
-  },
-
-  methods: {
-    addSprintBoards(sprintBoard) {
-      this.sprints.push(sprintBoard)
-      localStorage.setItem("sprints", JSON.stringify(this.sprints))
-      this.displaySprints = this.sprints
-    },
-
-    onClickSprintBoard(id) {
-      this.onClickSprintBoardID = id
-      this.showProductBacklog = !this.showProductBacklog
-
-    },
-    goToProductBacklog(sprintID) {
-      console.log(this.sprints)
-      console.log(sprintID)
-      this.$router.push({
-        name: 'productbacklog',
-        component: ProductBacklogVue,
-
-        // props:true,
-        // params:{id},
-        query: {clickSprint: true, id: sprintID}
-        // props: {clickSprint:true}
-      })
-    },
-    goToSprint(sprintID) {
-        this.$router.push({
-            name: 'sprintbacklog',
-            component: SprintBacklogVue,
-
-            query: {clickSprint: true, id: sprintID}
-        })
-    }
-
-  },
-
-  data() {
-    return {
-      // sprints : [],
-        clickSprint: true,
-        styleObject: {
-        colorVar: 'white',
-        backgroundColor: 'rgb(229,102,102)',
-        border: 'none',
-        fontFamily: 'Century Gothic',
-        marginLeft: '-12px',
-        marginTop: '10px',
-        displaySprints: [],
-      }
-    }
-  }
-}
-</script>
