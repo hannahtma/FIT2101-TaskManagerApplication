@@ -1,8 +1,10 @@
 <template>
   <body>
+      
+  <!-- <AddCardToProductBacklog :cards="this.productBacklog" @display-card-in-product-backlog="addTaskCardToProductBacklog"/> -->
   <nav class="navbar navbar-expand-sm">
     <!-- Brand -->
-    <a class="navbar-brand" href="/home">SCRUMFY</a>
+    <a class="navbar-brand" >SCRUMFY</a>
     <!-- Links -->
     <ul class="navbar-nav" style="position:absolute">
       <li class="nav-item">
@@ -10,7 +12,7 @@
       </li>
       <li class="nav-item dropdown" style="position: relative; left: 10px">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-           aria-expanded="false">Sprints</a>
+          aria-expanded="false">Sprints</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>
@@ -18,9 +20,9 @@
         </div>
       </li>
       <!-- Dropdown -->
-      <li class="nav-item dropdown" style="position: relative; left: 0">
+      <li class="nav-item dropdown" style="position: relative; left: 0px">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
-           aria-expanded="false">Tasks</a>
+          aria-expanded="false">Tasks</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>
@@ -29,7 +31,7 @@
       </li>
       <li class="nav-item dropdown" style="position: relative; left: -15px">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
-           aria-expanded="false">Teams</a>
+          aria-expanded="false">Teams</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>
@@ -39,279 +41,313 @@
       <li>
         <div>
           <button v-show="onCreate" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-                  data-bs-target="#popUpForCreateSprint" style="left: -10px">Start Sprint
+            data-bs-target="#popUpForCreateSprint" style="left: -10px">Start Sprint
           </button>
-          <button v-show="!onCreate" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-                  data-bs-target="#popUpFor" style="left: -10px">Save & Exit
+          <button v-show="!onCreate" @click="onSaveAndExit"  class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
+            data-bs-target="#popUpFor" style="left: -10px">Save & Exit
           </button>
         </div>
       </li>
     </ul>
   </nav>
-
-  <div class="container text-start">
-    <div class="row align-items-top">
-      <div class="col" @drop="onDrop($event, 'product')" @dragover.prevent @dragenter.prevent>
-        <h3 id="col-header1">Product Backlog</h3>
-        <div class="card row" :class="card.priority"
-             data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog"
-             draggable="true" @dragstart="startDrag($event, card)">
-          <h3>{{ card.taskName }}</h3>
-          <p>Description: {{ card.description }}</p>
-          <div>Status: {{ card.status }}</div>
-          <div>Type: {{ card.type }}</div>
-          <div class="story-points">
-            {{ card.storyPoints }}
-          </div>
-          <div>Assigned To: {{ card.assign }}</div>
-          <span class="tag" v-for="tag in card.tags">{{ tag }}</span>
-        </div>
+      <div class="container text-start">
+          <div class="row align-items-top" >
+              <div class="col" @drop="onDrop($event, 'product')" @dragover.prevent @dragenter.prevent>
+                <h3 id="col-header1">Product Backlog</h3>
+                  <!-- <div class="row" id="progress3">Deployed</div> -->
+                  <div @click="onClickCardInProductBacklog(card.id)" class="card row" :class="card.priority"  data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog"
+                  draggable="true" @dragstart="startDrag($event, card)">
+                      <h3>{{card.taskName}}</h3>
+                      <p>Description: {{card.description}}</p>
+                      <div>Status: {{card.status}}</div>
+                      <div>Type: {{card.type}}</div>
+                      <div class="story-points">
+                          {{card.storyPoints}}
+                      </div>
+                      <div>Assigned To: {{card.assign}}</div>
+                      <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                  </div>
+              </div>
+              <div class="col" @drop="onDrop($event, 'sprint')" @dragover.prevent @dragenter.prevent>
+                <h3 id="col-header2">Sprint Backlog</h3>
+                  <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.priority" data-bs-toggle="modal" data-bs-target="#popUpForLogWork" v-for="card in this.sprintBacklog"
+                  draggable="true" @dragstart="startDrag($event, card)">
+                      <h3>{{card.taskName}}</h3>
+                      <p>Description: {{card.description}}</p>
+                      <div>Status: {{card.status}}</div>
+                      <div>Type: {{card.type}}</div>
+                      <div class="story-points">
+                          {{card.storyPoints}}
+                      </div>
+                      <div>Assigned To: {{card.assign}}</div>
+                      <span class="tag" v-for="tag in card.tags">{{tag}}</span>
+                      <div>Accumulated Time: {{ card.time }}</div>
+                  </div>  
+              </div>
+          </div>        
       </div>
-      <div class="col" @drop="onDrop($event, 'sprint')" @dragover.prevent @dragenter.prevent>
-        <h3 id="col-header2">Sprint Backlog</h3>
-        <div class="card row" :class="card.priority" data-bs-toggle="modal"
-             data-bs-target="#cardPopupSprintBacklog" v-for="card in this.sprintBacklog"
-             draggable="true" @dragstart="startDrag($event, card)">
-          <h3>{{ card.taskName }}</h3>
-          <p>Description: {{ card.description }}</p>
-          <div>Status: {{ card.status }}</div>
-          <div>Type: {{ card.type }}</div>
-          <div class="story-points">
-            {{ card.storyPoints }}
-          </div>
-          <div>Assigned To: {{ card.assign }}</div>
-          <span class="tag" v-for="tag in card.tags">{{ tag }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="popUpForCreateSprint" tabindex="-1" aria-labelledby="exampleModalLabel"
+  
+      <div class="modal fade" id="popUpForLogWork" tabindex="-1" aria-labelledby="exampleModalLabel"
        aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Sprint Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="myForm">
-            <div class="mb-3">
-              <label for="task-title" class="col-form-label">Sprint Title:</label>
-              <input type="text" class="form-control" id="task-title" placeholder="Enter sprint title here"
-                     v-model="sprintTitle"/>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Log Work Time Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="mb-3">
+            <div class="modal-body">
+              <form id="myForm" style="display: inline-block">
+                <div class="mb-3">
+                  <label for="sprintStartDate">Start Date:</label>
+                  <input type="datetime-local" id="logTimeStartDate" name="sprintStartDate" v-model="logTimeStartDate">
+                </div>
+                <div class="mb-3">
+                  <label for="sprintEndDate">End Date:</label>
+                  <input type="datetime-local" id="logTimeEndDate" name="sprintEndDate" v-model="logTimeEndDate">
+                </div>
+                <div class="mb-3">
+                  <label for="task-title" class="col-form-label">Time Hours:</label>
+                  <input type="number" min="0" id="timeLog" placeholder="Enter time hours here"
+                        v-model="sprintTimeHours"/>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
+                      @click="logTimeAndDateForCard(this.onClickCardID)" >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal fade" id="popUpForCreateSprint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sprint Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="myForm">
+          <div class="mb-3">
+            <label for="task-title" class="col-form-label">Sprint Title:</label>
+            <input type="text" class="form-control" id="task-title" placeholder="Enter sprint title here" v-model="sprintTitle" />
+          </div>
+          <div class="mb-3">
               <label for="sprintStartDate">Start Date:</label>
               <input type="datetime-local" id="sprintStartDate" name="sprintStartDate" v-model="sprintStartDate">
-            </div>
-            <div class="mb-3">
+          </div>
+          <div class="mb-3">
               <label for="sprintEndDate">End Date:</label>
               <input type="datetime-local" id="sprintEndDate" name="sprintEndDate" v-model="sprintEndDate">
-            </div>
-
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
-                  @click="addToSprintBoard">
-            Confirm
-          </button>
-        </div>
+          </div>
+      
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal" @click="addToSprintBoard">
+          Confirm 
+        </button>
       </div>
     </div>
   </div>
-
-  <div class="modal fade" id="popUpForLogWork" tabindex="-1" aria-labelledby="exampleModalLabel"
-       aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Log Work Time Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="myForm" style="display: inline-block">
-            <div class="mb-3">
-              <label for="sprintStartDate">Start Date:</label>
-              <input type="datetime-local" id="logTimeStartDate" name="sprintStartDate" v-model="logTimeStartDate">
-            </div>
-            <div class="mb-3">
-              <label for="sprintEndDate">End Date:</label>
-              <input type="datetime-local" id="logTimeEndDate" name="sprintEndDate" v-model="logTimeEndDate">
-            </div>
-            <div class="mb-3">
-              <label for="task-title" class="col-form-label">Time Hours:</label>
-              <input type="number" min="0" id="timeLog" placeholder="Enter time hours here"
-                     v-model="sprintTimeHours"/>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
-                  @click="logTimeAndDateForCard(this.onClickCardID)">
-            Confirm
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
   </body>
-</template>
+</template>    
 
 <script>
-import Button from '@/components/Button.vue';
-import AddCardToProductBacklog from '@/components/addCardToProductBacklog.vue';
-import AddTask from '@/components/addTask.vue';
+  import Button from '@/components/Button.vue';
+  import AddCardToProductBacklog from '@/components/addCardToProductBacklog.vue';
+  import AddTask from '@/components/addTask.vue';
+  import {toRaw} from 'vue';
 
-export default {
-  props: {
-    id: Number, //this is for the sprint length
-    sprints: Array,
-    clickSprint: Boolean,
+  export default{
+      props: {
+          id: Number, //this is for the sprint length
+          sprints : Array,
+          clickSprint: Boolean,
 
-  },
-
-  // watch: {
-  //     productBacklog: {
-  //         handler(){
-  //             console.log(this.productBacklog)
-  //             localStorage.setItem("cards", JSON.stringify(this.productBacklog))
-
-  //         },
-  //         deep: true
-  //     },
-  //     sprintBacklog: {
-  //         handler(){
-  //             localStorage.setItem("sprint"+this.id, JSON.stringify(this.sprintBacklog))
-  //             // console.log('test')
-  //         },
-  //         deep: true
-  //     }
-  // },
-  mounted() {
-    console.log('mount')
-    console.log(this.$route.query.clickSprint)
-
-    console.log("before",this.sprintID)
-    console.log("befpre",this.$route.query.id)
-    // this.sprintID = this.$route.query.id
-    console.log("after",this.sprintID)
-    console.log("After",this.$route.query.id)
-    // if (this.$route.query.id) {
-    //   this.sprintID = parseInt(this.sprintID)
-    // } else {
-    //   this.sprintID = -1
-    // }
-    // this.sprintID = (this.sprintID)
-    console.log(parseInt(this.sprintID))
-
-    console.log("id", this.sprintID)
-    this.onCreate = this.$route.query.clickSprint !== 'true'
-    console.log(this.onCreate)
-
-    if (localStorage.getItem("cards")) {
-      this.productBacklog = JSON.parse(localStorage.getItem("cards"))
-      // console.log(this.productBacklog)
-    }
-    if (!this.onCreate) {
-      if (localStorage.getItem("sprint" + this.sprintID)) {
-        this.sprintBacklog = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
-        // console.log(this.sprintBacklog,'mount')
-      }
-    }
-
-  },
-  components: {
-    Button,
-    AddCardToProductBacklog,
-    AddTask,
-  },
-
-  methods: {
-    displayProductBacklog(card) {
-      this.$emit("add-card", card)
-      this.productBacklog = this.cards
-    },
-
-    onClickCardInProductBacklog(id) {
-      this.cardId = id
-      // this.showCardInProductBacklog = !this.showCardInProductBacklog
-      this.selectedCard = this.productBacklog.find((card) => card.id === id)
-      console.log(this.productBacklog)
-      console.log(this.productBacklog.find((card) => card.id === id))
-      // this.$emit("edit-card",id)
-    },
-
-    displaySprintBacklog(card) {
-      this.$emit("add-card", card)
-    },
-
-    startDrag(event, card) {
-      // console.log(card)
-      event.dataTransfer.dropEffect = 'move'
-      event.dataTransfer.effectAllowed = 'move'
-      event.dataTransfer.setData('cardID', card.id)
-    },
-
-    onDrop(event, dropList) {
-      const cardID = event.dataTransfer.getData('cardID')
-      if (dropList === 'sprint') {
-        const returnCard = this.productBacklog.find((card) => card.id == cardID)
-        this.productBacklog = this.productBacklog.filter((card) => card !== returnCard)
-        this.sprintBacklog.push(returnCard)
-        this.$emit('on-drop-delete', returnCard.id)
-      } else {
-        const returnCard = this.sprintBacklog.find((card) => card.id == cardID)
-        console.log(this.sprintBacklog)
-        this.sprintBacklog = this.sprintBacklog.filter((card) => card !== returnCard)
-        console.log(this.sprintBacklog)
-        localStorage.setItem("cards", JSON.stringify(this.productBacklog))
-        this.productBacklog.push(returnCard)
-        this.$emit('on-drop-add', returnCard)
-
-      }
-      localStorage.setItem("cards", JSON.stringify(this.productBacklog))
-      localStorage.setItem("sprint" + parseInt(this.sprintID), JSON.stringify(this.sprintBacklog))
-
-    },
-    addToSprintBoard() {
-      // console.log('test')
-      const sprint = {
-        sprintID: this.sprints.length,
-        sprintName: this.sprintTitle,
-        startDate: this.sprintStartDate,
-        endDate: this.sprintEndDate
-      }
+      },
       
-      // console.log(sprint)
-      this.$emit('add-to-sprint', sprint)
-      this.$router.back()
-      // this.$router.push('sprintboard')
-    },
-  },
+      // watch: {
+      //     productBacklog: {
+      //         handler(){
+      //             console.log(this.productBacklog)
+      //             localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                  
+      //         },
+      //         deep: true
+      //     },
+      //     sprintBacklog: {
+      //         handler(){
+      //             localStorage.setItem("sprint"+this.id, JSON.stringify(this.sprintBacklog))
+      //             // console.log('test')
+      //         },
+      //         deep: true
+      //     }
+      // },
+      mounted(){
+          // this.productBacklog = this.cards
+          // console.log(this.cards)
+          console.log('mount')
+          console.log(this.$route.query.clickSprint)
+          
+          // console.log(this.$route.params.data)
+          // this.onCreate = this.$route.params.data
+          // console.log("create",this.onCreate)
+          // if (this.clickSprint){
+          //     this.onCreate = !this.onCreate
+          // }
+          
+          this.sprintID = this.$route.query.id
+          if(this.$route.query.id){this.sprintID = parseInt(this.sprintID)}
+          else {
+              this.sprintID = -1
+          }
+          
+          console.log(parseInt(this.sprintID))
+          // console.log({id:this.$route.query.id})
+          // console.log(parseInt(this.$route.query.id))
+          // if (this.$route.query.id){
+          //     this.id = JSON.parse(this.$route.query.id)
+          // }
+          
+          console.log("id",this.sprintID)
+          this.onCreate = this.$route.query.clickSprint !== 'true'
+          console.log(this.onCreate)
 
-  data() {
-    return {
-      productBacklog: [],
-      selectedCard: {},
-      sprintBacklog: [],
-      onCreate: true,
-      sprintTitle: '',
-      sprintStartDate: '',
-      sprintEndDate: '',
-      logTimeStartDate: '',
-      logTimeEndDate: '',
-      sprintID: 0,
-    }
+          if (localStorage.getItem("cards")){
+              this.productBacklog = JSON.parse(localStorage.getItem("cards"))
+              // console.log(this.productBacklog)
+          }
+          if(!this.onCreate){
+              if (localStorage.getItem("sprint"+this.sprintID)){
+              this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.sprintID))
+              console.log(this.sprintBacklog,'mount')
+          }
+          }
+         
+      },
+      components: {
+          Button,
+          AddCardToProductBacklog,
+          AddTask,
+      },
+
+      methods: {
+          displayProductBacklog(card) {
+              this.$emit("add-card",card)
+              this.productBacklog = this.cards
+          },
+
+          onClickCardInProductBacklog(id){
+              this.cardId = id
+              // this.showCardInProductBacklog = !this.showCardInProductBacklog
+              this.selectedCard = this.productBacklog.find((card)=>card.id ===id)
+              console.log(this.productBacklog)
+              console.log(this.productBacklog.find((card)=>card.id ===id))
+              // this.$emit("edit-card",id)
+          },
+
+          displaySprintBacklog(card) {
+              this.$emit("add-card",card)
+          },
+
+          onClickCardInSprintBacklog(id) {
+            // this.displaySprintBacklog = localStorage.getItem("sprint" + this.sprintID)
+            console.log(this.sprintID)
+            this.onClickCardID = id
+            // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
+            this.selectedCard = this.sprintBacklog.find((card) => card.id === id)
+            // console.log(this.selectedCard)
+            // console.log(this.displaySprintBacklog)
+          },
+
+          logTimeAndDateForCard(id) {
+            // console.log(id)
+            let newTime = document.getElementById("timeLog").value;
+            // console.log(newTime)
+            // console.log(this.displaySprintBacklog[id])
+            this.$emit("log-time-and-date", id)
+            this.sprintBacklog[this.onClickCardID].time = newTime + " hour(s)"
+            localStorage.setItem("sprint" + parseInt(this.sprintID), JSON.stringify(this.sprintBacklog))
+          },
+
+          startDrag(event, card) {
+              // console.log(card)
+              event.dataTransfer.dropEffect = 'move'
+              event.dataTransfer.effectAllowed = 'move'
+              event.dataTransfer.setData('cardID', card.id)
+          },
+
+          onDrop(event, dropList) {
+              const cardID = event.dataTransfer.getData('cardID')
+              if (dropList === 'sprint'){
+                  const returnCard = this.productBacklog.find((card) => card.id == cardID)
+                  this.productBacklog = this.productBacklog.filter((card)=> card!==returnCard)
+                  this.sprintBacklog.push(returnCard)
+                  this.$emit('on-drop-delete',returnCard.id)
+              }
+              else{
+                  const returnCard = this.sprintBacklog.find((card) => card.id == cardID)
+                  // console.log(this.sprintBacklog)
+                  this.sprintBacklog = this.sprintBacklog.filter((card)=> card!==returnCard)
+                  // console.log(this.sprintBacklog)
+                  // localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                  this.productBacklog.push(returnCard)
+                  this.$emit('on-drop-add',returnCard)
+
+              }
+              
+              
+          },
+          addToSprintBoard(){
+              // console.log('test')
+              const sprint = {
+                  sprintID: this.sprints.length,
+                  sprintName: this.sprintTitle,
+                  startDate : this.sprintStartDate,
+                  endDate : this.sprintEndDate
+              }
+              // console.log(sprint)
+              localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+              localStorage.setItem("sprint"+this.sprints.length, JSON.stringify(this.sprintBacklog))
+              this.$emit('add-to-sprint',sprint)
+              this.$router.back()
+              // this.$router.push('sprintboard')
+          },
+          onSaveAndExit(){
+              localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+              localStorage.setItem("sprint"+this.sprintID, JSON.stringify(this.sprintBacklog))
+              this.$router.back()
+          }
+      },
+
+      data() {
+          return {
+              productBacklog: [],
+              showCardInProductBacklog: false,
+              selectedCard:{},
+              sprintBacklog: [],
+              onCreate: true,
+              sprintTitle: '',
+              sprintStartDate : '',
+              sprintEndDate : '',
+              sprintID: 0,
+
+
+
+          }
+      }
   }
-}
 
 </script>
 
