@@ -16,6 +16,7 @@
   </div>
   </body>
 </template>
+
 <style>
 h2 {
   margin-left: 86px;
@@ -45,7 +46,7 @@ export default {
   watch: {
     sprints: {
       handler() {
-        localStorage.setItem("sprints", JSON.stringify(this.sprints))
+        localStorage.setItem("sprints", JSON.stringify(this.displaySprints))
         console.log('watch', this.sprints)
       },
       deep: true
@@ -57,7 +58,7 @@ export default {
       console.log('mount', JSON.parse(localStorage.getItem("sprints")))
       const localSprints = JSON.parse(localStorage.getItem("sprints"))
       this.$emit('load-sprint-from-local-storage', localSprints)
-      this.displayCards = localSprints
+      this.displaySprints = localSprints
     }
     // console.log(this.sprints)
   },
@@ -69,6 +70,8 @@ export default {
   methods: {
     addSprintBoards(sprintBoard) {
       this.sprints.push(sprintBoard)
+      localStorage.setItem("sprints", JSON.stringify(this.sprints))
+      this.displaySprints = this.sprints
     },
 
     onClickSprintBoard(id) {
@@ -103,15 +106,15 @@ export default {
   data() {
     return {
       // sprints : [],
-      clickSprint: true,
-      styleObject: {
+        clickSprint: true,
+        styleObject: {
         colorVar: 'white',
         backgroundColor: 'rgb(229,102,102)',
         border: 'none',
         fontFamily: 'Century Gothic',
         marginLeft: '-12px',
         marginTop: '10px',
-        sprints: [],
+        displaySprints: [],
       }
     }
   }
