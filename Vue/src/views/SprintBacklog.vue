@@ -128,39 +128,33 @@ export default {
       // this.$emit('load-sprint-backlog-from-local-storage', localSprintBacklog)
       // this.displaySprintBacklog = localSprintBacklog
     }
-    console.log(this.displaySprintBacklog)
+    // console.log(this.displaySprintBacklog)
   },
 
   methods: {
-    getCardsForSprintBacklog() {
-      return this.sprintBacklog;
-    },
+    // getCardsForSprintBacklog() {
+    //   return this.sprintBacklog;
+    // },
 
     displaySprintBacklog(card) {
       this.$emit("add-card", card)
-      this.displaySprintBacklog = this.sprintBacklog
-    },
-
-    addTimeToCard(id) {
-      const index = this.displaySprintBacklog.findIndex((task) => task.id === id)
-      let newTime = document.getElementById("timeLog").value;
-      card.push(newTime);
-      this.displaySprintBacklog[index] = card
+      this.displaySprintBacklog = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
     },
 
     onClickCardInSprintBacklog(id) {
-      console.log(id)
+      // this.displaySprintBacklog = localStorage.getItem("sprint" + this.sprintID)
+      console.log(this.sprintID)
       this.onClickCardID = id
       // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
       this.selectedCard = this.displaySprintBacklog.find((card) => card.id === id)
-      console.log(this.selectedCard)
-      console.log(this.displaySprintBacklog)
+      // console.log(this.selectedCard)
+      // console.log(this.displaySprintBacklog)
     },
 
     logTimeAndDateForCard(id) {
       // console.log(id)
       let newTime = document.getElementById("timeLog").value;
-      console.log(newTime)
+      // console.log(newTime)
       // console.log(this.displaySprintBacklog[id])
       this.$emit("log-time-and-date", id)
       this.displaySprintBacklog[this.onClickCardID].time = newTime + " hour(s)"
@@ -171,9 +165,9 @@ export default {
   data() {
     return {
       displaySprintBacklog: [],
-      sprintID: 0,
       selectedCard: {},
       onClickCardID: 0,
+      sprintID: 0,
     }
   }
 }
