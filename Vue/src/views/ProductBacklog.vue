@@ -4,9 +4,24 @@
         
         <div class="container text-start">
             <div class="row align-items-top" >
-                <div class="col">
+                <!-- list -->
+                <div 
+                class="col"
+                @drop="onDropInProduct($event)"
+                @dragenter.prevent
+                @dragover.prevent
+                >
+
                     <!-- <div class="row" id="progress3">Deployed</div> -->
-                    <div @click="onClickCardInProductBacklog(card.id)" class="card row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupProductBacklog" v-for="card in this.productBacklog">
+                    <!-- cards -->
+                    <div 
+                    @click="onClickCardInProductBacklog(card.id)" 
+                    class="card row" :class="card.id" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#cardPopupProductBacklog" 
+                    v-for="card in this.productBacklog"
+                    draggable="true"
+                    @dragstart="startDrag($event, card)">
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -18,8 +33,25 @@
                         <span class="tag" v-for="tag in card.tags">{{tag}}</span>
                     </div>
                 </div>
-                <div class="col">
-                    <div @click="onClickCardInSprintBacklog(card.id)" class="card row" :class="card.id" data-bs-toggle="modal" data-bs-target="#cardPopupSprintBacklog" v-for="card in this.sprintBacklog">
+
+                <!-- list -->
+                <div 
+                class="col"
+                @drop="onDropInSprint($event)"
+                @dragenter.prevent
+                @dragover.prevent
+                >
+
+                    <!-- cards -->
+                    <div 
+                    @click="onClickCardInSprintBacklog(card.id)" 
+                    class="card row" :class="card.id" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#cardPopupSprintBacklog" 
+                    v-for="card in this.sprintBacklog"
+                    draggable="true"
+                    @dragstart="startDrag($event, card)"
+                    >
                         <h3>{{card.taskName}}</h3>
                         <p>Description: {{card.description}}</p>
                         <div>Status: {{card.status}}</div>
@@ -133,7 +165,34 @@
                 evt.dataTransfer.effectAllowed = 'move'
                 evt.dataTransfer.setData('cardID', card.id)
             },
+
+            onDropInProduct(event) {
+                const cardID = event.dataTransfer.getData("cardID")
+                card = this.sprintBacklog.find((card) => card.id === cardID)
+                this.productBacklog.push(card)
+                const index = cardID - 1;
+                this.sprintBacklog.splice(index, 1)
+                // this.$emit('drop',list, cardID)
+            },
+
+            onDropInSprint(event) {
+                const cardID = event.dataTransfer.getData("cardID")
+                card = this.productBacklog.find((card) => card.id === cardID)
+                this.sprintBacklog.push(card)
+                const index = cardID - 1;
+                this.productBacklog.splice(index, 1)
+                // this.$emit('drop',list, cardID)
+            },
         },
+
+        computed: {
+            listOne: function () {
+                return this.cards.filter(card => card.list === 1)
+                },
+            listTwo: function () {
+                return this.cards.filter(card => card.list === 2)
+                },
+            },
 
         data() {
             return {
@@ -260,6 +319,23 @@
     margin: 4px 0px;
 }
 
+.col {
+    background-color: rgb(201, 152, 197);
+    padding: 10px;
+    min-height: 4px;
+}
+
+.product-backlog {
+  background-color: rgb(138, 105, 136);
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.product-backlog:nth-last-of-type(1) {
+  margin-bottom: 0;
+}
+
 // .product-backlog {
 //     background: white;
 //     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
@@ -302,3 +378,188 @@
 // }
 
 </style>
+
+
+
+// <style scoped lang="scss">
+//     nav.navbar.navbar-expand-sm {
+//     background-color: #ec746c;
+// }
+
+// ul.navbar-nav {
+//     position: relative;
+//     left: 30px;
+// }
+
+// #navbarDropdown,
+// #navbarDropdown2,
+// #navbarDropdown3,
+// #navLink {
+//     font-weight: 500;
+//     text-transform: uppercase;
+// }
+
+// a.nav-link.active {
+//     color: white;
+// }
+
+// a.navbar-brand {
+//     color: black;
+//     position: relative;
+//     left: 20px;
+//     top: -1px;
+//     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+//     font-style: italic;
+// }
+// a.navbar-brand:hover {
+//     color: black;
+// }
+
+// a.dropdown-item {
+//     color: white;
+// }
+
+// div.dropdown-menu {
+//     background-color: black;
+// }
+
+// #createId {
+//     position: relative;
+//     left: 120px;
+//     background-color: black;
+//     text-transform: uppercase;
+//     font-size: smaller;
+//     top: 2.5px;
+// }
+
+// div.card {
+//     margin-left: 10px;
+//     margin-top: 10px;
+// }
+
+// .btn-primary {
+//     background-color: #ec746c;
+// }
+
+// /* ----------------------------- */
+
+// * {
+//     margin: 0;
+//     padding: 0;
+//     box-sizing: border-box;
+// }
+
+// body {
+//     background-color: #ffce00;
+//     font-family: "Roboto", Helvetica, sans-serif;
+// }
+
+// .app {
+//     display: flex;
+//     flex-flow: column;
+
+//     width: 100vw;
+//     height: 100vh;
+// }
+
+// .lists {
+//     display: flex;
+//     flex: 1;
+//     width: 100%;
+//     overflow-x: scroll;
+// }
+
+// .lists .list {
+//     display: flex;
+//     flex-flow: column;
+//     flex: 1;
+
+//     width: 100%;
+//     min-width: 250px;
+//     max-width: 350px;
+//     height: 100%;
+//     min-height: 150px;
+
+//     background-color: rgba(0, 0, 0, 0.1);
+//     margin: 0 15px;
+//     padding: 8px;
+//     transition: all 0.2s linear;
+// }
+
+// .lists .list .list-item {
+//     background-color: #f3f3f3;
+//     border-radius: 8px;
+//     padding: 15px 20px;
+//     text-align: center;
+//     margin: 4px 0px;
+// }
+
+// .product-backlog {
+//     background: white;
+//     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+//     border-radius: 10px;
+//     padding: 20px;
+
+//     &:not(:last-child) {
+//         margin-bottom: 10px;
+//     }
+
+//     &.critical{
+//         background-color:#ff6961;
+//     }
+//     &.high{
+//         background-color:#fdfd96;
+//     }
+//     &.medium{
+//         background-color:#ffb347;
+//     }
+//     &.low{
+//         background-color:#cff0cc;
+//     }
+
+//     .tag {
+//         background: #01819A;
+//         color: white;
+//         font-size: 0.75rem;
+//         padding: 5px 15px;
+//         border-radius: 5px;
+//         display: inline-block;
+
+//         &:not(:last-child) {
+//             margin-bottom: 3px;
+//         }
+//     }
+//     p{
+//         margin-bottom: 0px;
+//     }
+    
+// }
+
+// .drop-zone1 {
+//   width: 500px;
+//   margin: 50px auto;
+//   background-color: rgb(201, 152, 197);
+//   padding: 10px;
+//   min-height: 10px;
+// }
+
+// .drop-zone2 {
+//   width: 500px;
+//   margin: 50px auto;
+//   background-color: rgb(201, 152, 197);
+//   padding: 10px;
+//   min-height: 40px;
+// }
+
+// .product-backlog {
+//   background-color: rgb(138, 105, 136);
+//   color: white;
+//   padding: 5px;
+//   margin-bottom: 10px;
+// }
+
+// .product-backlog:nth-last-of-type(1) {
+//   margin-bottom: 0;
+// }
+
+// </style>
