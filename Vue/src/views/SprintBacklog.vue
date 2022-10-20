@@ -101,7 +101,7 @@
               Close
             </button>
             <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
-                    @click="logTimeAndDateForCard(card.id)" v-for="card in this.displaySprintBacklog">
+                    @click="logTimeAndDateForCard(this.onClickCardID)" >
               Confirm
             </button>
           </div>
@@ -150,6 +150,7 @@ export default {
 
     onClickCardInSprintBacklog(id) {
       console.log(id)
+      this.onClickCardID = id
       // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
       this.selectedCard = this.displaySprintBacklog.find((card) => card.id === id)
       console.log(this.selectedCard)
@@ -161,8 +162,8 @@ export default {
       let newTime = document.getElementById("timeLog").value;
       console.log(newTime)
       // console.log(this.displaySprintBacklog[id])
-      this.displaySprintBacklog[id].time = newTime + " hour(s)"
-
+      this.$emit("log-time-and-date", id)
+      this.displaySprintBacklog[this.onClickCardID].time = newTime + " hour(s)"
       localStorage.setItem("sprint" + parseInt(this.sprintID), JSON.stringify(this.displaySprintBacklog))
     },
   },
@@ -172,6 +173,7 @@ export default {
       displaySprintBacklog: [],
       sprintID: 0,
       selectedCard: {},
+      onClickCardID: 0,
     }
   }
 }
