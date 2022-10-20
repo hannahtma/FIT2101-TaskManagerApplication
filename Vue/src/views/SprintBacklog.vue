@@ -65,7 +65,7 @@
             </div>
             <div>Assigned To: {{ card.assign }}</div>
             <span class="tag" v-for="tag in card.tags">{{ tag }}</span>
-            <div>Time: {{ card.time }}</div>
+            <div>Accumulated Time: {{ card.time }}</div>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
               Close
             </button>
             <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
-                    @click="logTimeAndDateForCard(this.onClickCardID)">
+                    @click="logTimeAndDateForCard(card.id)" v-for="card in this.displaySprintBacklog">
               Confirm
             </button>
           </div>
@@ -119,16 +119,16 @@ export default {
 
   mounted() {
     // this.sprintID = this.$route.query.id
-    console.log(this.sprintID)
-    console.log(parseInt(this.sprintID))
-    if (localStorage.getItem("sprint" + this.sprintID)) {
+    // console.log(this.sprintID)
+    // console.log(parseInt(this.sprintID))
+    if (localStorage.getItem("sprint" + parseInt(this.sprintID))) {
       console.log('mount', JSON.parse(localStorage.getItem("sprint" + this.sprintID)))
       this.displaySprintBacklog = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
       // const localCards = JSON.parse(localStorage.getItem("sprint" + this.sprintID))
       // this.$emit('load-sprint-backlog-from-local-storage', localSprintBacklog)
       // this.displaySprintBacklog = localSprintBacklog
     }
-    console.log(this.sprintBacklog)
+    console.log(this.displaySprintBacklog)
   },
 
   methods: {
@@ -149,20 +149,21 @@ export default {
     },
 
     onClickCardInSprintBacklog(id) {
-      this.cardId = id
+      console.log(id)
       // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
       this.selectedCard = this.displaySprintBacklog.find((card) => card.id === id)
       console.log(this.selectedCard)
-      // this.$emit("edit-card",id)
+      console.log(this.displaySprintBacklog)
     },
 
     logTimeAndDateForCard(id) {
-      this.cardId = id
-      this.selectedCard = this.displaySprintBacklog.find((card) => card.id === id)
+      // console.log(id)
       let newTime = document.getElementById("timeLog").value;
       console.log(newTime)
-      this.cardId.push(newTime)
-      console.log(card)
+      // console.log(this.displaySprintBacklog[id])
+      this.displaySprintBacklog[id].time = newTime + " hour(s)"
+
+      localStorage.setItem("sprint" + parseInt(this.sprintID), JSON.stringify(this.displaySprintBacklog))
     },
   },
 
