@@ -43,7 +43,7 @@
             <button v-show="onCreate" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
               data-bs-target="#popUpForCreateSprint" style="left: -10px">Start Sprint
             </button>
-            <button v-show="!onCreate" class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
+            <button v-show="!onCreate" @click="onSaveAndExit"  class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
               data-bs-target="#popUpFor" style="left: -10px">Save & Exit
             </button>
           </div>
@@ -319,7 +319,7 @@
             if(!this.onCreate){
                 if (localStorage.getItem("sprint"+this.sprintID)){
                 this.sprintBacklog = JSON.parse(localStorage.getItem("sprint"+this.sprintID))
-                // console.log(this.sprintBacklog,'mount')
+                console.log(this.sprintBacklog,'mount')
             }
             }
            
@@ -375,16 +375,15 @@
                 }
                 else{
                     const returnCard = this.sprintBacklog.find((card) => card.id == cardID)
-                    console.log(this.sprintBacklog)
+                    // console.log(this.sprintBacklog)
                     this.sprintBacklog = this.sprintBacklog.filter((card)=> card!==returnCard)
-                    console.log(this.sprintBacklog)
-                    localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                    // console.log(this.sprintBacklog)
+                    // localStorage.setItem("cards", JSON.stringify(this.productBacklog))
                     this.productBacklog.push(returnCard)
                     this.$emit('on-drop-add',returnCard)
 
                 }
-                localStorage.setItem("cards", JSON.stringify(this.productBacklog))
-                localStorage.setItem("sprint"+this.sprintID, JSON.stringify(this.sprintBacklog))
+                
                 
             },
             addToSprintBoard(){
@@ -396,9 +395,16 @@
                     endDate : this.sprintEndDate
                 }
                 // console.log(sprint)
+                localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                localStorage.setItem("sprint"+this.sprints.length, JSON.stringify(this.sprintBacklog))
                 this.$emit('add-to-sprint',sprint)
                 this.$router.back()
                 // this.$router.push('sprintboard')
+            },
+            onSaveAndExit(){
+                localStorage.setItem("cards", JSON.stringify(this.productBacklog))
+                localStorage.setItem("sprint"+this.sprintID, JSON.stringify(this.sprintBacklog))
+                this.$router.back()
             }
         },
 
