@@ -263,21 +263,25 @@
 
           onClickCardInSprintBacklog(id) {
             // this.displaySprintBacklog = localStorage.getItem("sprint" + this.sprintID)
-            console.log(this.sprintID)
+            // console.log(this.sprintID)
             this.onClickCardID = id
             // this.showCardInSprintBacklog = !this.showCardInSprintBacklog
             this.selectedCard = this.sprintBacklog.find((card) => card.id === id)
             // console.log(this.selectedCard)
-            // console.log(this.displaySprintBacklog)
+            console.log(this.sprintBacklog)
           },
 
           logTimeAndDateForCard(id) {
             // console.log(id)
+            this.onClickCardID = id
+            console.log("card id" +this.onClickCardID)
             let newTime = document.getElementById("timeLog").value;
             // console.log(newTime)
             // console.log(this.displaySprintBacklog[id])
             this.$emit("log-time-and-date", id)
-            this.sprintBacklog[this.onClickCardID].time = newTime + " hour(s)"
+            console.log(this.sprintBacklog[this.onClickCardID])
+            this.selectedCard = this.sprintBacklog.find((card)=>card.id ===id)
+            this.selectedCard.time = newTime + " hour(s)"
             localStorage.setItem("sprint" + parseInt(this.sprintID), JSON.stringify(this.sprintBacklog))
           },
 
