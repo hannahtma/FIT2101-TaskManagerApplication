@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm">
     <!-- Brand -->
-    <a class="navbar-brand" href="HTML File.html">SCRUMFY</a>
+    <a class="navbar-brand" href="/home">SCRUMFY</a>
     <!-- Links -->
     <ul class="navbar-nav" style="position:absolute">
       <li class="nav-item">
@@ -9,7 +9,7 @@
       </li>
       <li class="nav-item dropdown" style="position: relative; left: 10px">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">Sprints</a>
+           aria-expanded="false">Sprints</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>
@@ -17,9 +17,9 @@
         </div>
       </li>
       <!-- Dropdown -->
-      <li class="nav-item dropdown" style="position: relative; left: 0px">
+      <li class="nav-item dropdown" style="position: relative; left: 0">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">Tasks</a>
+           aria-expanded="false">Tasks</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>
@@ -28,7 +28,7 @@
       </li>
       <li class="nav-item dropdown" style="position: relative; left: -15px">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
-          aria-expanded="false">Teams</a>
+           aria-expanded="false">Teams</a>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#">Link 1</a>
           <a class="dropdown-item" href="#">Link 2</a>
@@ -38,7 +38,7 @@
       <li>
         <div>
           <button class="btn btn-primary" id="createId" type="button" data-bs-toggle="modal"
-            data-bs-target="#exampleModal" style="left: -10px">Create Task +
+                  data-bs-target="#exampleModal" style="left: -10px">Create Task +
           </button>
         </div>
       </li>
@@ -56,7 +56,7 @@
           <form id="myForm">
             <div class="mb-3">
               <label for="task-title" class="col-form-label">Task Title:</label>
-              <input type="text" class="form-control" id="task-title" placeholder="Enter task title here" />
+              <input type="text" class="form-control" id="task-title" placeholder="Enter task title here"/>
             </div>
             <div class="mb-3">
               <label for="task-desc" class="col-form-label">Task Description:</label>
@@ -64,7 +64,7 @@
             </div>
             <div class="mb-3">
               <label for="task-status" class="col-form-label">Status:</label>
-              <br />
+              <br/>
               <select class="status" id="status">
                 <option value="To Do/Blocked">To Do/Blocked</option>
                 <option value="In Progress">In Progress</option>
@@ -74,11 +74,12 @@
             </div>
             <div class="mb-3">
               <label for="story-points" class="col-form-label">Story Points (between 1 and 10):</label>
-              <input type="number" class="form-control" id="story-point" placeholder="Enter story points here" min="1" max="10">
+              <input type="number" class="form-control" id="story-point" placeholder="Enter story points here" min="1"
+                     max="10">
             </div>
             <div class="mb-3">
               <label for="task-tags" class="col-form-label">Task Tag:</label>
-              <br />
+              <br/>
               <select class="tag" id="tag">
                 <option value="UI">UI</option>
                 <option value="CORE">Core</option>
@@ -87,7 +88,7 @@
             </div>
             <div class="mb-3">
               <label for="task-type" class="col-form-label">Task Type:</label>
-              <br />
+              <br/>
               <select class="type" id="type">
                 <option value="Bug">Bug</option>
                 <option value="Story">Story</option>
@@ -95,24 +96,24 @@
             </div>
             <div class="color">
               <label for="task-priority" class="col-form-label">Task Priority:</label>
-              <br />
-              <select class="priority" id="priority" >
+              <br/>
+              <select class="priority" id="priority">
                 <option value="critical">Critical</option>
                 <option value="high">High</option>
                 <option value="medium">Medium</option>
                 <option value="low">Low</option>
               </select>
               <div class="mb-3">
-              <label for="task-assign" class="col-form-label">Assigned to:</label>
-              <br />
-              <select class="assign" id="assign">
-                <option value="Dion">Dion</option>
-                <option value="Hannah">Hannah</option>
-                <option value="Lohan">Lohan</option>
-                <option value="Taha">Taha</option>
-                <option value="Rameez">Rameez</option>
-              </select>
-            </div>
+                <label for="task-assign" class="col-form-label">Assigned to:</label>
+                <br/>
+                <select class="assign" id="assign">
+                  <option value="Dion">Dion</option>
+                  <option value="Hannah">Hannah</option>
+                  <option value="Lohan">Lohan</option>
+                  <option value="Taha">Taha</option>
+                  <option value="Rameez">Rameez</option>
+                </select>
+              </div>
             </div>
           </form>
         </div>
@@ -120,7 +121,8 @@
           <button type="button" class="btn btn-secondary btn-danger" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal" @click="addTaskCard">
+          <button type="button" class="btn btn-primary" data-toggle="modal" id="button-save" data-bs-dismiss="modal"
+                  @click="addTaskCard">
             Create Task
           </button>
         </div>
@@ -159,7 +161,7 @@
           <form>
             <div class="mb-3">
               <label for="task-name" class="col-form-label">Task Name:</label>
-              <input type="text" class="form-control" id="edit-task-name" />
+              <input type="text" class="form-control" id="edit-task-name"/>
             </div>
             <div class="mb-3">
               <label for="message-text" class="col-form-label">Task Description:</label>
@@ -167,7 +169,7 @@
             </div>
             <div class="mb-3">
               <label for="task-tags" class="col-form-label">Task Tag:</label>
-              <br />
+              <br/>
               <select class="selectTag" onchange="">
                 <option value="">UI</option>
                 <option value="">Core</option>
@@ -176,7 +178,7 @@
             </div>
             <div class="color">
               <label for="task-tags" class="col-form-label">Task Priority:</label>
-              <br />
+              <br/>
               <select class="selectColor" @change="changeColor">
                 <option value="#ff6961">Critical</option>
                 <option value="#fdfd96">High</option>
@@ -203,11 +205,12 @@
 <script lang="js">
 import Task from '@/classes/Task.js';
 import * as $ from 'jquery'
+
 export default {
-  props:{
-      cards : Array,
-        // test : String
-    },
+  props: {
+    cards: Array,
+    // test : String
+  },
   mounted() {
     // const this.TASK_KEY = "allTasksData";
     // const allTasks = ;
@@ -219,7 +222,7 @@ export default {
       allTasks: [],
     }
   },
-  
+
   methods: {
     addTaskCard() {
       // TODO: Task 4
@@ -235,7 +238,6 @@ export default {
       let priority = document.getElementById('priority').value;
 
 
-
       // let someTask = { "ID": taskId, "Task Name": newTitle, "Task Description": newDesc, "Story Point": storyPoint };
       // this.allTasks.push(someTask);
       // let data = new Task(this.allTasks);
@@ -246,7 +248,7 @@ export default {
       // update LS
       // updateLSData(WAREHOUSE_KEY, inventory);
       // update display
-      this.displayCard(newTitle, newDesc, storyPoint,status,tag,type,assign,priority);
+      this.displayCard(newTitle, newDesc, storyPoint, status, tag, type, assign, priority);
       // $("#exampleModal").modal("hide");
       // $("#exampleModal").on("hidden.bs.modal", function (e) {
       //   $("#exampleModal").find("input[type=text], textarea").val("");
@@ -254,7 +256,7 @@ export default {
 
     },
 
-    displayCard(title, desc, story,status,tag,type,assign,priority) {
+    displayCard(title, desc, story, status, tag, type, assign, priority) {
       // TODO: Task 3
       // let displayRef = document.getElementById("my-container");
       // let displayData = displayRef.innerHTML;
@@ -268,8 +270,8 @@ export default {
       //                 </div>`;
 
       // return (displayRef.innerHTML = displayData);
-      console.log("tag",tag)
-      console.log("cards",this.cards)
+      console.log("tag", tag)
+      console.log("cards", this.cards)
       let card = {
 
         id: this.cards.length,
@@ -278,9 +280,9 @@ export default {
         status: status,
         storyPoints: story,
         tags: [tag],
-        type:type,
+        type: type,
         priority: priority,
-        assign:assign
+        assign: assign
 
       }
       console.log(card)
@@ -706,8 +708,9 @@ a.navbar-brand {
   color: white;
   position: relative;
   left: 20px;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Century Gothic", serif;
   font-style: italic;
+  font-weight: bold;
 }
 
 a.navbar-brand:hover {
@@ -720,16 +723,6 @@ a.dropdown-item {
 
 div.dropdown-menu {
   background-color: white;
-}
-
-#createId {
-  position: relative;
-  left: 120px;
-  background-color: rgb(255, 136, 25);
-  text-transform: uppercase;
-  font-size: smaller;
-  top: 39.5px;
-  border: none;
 }
 
 div.card {
