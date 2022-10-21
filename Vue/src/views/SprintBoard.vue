@@ -1,10 +1,10 @@
 <template>
     <body>
         <AddSprintBoard :sprints="this.sprints" @display-sprint-board="addSprintBoards"/>
-        <h2>My Sprints</h2>
-
         <div class="container" v-for="sprint in this.sprints">
-            <button class="btn btn-primary me-md-2 " @click="goToProductBacklog(sprint.sprintID)" :id="sprint.id" :clickSprint="this.clickSprint" >
+            <button class="btn btn-primary me-md-2 "
+                    style="font-family: 'Century Gothic', serif; margin-left: -12px; margin-top: 10px; background-color: #E56666FF; border: none"
+                    @click="goToProductBacklog(sprint.sprintID)" :id="sprint.id" :clickSprint="this.clickSprint" >
                 {{sprint.sprintName}}
                 Start Date : {{sprint.startDate}}
                 End Date : {{sprint.endDate}}
