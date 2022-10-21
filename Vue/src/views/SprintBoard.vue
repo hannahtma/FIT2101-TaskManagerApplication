@@ -65,12 +65,19 @@ import ProductBacklogVue from './ProductBacklog.vue';
 
         data() {
             return {
-                // sprints : [],
-                clickSprint :true
-                
-
+            // sprints : [],
+                clickSprint: true,
+                styleObject: {
+                colorVar: 'white',
+                backgroundColor: 'rgb(229,102,102)',
+                border: 'none',
+                fontFamily: 'Century Gothic',
+                marginLeft: '-12px',
+                marginTop: '10px',
+            }
             }
         }
+
     }
 </script>
 
